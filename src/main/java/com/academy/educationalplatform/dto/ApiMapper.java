@@ -1,6 +1,6 @@
 package com.academy.educationalplatform.dto;
 
-import com.academy.educationalplatform.entity.Comment;
+import com.academy.educationalplatform.entity.Course;
 import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
 
@@ -22,14 +22,12 @@ public final class ApiMapper {
 
 
 
-    public static CommentResponse toCommentResponse(Comment c) {
-        return new CommentResponse(
+    public static CourseResponse toCourseResponse(Course c) {
+        return new CourseResponse(
                 c.getId(),
-                c.getUser().getId(),
-                c.getUser().getUsername(),
-                c.getText(),
-                c.getCreatedAt(),
-                c.getLikeCount()
+                c.getName(),
+                c.getDescription(),
+                c.getLectureNumber()
         );
     }
 }

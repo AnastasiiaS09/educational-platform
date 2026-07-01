@@ -4,13 +4,14 @@ import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.entity.UsersRole;
 import com.academy.educationalplatform.exceptions.PlatformErrorCode;
 import com.academy.educationalplatform.exceptions.PlatformException;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -64,6 +65,27 @@ public class UserService {
         } finally {
             session.close();
         }
+    }
+    public List<User> findAll() {
+    }
+
+    public void register(String admin, String s, String admin123, Role role, Role role1) {
+    }
+
+    public void register(String student, String s, String student123, Role role) {
+    }
+
+    public void delete(Long id) {
+    }
+
+    public User update(Long id,String username,String email) {
+        return  user;
+    };
+
+    public User findById(Long id) {
+    }
+
+    public List<Role> findRolesByUserId(Long id) {
     }
 }
 

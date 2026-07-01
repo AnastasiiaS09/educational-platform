@@ -5,17 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User saveUser(String userName, String email, String phone);
+    public User saveUser(User user);
 
-    public boolean existById(Long id);
+    public boolean existsById(Long id);
 
-    public boolean existByEmail(String email);
+    public boolean existsByEmail(String email);
 
-    public boolean existByPhone(String phone);
+    public boolean existsByPhone(String phone);
 
     public User findUserById(Long id);
 
-    public User findUserByIdAndEmailAndPhone(Long id, String email, String phone);
+    public User findUserByEmail(String email);
+
+    public User findByPhone(String phone);
 
     public void deleteInUserById(Long id);
 
