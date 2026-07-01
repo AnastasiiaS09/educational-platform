@@ -19,4 +19,28 @@
         <sqlFile path="db/changelog/003__Create_Tests.sql"/>
     </changeSet>
 
+    <changeSet id="004" author="myUser">
+        <sqlFile path="db/changelog/004__Join_Course.sql"/>
+    </changeSet>
+
+    <changeSet id="005" author="myUser">
+        <sqlFile path="db/changelog/005__Create_Users_Role.sql"/>
+    </changeSet>
+
+    <changeSet id="006" author="myUser">
+        <sqlFile path="db/changelog/006__Create_Lessons.sql"/>
+    </changeSet>
+
+    <changeSet id="007" author="myUser">
+        <sqlFile path="db/changelog/007__Create_Modules.sql"/>
+    </changeSet>
+
+    <changeSet id="008" author="myUser">
+        <sqlFile path="db/changelog/008__Create_Comments.sql"/>
+    </changeSet>
+
+    <changeSet id="009" author="myUser">
+        <sqlFile path="db/changelog/009__Create_Likes.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
