@@ -1,6 +1,6 @@
 package com.academy.educationalplatform.service;
 
-import com.academy.educationalplatform.entity.ModuleCourse;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.ModuleRepository;
@@ -14,15 +14,11 @@ public class ModuleService {
         this.moduleRepository = moduleRepository;
     }
 
-    public ModuleCourse addModule(String name, long courseId, int lessonNumber, String description) {
+    public Module addModule(String name, Long courseId, int lessonNumber, String description) {
         try {
-            if (moduleRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.MODULE_ALREADY_EXISTS, name);
-            }
 
-            ModuleCourse module = new ModuleCourse();
+            Module module = new Module();
             module.setName(name);
-            module.setCourseId(courseId);
             module.setLessonNumber(lessonNumber);
             module.setDescription(description);
 
@@ -32,43 +28,40 @@ public class ModuleService {
         }
     }
 
-    public ModuleCourse updateLessonNumber(String name, int lessonNumber) {
+    public Module update(Long id, String name, Long courseId, int lessonNumber, String description) {
         try {
-            if (!moduleRepository.existsByName(name)) {
+            if (!moduleRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             }
 
-            ModuleCourse moduleCourse = moduleRepository.findByName(name);
-            moduleCourse.setLessonNumber(lessonNumber);
+            Module module = moduleRepository.findById(id).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
+            });
+            module.setLessonNumber(lessonNumber);
+            module.setDescription(description);
+            module.setName(name);
+            module.setId(courseId);
 
-            return moduleCourse;
+
+            return module;
         } catch (RuntimeException e) {
             throw e;
         }
     }
 
-    public ModuleCourse updateDescription(String name, String description) {
-        try {
-            if (!moduleRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
-            }
-
-            ModuleCourse moduleCourse = moduleRepository.findByName(name);
-            moduleCourse.setDescription(description);
-
-            return moduleCourse;
-        } catch (RuntimeException e) {
-            throw e;
-        }
+    public Module findById(Long id) {
+        return moduleRepository.findById(id).orElseThrow(() -> {
+            throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
+        });
     }
 
-    public void deleteModule(String name) {
+    public void deleteModule(Long id) {
         try {
-            if (!moduleRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND, name);
+            if (!moduleRepository.existsById(id)) {
+                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND, id);
             }
 
-            moduleRepository.deleteByName(name);
+            moduleRepository.deleteById(id);
             System.out.println("Module was deleted successfully");
         } catch (RuntimeException e) {
             throw e;

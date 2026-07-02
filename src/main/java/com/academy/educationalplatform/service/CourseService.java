@@ -6,6 +6,8 @@ import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
@@ -30,29 +32,22 @@ public class CourseService {
         }
     }
 
-    public Course updateLectureNumber(String name, int lectureNumber) {
-        try {
-            if (!courseRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
-            }
+    public Course findById(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> {
+            throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+        });
 
-            Course course = courseRepository.findByName(name);
+    }
+
+    public Course update(Long id, int lectureNumber, String description, String name) {
+        try {
+            Course course = courseRepository.findById(id).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+            });
+
             course.setLectureNumber(lectureNumber);
-
-            return course;
-        } catch (RuntimeException e) {
-            throw e;
-        }
-    }
-
-    public Course updateDescription(String name, String description) {
-        try {
-            if (!courseRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
-            }
-
-            Course course = courseRepository.findByName(name);
             course.setDescription(description);
+            course.setName(name);
 
             return course;
         } catch (RuntimeException e) {
@@ -60,14 +55,21 @@ public class CourseService {
         }
     }
 
-    public void deleteCourse(String name) {
+    public void delete(Long id) {
         try {
-            if (!courseRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND, name);
-            }
-
-            courseRepository.deleteByName(name);
+            courseRepository.deleteById(id);
             System.out.println("Test was deleted successfully");
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+
+    public List<Course> getAll() {
+        try {
+            List<Course> courseList = courseRepository.getAll();
+            return courseList;
+
         } catch (RuntimeException e) {
             throw e;
         }

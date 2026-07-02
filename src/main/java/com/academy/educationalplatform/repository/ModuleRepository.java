@@ -1,14 +1,13 @@
 package com.academy.educationalplatform.repository;
 
-import com.academy.educationalplatform.entity.ModuleCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.academy.educationalplatform.entity.Module;
 
-public interface ModuleRepository extends JpaRepository<ModuleCourse, Long> {
-    ModuleCourse save(ModuleCourse module);
+public interface ModuleRepository extends JpaRepository<Module, Long> {
 
-    boolean existsByName(String name);
+    boolean existsById(Long id);
 
-    ModuleCourse findByName(String name);
+    Module findByName(String name);
 
     void deleteByName(String name);
 }

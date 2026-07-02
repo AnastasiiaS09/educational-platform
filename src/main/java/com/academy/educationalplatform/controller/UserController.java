@@ -39,20 +39,21 @@ public class UserController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> list() {
-        return userService.findAll().stream()
+        return userService.getAll().stream()
                 .map(this::toResponse)
                 .toList();
     }
 
-    @GetMapping("/{email}")
-    public UserResponse get(@PathVariable String email) {
-        return toResponse(userService.getByEmail(email));
+    @GetMapping("/{id}")
+    public UserResponse get(@PathVariable Long id) {
+        return toResponse(userService.getById(id));
     }
 
-    @PutMapping("/{email}")
-    public UserResponse update(@PathVariable String email, @Valid @RequestBody UpdateUserRequest request) {
-        SecurityUtils.assertOwnerOrAdmin(email);
-        var user = userService.updateUsername(request.getUsername(), request.getEmail());
+//    Емейл нельзя писать в запрос get, нужно писать в тело.
+
+    @PutMapping("/{id}")
+    public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
+        var user = userService.updateUsername(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         return toResponse(user);
     }
 
@@ -60,13 +61,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable Long id) {
-        userService.delete(id);
+        userService.delById(id);
     }
 
     private UserResponse toResponse(User user) {
         return ApiMapper.toUserResponse(
-                user,
-                userService.findRolesByUserId(user.getId())
+                user
         );
     }
 }
