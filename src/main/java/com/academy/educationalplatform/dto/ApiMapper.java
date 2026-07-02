@@ -2,6 +2,7 @@ package com.academy.educationalplatform.dto;
 
 import com.academy.educationalplatform.entity.Comment;
 import com.academy.educationalplatform.entity.Course;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
 
@@ -40,4 +41,16 @@ public final class ApiMapper {
                 course.getLectureNumber()
         );
     }
+
+    public static ModuleResponse toModuleResponse(Module module) {
+        return new ModuleResponse(
+                module.getId(),
+                module.getName(),
+                module.getDescription(),
+                module.getLessonNumber(),
+                module.getCourseId()
+        );
+    }
+
+
 }

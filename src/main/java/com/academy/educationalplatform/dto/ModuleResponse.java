@@ -19,4 +19,6 @@ public class ModuleResponse {
 
     private int lessonNumbers;
 
+    private Long courseId;
+
 }
