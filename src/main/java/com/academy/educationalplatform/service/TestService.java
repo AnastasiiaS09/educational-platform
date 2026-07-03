@@ -30,14 +30,18 @@ public class TestService {
         }
     }
 
-    public Test updateDescription(String name, String description) {
-        try {
-            if (!testRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND);
-            }
+    public Test findById(Long id) {
+        return testRepository.findById(id).orElseThrow(() -> {
+            throw PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND);
+        });
+    }
 
-            Test test = testRepository.findByName(name);
+    public Test update(Long id, String description, String name) {
+        try {
+            Test test = testRepository.findById(id).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
             test.setDescription(description);
+            test.setName(name);
 
             return test;
         } catch (RuntimeException e) {
@@ -45,13 +49,9 @@ public class TestService {
         }
     }
 
-    public void deleteTest(String name) {
+    public void deleteTest(Long id) {
         try {
-            if (!testRepository.existsByName(name)) {
-                throw PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND, name);
-            }
-
-            testRepository.deleteByName(name);
+            testRepository.deleteById(id);
             System.out.println("Test was deleted successfully");
         } catch (RuntimeException e) {
             throw e;

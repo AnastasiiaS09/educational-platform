@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserCourseRepository extends JpaRepository<UserCourse, Long> {
-    UserCourse save(UserCourse userCourse);
 
     boolean existsByUserId(Long userId);
 

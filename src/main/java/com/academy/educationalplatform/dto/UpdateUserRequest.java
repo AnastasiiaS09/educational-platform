@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,4 +19,10 @@ public class UpdateUserRequest {
 
     @Email
     private String email;
+
+    @Column(length = 20)
+    private String phone;
+
+    @Column()
+    private String password;
 }

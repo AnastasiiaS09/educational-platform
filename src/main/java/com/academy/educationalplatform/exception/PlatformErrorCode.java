@@ -14,7 +14,16 @@ public enum PlatformErrorCode {
     TEST_NOT_FOUND(HttpStatus.NOT_FOUND, "Test not found: %s"),
 
     MODULE_ALREADY_EXISTS(HttpStatus.CONFLICT, "Module with this name already exists: %s"),
-    MODULE_NOT_FOUND(HttpStatus.NOT_FOUND, "Module not found: %s");
+    MODULE_NOT_FOUND(HttpStatus.NOT_FOUND, "Module not found: %s"),
+
+    LESSON_NOT_FOUND(HttpStatus.NOT_FOUND, "Lesson not found"),
+
+    LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "Like not found"),
+
+    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
+
+
+    SOMETHING_WHERE_WRONG(HttpStatus.BAD_REQUEST, "something where wrong");
 
     private final HttpStatus status;
     private final String message;

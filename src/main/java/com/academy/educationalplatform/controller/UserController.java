@@ -44,18 +44,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserResponse getBy(@PathVariable Long id) {
+    public UserResponse get(@PathVariable Long id) {
         return toResponse(userService.getById(id));
     }
 
-    @GetMapping("/{email}")
-    public UserResponse getByEmail(@PathVariable String email) {
-        return toResponse(userService.getByEmail(email));
-    }
+//    Емейл нельзя писать в запрос get, нужно писать в тело.
 
-    @PutMapping("/{email}")
-    public UserResponse update(@PathVariable String email, @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.updateUsername(request.getUsername(), request.getEmail());
+    @PutMapping("/{id}")
+    public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
+        var user = userService.updateUsername(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         return toResponse(user);
     }
 
@@ -66,17 +63,9 @@ public class UserController {
         userService.delById(id);
     }
 
-    @DeleteMapping("/{email}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteByEmail(@PathVariable String email) {
-        userService.delByEmail(email);
-    }
-
     private UserResponse toResponse(User user) {
         return ApiMapper.toUserResponse(
-                user,
-                userService.findRolesByUserId(user.getId())
+                user
         );
     }
 }

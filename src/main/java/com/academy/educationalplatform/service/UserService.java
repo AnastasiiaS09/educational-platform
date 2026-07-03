@@ -6,23 +6,22 @@ import com.academy.educationalplatform.entity.UsersRole;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.UserRepository;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.academy.educationalplatform.repository.UsersRoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UsersRoleRepository usersRoleRepository;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UsersRoleRepository usersRoleRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.usersRoleRepository = usersRoleRepository;
     }
 
     public User register(String username, String email, String phone, String rawPassword, List<Role> roles) {
@@ -60,16 +59,21 @@ public class UserService {
         }
     }
 
-    public User updateUsername(String username, String email) {
+    public User updateUsername(Long id, String username, String email, String phone, String password) {
 
         try {
             if (!userRepository.existsByEmail(email)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, email);
             }
 
-            User user = userRepository.findByEmail(email);
+            User user = userRepository.findById(id).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            });
 
             user.setUsername(username);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setPassword(password);
 
             return user;
         } catch (RuntimeException e) {
@@ -80,25 +84,7 @@ public class UserService {
     public void delById(Long id) {
 
         try {
-            if (!userRepository.existsById(id)) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, id);
-            }
-
             userRepository.deleteById(id);
-            System.out.println("User was deleted successfully");
-        } catch (RuntimeException e) {
-            throw e;
-        }
-    }
-
-    public void delByEmail(String email) {
-
-        try {
-            if (!userRepository.existsByEmail(email)) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, email);
-            }
-
-            userRepository.deleteByEmail(email);
             System.out.println("User was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
@@ -123,30 +109,28 @@ public class UserService {
     public User getById(Long id) {
         try {
 
-            User user = userRepository.findById(id);
-            if (user == null) {
+            return userRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            }
-
-            return user;
+            });
         } catch (RuntimeException e) {
             throw e;
-        } finally {
         }
     }
 
-    public User getByEmail(String email) {
-        try {
+    public Role findRolesByUserId(Long id) {
 
-            User user = userRepository.findByEmail(email);
+        try {
+            UsersRole usersRole = usersRoleRepository.findByUserId(id);
+            User user = userRepository.findById(id).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            });
             if (user == null) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
-
-            return user;
+            Role roles = usersRole.getRole();
+            return roles;
         } catch (RuntimeException e) {
             throw e;
-        } finally {
         }
     }
 }

@@ -1,17 +1,17 @@
 package com.academy.educationalplatform.dto;
 
 import com.academy.educationalplatform.entity.Comment;
+import com.academy.educationalplatform.entity.Course;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
-
-import java.util.List;
 
 public final class ApiMapper {
 
     private ApiMapper() {
     }
 
-    public static UserResponse toUserResponse(User user, List<Role> roles) {
+    public static UserResponse toUserResponse(User user) {
         return new UserResponse(
             user.getId(),
             user.getUsername(),
@@ -32,4 +32,25 @@ public final class ApiMapper {
             c.getLikeCount()
         );
     }
+
+    public static CourseResponse toCourseResponse(Course course) {
+        return new CourseResponse(
+                course.getId(),
+                course.getName(),
+                course.getDescription(),
+                course.getLectureNumber()
+        );
+    }
+
+    public static ModuleResponse toModuleResponse(Module module) {
+        return new ModuleResponse(
+                module.getId(),
+                module.getName(),
+                module.getDescription(),
+                module.getLessonNumber(),
+                module.getCourseId()
+        );
+    }
+
+
 }

@@ -5,20 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModuleResponse {
+public class LikeResponse {
 
     private Long id;
 
-    private String moduleName;
+    private Long userId;
 
-    private String description;
+    private Long lessonId;
 
-    private int lessonNumbers;
-
-    private Long courseId;
-
+    private Instant createdAt;
 }
