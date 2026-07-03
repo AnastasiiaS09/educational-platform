@@ -5,7 +5,6 @@ import com.academy.educationalplatform.dto.RegisterUserRequest;
 import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.dto.UserResponse;
 import com.academy.educationalplatform.entity.User;
-import com.academy.educationalplatform.security.SecurityUtils;
 import com.academy.educationalplatform.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
