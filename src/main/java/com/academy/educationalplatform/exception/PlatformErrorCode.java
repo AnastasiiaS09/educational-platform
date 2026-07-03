@@ -20,6 +20,8 @@ public enum PlatformErrorCode {
 
     LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "Like not found"),
 
+    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
+
 
     SOMETHING_WHERE_WRONG(HttpStatus.BAD_REQUEST, "something where wrong");
 
