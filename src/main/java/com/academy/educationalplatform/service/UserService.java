@@ -77,6 +77,20 @@ public class UserService {
         }
     }
 
+    public void delById(Long id) {
+
+        try {
+            if (!userRepository.existsById(id)) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, id);
+            }
+
+            userRepository.deleteById(id);
+            System.out.println("User was deleted successfully");
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
     public void delByEmail(String email) {
 
         try {
@@ -100,6 +114,21 @@ public class UserService {
             System.out.println(users);
             return users;
 
+        } catch (RuntimeException e) {
+            throw e;
+        } finally {
+        }
+    }
+
+    public User getById(Long id) {
+        try {
+
+            User user = userRepository.findById(id);
+            if (user == null) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
+
+            return user;
         } catch (RuntimeException e) {
             throw e;
         } finally {

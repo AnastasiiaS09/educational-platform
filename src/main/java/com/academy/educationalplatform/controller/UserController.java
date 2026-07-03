@@ -5,7 +5,6 @@ import com.academy.educationalplatform.dto.RegisterUserRequest;
 import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.dto.UserResponse;
 import com.academy.educationalplatform.entity.User;
-import com.academy.educationalplatform.security.SecurityUtils;
 import com.academy.educationalplatform.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -39,19 +38,23 @@ public class UserController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> list() {
-        return userService.findAll().stream()
+        return userService.getAll().stream()
                 .map(this::toResponse)
                 .toList();
     }
 
+    @GetMapping("/{id}")
+    public UserResponse getBy(@PathVariable Long id) {
+        return toResponse(userService.getById(id));
+    }
+
     @GetMapping("/{email}")
-    public UserResponse get(@PathVariable String email) {
+    public UserResponse getByEmail(@PathVariable String email) {
         return toResponse(userService.getByEmail(email));
     }
 
     @PutMapping("/{email}")
     public UserResponse update(@PathVariable String email, @Valid @RequestBody UpdateUserRequest request) {
-        SecurityUtils.assertOwnerOrAdmin(email);
         var user = userService.updateUsername(request.getUsername(), request.getEmail());
         return toResponse(user);
     }
@@ -60,7 +63,14 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable Long id) {
-        userService.delete(id);
+        userService.delById(id);
+    }
+
+    @DeleteMapping("/{email}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteByEmail(@PathVariable String email) {
+        userService.delByEmail(email);
     }
 
     private UserResponse toResponse(User user) {
