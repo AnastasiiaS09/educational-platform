@@ -5,7 +5,6 @@ import com.academy.educationalplatform.dto.RegisterUserRequest;
 import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.dto.UserResponse;
 import com.academy.educationalplatform.entity.User;
-import com.academy.educationalplatform.security.SecurityUtils;
 import com.academy.educationalplatform.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -53,7 +52,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.updateUsername(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+        var user = userService.update(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         return toResponse(user);
     }
 

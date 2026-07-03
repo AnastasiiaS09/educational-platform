@@ -1,9 +1,7 @@
 package com.academy.educationalplatform.controller;
 
 import com.academy.educationalplatform.dto.*;
-import com.academy.educationalplatform.entity.Course;
 import com.academy.educationalplatform.entity.Module;
-import com.academy.educationalplatform.service.CourseService;
 import com.academy.educationalplatform.service.ModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
