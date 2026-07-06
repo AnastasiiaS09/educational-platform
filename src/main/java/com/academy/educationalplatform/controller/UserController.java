@@ -29,8 +29,7 @@ public class UserController {
                 request.getUsername(),
                 request.getEmail(),
                 request.getPhone(),
-                request.getPassword(),
-                request.getRoles()
+                request.getPassword()
         );
         return toResponse(user);
     }

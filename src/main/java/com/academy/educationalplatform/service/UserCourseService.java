@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.entity.UserCourse;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
@@ -21,8 +22,8 @@ public class UserCourseService {
         try {
 
             UserCourse userCourse = new UserCourse();
-            userCourse.setCourseId(courseId);
             userCourse.setUserId(userId);
+            userCourse.setCourseId(courseId);
 
             return userCourseRepository.save(userCourse);
         } catch (RuntimeException e) {
@@ -42,5 +43,17 @@ public class UserCourseService {
         }
     }
 
+    public List<UserCourse> getAll() {
 
+        try {
+
+            List<UserCourse> users = userCourseRepository.findAll();
+
+            System.out.println(users);
+            return users;
+
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
 }
