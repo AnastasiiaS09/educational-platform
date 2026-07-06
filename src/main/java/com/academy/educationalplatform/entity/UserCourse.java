@@ -11,7 +11,7 @@ public class UserCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private long userId;
+    private Long userId;
 
-    private long courseId;
+    private Long courseId;
 }

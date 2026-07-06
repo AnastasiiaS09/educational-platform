@@ -102,7 +102,6 @@ public class UserService {
 
         } catch (RuntimeException e) {
             throw e;
-        } finally {
         }
     }
 
