@@ -2,7 +2,7 @@ package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
-import com.academy.educationalplatform.entity.UsersRole;
+import com.academy.educationalplatform.entity.UserRole;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.UserRepository;
@@ -48,9 +48,9 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(rawPassword));
 
             for (Role role : roles) {
-                UsersRole usersRole = new UsersRole();
-                usersRole.setUserId(user.getId());
-                usersRole.setRole(role);
+                UserRole userRole = new UserRole();
+                userRole.setUserId(user.getId());
+                userRole.setRole(role);
             }
 
             return userRepository.save(user);
@@ -59,7 +59,7 @@ public class UserService {
         }
     }
 
-    public User updateUsername(Long id, String username, String email, String phone, String password) {
+    public User update(Long id, String username, String email, String phone, String password) {
 
         try {
             if (!userRepository.existsByEmail(email)) {
@@ -120,7 +120,7 @@ public class UserService {
     public Role findRolesByUserId(Long id) {
 
         try {
-            UsersRole usersRole = usersRoleRepository.findByUserId(id);
+            UserRole usersRole = usersRoleRepository.findByUserId(id);
             User user = userRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             });

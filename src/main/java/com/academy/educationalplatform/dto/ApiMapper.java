@@ -1,10 +1,7 @@
 package com.academy.educationalplatform.dto;
 
-import com.academy.educationalplatform.entity.Comment;
-import com.academy.educationalplatform.entity.Course;
+import com.academy.educationalplatform.entity.*;
 import com.academy.educationalplatform.entity.Module;
-import com.academy.educationalplatform.entity.Role;
-import com.academy.educationalplatform.entity.User;
 
 public final class ApiMapper {
 
@@ -16,8 +13,7 @@ public final class ApiMapper {
             user.getId(),
             user.getUsername(),
             user.getEmail(),
-            user.getPhone(),
-            roles.stream().map(Role::name).toList()
+            user.getPhone()
         );
     }
 
@@ -51,6 +47,34 @@ public final class ApiMapper {
                 module.getCourseId()
         );
     }
+
+    public static LessonResponse toLessonResponse(Lesson lesson) {
+        return new LessonResponse(
+                lesson.getId(),
+                lesson.getName(),
+                lesson.getDescription(),
+                lesson.getCourseId(),
+                lesson.getModuleId()
+        );
+    }
+
+    public static LikeResponse toLikeResponse(Like like) {
+        return new LikeResponse(
+                like.getId(),
+                like.getUserId(),
+                like.getLessonId(),
+                like.getCreatedAt()
+        );
+    }
+
+    public static UserRoleResponse toUserRoleResponse(UserRole userRole) {
+        return new UserRoleResponse(
+                userRole.getId(),
+                userRole.getUserId(),
+                userRole.getRole()
+        );
+    }
+
 
 
 }

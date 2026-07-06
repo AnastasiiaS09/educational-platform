@@ -1,22 +1,20 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
+public class UserRoleResponse {
 
     private Long id;
 
-    private String username;
+    private Long userId;
 
-    private String email;
-
-    private String phone;
+    private Role role;
 }

@@ -1,10 +1,13 @@
 package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.entity.Lesson;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.LessonRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LessonService {
@@ -61,6 +64,16 @@ public class LessonService {
 
             lessonRepository.deleteById(id);
             System.out.println("Lesson was deleted successfully");
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    public List<Lesson> getAll() {
+        try {
+            List<Lesson> lessonList = lessonRepository.getAll();
+            return lessonList;
+
         } catch (RuntimeException e) {
             throw e;
         }

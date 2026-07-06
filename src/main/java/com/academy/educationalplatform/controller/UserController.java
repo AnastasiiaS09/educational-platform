@@ -52,7 +52,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.updateUsername(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+        var user = userService.update(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         return toResponse(user);
     }
 
