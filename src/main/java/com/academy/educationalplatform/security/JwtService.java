@@ -7,6 +7,7 @@ import com.academy.educationalplatform.exception.PlatformException;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.KeyLengthException;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -34,7 +35,10 @@ public class JwtService {
     public String generateToken(User user, List<Role> roles) {
         try {
             Date now = new Date();
-            List<String> roleNames = roles.stream().map(Role::name).toList();
+
+            List<String> roleNames = roles.stream()
+                    .map(Role::name)
+                    .toList();
 
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
                     .subject(String.valueOf(user.getId()))
@@ -44,11 +48,22 @@ public class JwtService {
                     .expirationTime(new Date(now.getTime() + expirationMs))
                     .build();
 
-            SignedJWT signedJwt = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claims);
+            SignedJWT signedJwt = new SignedJWT(
+                    new JWSHeader(JWSAlgorithm.HS256),
+                    claims
+            );
+
             signedJwt.sign(new MACSigner(secret));
+
+
             return signedJwt.serialize();
-        } catch (JOSEException e) {
+
+        } catch (RuntimeException e) {
             throw new IllegalStateException("Failed to generate JWT", e);
+        } catch (KeyLengthException e) {
+            throw new RuntimeException(e);
+        } catch (JOSEException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -75,6 +90,7 @@ public class JwtService {
             user.setId(id);
             user.setEmail(email);
             user.setPassword("");
+
             return new SecurityUser(user, roles);
         } catch (ParseException | JOSEException e) {
             throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);

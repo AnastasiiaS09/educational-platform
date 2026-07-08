@@ -47,7 +47,6 @@ public class UserController {
         return toResponse(userService.getById(id));
     }
 
-//    Емейл нельзя писать в запрос get, нужно писать в тело.
 
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {

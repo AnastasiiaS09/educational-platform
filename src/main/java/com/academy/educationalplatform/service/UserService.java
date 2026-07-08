@@ -6,7 +6,10 @@ import com.academy.educationalplatform.entity.UserRole;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.UserRepository;
-import com.academy.educationalplatform.repository.UsersRoleRepository;
+import com.academy.educationalplatform.repository.UserRoleRepository;
+import com.academy.educationalplatform.repository.UserRoleRepository;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +19,12 @@ import java.util.List;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final UsersRoleRepository usersRoleRepository;
+    private final UserRoleRepository userRoleRepository;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UsersRoleRepository usersRoleRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.usersRoleRepository = usersRoleRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public User register(String username, String email, String phone, String rawPassword, List<Role> roles) {
@@ -116,20 +119,35 @@ public class UserService {
         }
     }
 
-    public Role findRolesByUserId(Long id) {
+//    public List<Role> findRolesByUserId(Long userId) {
+//
+//        userRepository.findById(userId)
+//                .orElseThrow(() -> PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
+//
+//        return usersRoleRepository.findAllByUserId(userId)
+//                .stream()
+//                .map(UserRole::getRole)
+//                .toList();
+//    }
 
+
+    public User findByEmailForLogin(String email) {
         try {
-            UserRole usersRole = usersRoleRepository.findByUserId(id);
-            User user = userRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            });
+
+            User user = userRepository.findByEmail(email);
             if (user == null) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
-            Role roles = usersRole.getRole();
-            return roles;
+            return user;
         } catch (RuntimeException e) {
             throw e;
         }
+    }
+
+    public List<Role> findRolesByUserId(Long userId) {
+        return userRoleRepository.findAllByUserId(userId)
+                .stream()
+                .map(UserRole::getRole)
+                .toList();
     }
 }

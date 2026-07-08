@@ -1,6 +1,7 @@
 spring:
   application:
     name: academy-platform
+
   datasource:
     url: jdbc:postgresql://localhost:5432/platform?currentSchema=public
     username: myUser
@@ -18,16 +19,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  store:
-    jwt:
-      secret: "teaching-store-jwt-secret-key-min-32-characters-long"
-      expiration-ms: 86400000
+server:
+  port: 8080
 
-  server:
-    port: 8080
+store:
+  jwt:
+    secret: "teaching-store-jwt-secret-key-min-32-characters-long"
+    expiration-ms: 86400000
 
-  logging:
-    level:
-      org.hibernate.SQL: DEBUG
-      org.springframework.orm.jpa: DEBUG
-      org.liquibase: INFO
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.springframework.orm.jpa: DEBUG

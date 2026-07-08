@@ -1,6 +1,7 @@
 package com.academy.educationalplatform.controller;
 
 import com.academy.educationalplatform.dto.*;
+import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.UserRole;
 import com.academy.educationalplatform.service.UserRoleService;
 import jakarta.validation.Valid;
@@ -24,21 +25,16 @@ public class UserRoleController {
     public UserRoleResponse create(@Valid @RequestBody UserRoleRequest request) {
         var userRole = userRoleService.joinRole(
                 request.getUserId(),
-                String.valueOf(request.getRole())
+                request.getRole()
         );
         return toResponse(userRole);
     }
 
-    @PutMapping("/{id}")
-    public UserRoleResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRoleRequest request) {
-        var userRole = userRoleService.update(id, String.valueOf(request.getRole()));
-        return toResponse(userRole);
-    }
-
     @GetMapping("/{userId}")
-    public List<UserRoleResponse> findRolesByUserId(Long userId) {
-        return userRoleService.findUserRole(userId).stream()
-                .map(this::toResponse)
+    public List<Role> findRolesByUserId(@PathVariable Long userId) {
+        return userRoleService.findUserRoles(userId)
+                .stream()
+                .map(UserRole::getRole)
                 .toList();
     }
 
