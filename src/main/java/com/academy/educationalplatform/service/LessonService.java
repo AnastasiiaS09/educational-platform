@@ -71,7 +71,7 @@ public class LessonService {
 
     public List<Lesson> getAll() {
         try {
-            List<Lesson> lessonList = lessonRepository.getAll();
+            List<Lesson> lessonList = lessonRepository.findAll();
             return lessonList;
 
         } catch (RuntimeException e) {

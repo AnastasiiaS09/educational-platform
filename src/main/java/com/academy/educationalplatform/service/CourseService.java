@@ -67,7 +67,7 @@ public class CourseService {
 
     public List<Course> getAll() {
         try {
-            List<Course> courseList = courseRepository.getAll();
+            List<Course> courseList = courseRepository.findAll();
             return courseList;
 
         } catch (RuntimeException e) {

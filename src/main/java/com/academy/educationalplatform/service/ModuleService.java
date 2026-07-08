@@ -73,7 +73,7 @@ public class ModuleService {
 
     public List<Module> getAll() {
         try {
-            List<Module> moduleList = moduleRepository.getAll();
+            List<Module> moduleList = moduleRepository.findAll();
             return moduleList;
 
         } catch (RuntimeException e) {
