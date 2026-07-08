@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ModuleRepository extends JpaRepository<Module, Long> {
 
+    List<Module> findAll();
+
     boolean existsById(Long id);
 
     Module findByName(String name);
