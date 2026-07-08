@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
+    List<Lesson> findAll();
+
     boolean existsById(Long id);
 
     Lesson findByName(String name);

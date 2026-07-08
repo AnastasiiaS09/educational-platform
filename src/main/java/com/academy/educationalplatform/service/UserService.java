@@ -7,9 +7,6 @@ import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
-import com.academy.educationalplatform.repository.UserRoleRepository;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,13 +62,10 @@ public class UserService {
     public User update(Long id, String username, String email, String phone, String password) {
 
         try {
-            if (!userRepository.existsByEmail(email)) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, email);
-            }
 
-            User user = userRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            });
+            User user = userRepository.findById(id).orElseThrow(() ->
+                PlatformException.of(PlatformErrorCode.USER_NOT_FOUND)
+            );
 
             user.setUsername(username);
             user.setEmail(email);
@@ -119,25 +113,14 @@ public class UserService {
         }
     }
 
-//    public List<Role> findRolesByUserId(Long userId) {
-//
-//        userRepository.findById(userId)
-//                .orElseThrow(() -> PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
-//
-//        return usersRoleRepository.findAllByUserId(userId)
-//                .stream()
-//                .map(UserRole::getRole)
-//                .toList();
-//    }
-
-
     public User findByEmailForLogin(String email) {
         try {
 
             User user = userRepository.findByEmail(email);
             if (user == null) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+                throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
             }
+
             return user;
         } catch (RuntimeException e) {
             throw e;

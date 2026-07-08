@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.service;
 
+
 import com.academy.educationalplatform.dto.LoginResponse;
 import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
@@ -12,11 +13,13 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserService userService;
+    private final UserRoleService userRoleService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public AuthService(UserService userService, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthService(UserService userService,UserRoleService userRoleService, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userService = userService;
+        this.userRoleService = userRoleService;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
     }
@@ -26,7 +29,7 @@ public class AuthService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
         }
-        var roles = userService.findRolesByUserId(user.getId());
+        var roles = userRoleService.findUserRole(user.getId());
         return new LoginResponse(jwtService.generateToken(user, roles));
     }
 }

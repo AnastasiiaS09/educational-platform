@@ -38,10 +38,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/*/comments").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/*/comments/*").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(jsonSecurityHandlers)
