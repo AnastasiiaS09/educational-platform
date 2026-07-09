@@ -12,6 +12,7 @@ public interface UserCourseRepository extends JpaRepository<UserCourse, UUID> {
     UserCourse save(UserCourse userCourse);
 
     boolean existsByUserId(UUID userId);
+//
 
 
     @Query("FROM UserCourse uc WHERE uc.userId = :userId")
