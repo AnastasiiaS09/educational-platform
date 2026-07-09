@@ -21,5 +21,5 @@ public class CourseRequest {
 
     @NotNull
     @Positive
-    private int lectureNumber;
+    private int moduleQuantity;
 }

@@ -3,5 +3,5 @@ CREATE TABLE modules (
     name VARCHAR(128) UNIQUE,
     course_id BIGINT,
     lesson_number INT NOT NULL,
-    description TEXT
+    description VARCHAR(1024)
 );

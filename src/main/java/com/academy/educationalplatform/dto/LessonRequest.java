@@ -9,14 +9,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonRequest {
-//
+
     @NotBlank
     @Size(max = 200)
     private String lessonName;
@@ -26,10 +24,6 @@ public class LessonRequest {
 
     @NotNull
     @Positive
-    private UUID courseId;
-
-    @NotNull
-    @Positive
-    private UUID moduleId;
+    private Long moduleId;
 
 }
