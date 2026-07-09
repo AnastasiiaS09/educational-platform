@@ -18,6 +18,6 @@ public class CourseResponse {
 
     private String description;
 
-    private int lectureNumber;
+    private int moduleQuantity;
 
 }

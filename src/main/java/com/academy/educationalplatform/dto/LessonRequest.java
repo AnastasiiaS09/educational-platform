@@ -24,10 +24,6 @@ public class LessonRequest {
 
     @NotNull
     @Positive
-    private Long courseId;
-
-    @NotNull
-    @Positive
     private Long moduleId;
 
 }

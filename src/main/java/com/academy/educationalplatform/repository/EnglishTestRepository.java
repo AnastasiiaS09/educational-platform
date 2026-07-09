@@ -1,9 +1,9 @@
 package com.academy.educationalplatform.repository;
 
-import com.academy.educationalplatform.entity.Test;
+import com.academy.educationalplatform.entity.EnglishTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TestRepository extends JpaRepository<Test, Long> {
+public interface EnglishTestRepository extends JpaRepository<EnglishTest, Long> {
 
     boolean existsByName(String name);
 

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestRequest {
+public class EnglishTestRequest {
 
     @NotBlank
     private String testName;

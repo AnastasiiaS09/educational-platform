@@ -1,7 +1,6 @@
 CREATE TABLE courses (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
-    lecture_number INT,
-    description VARCHAR(1024)
-
+    module_quantity INT,
+    description TEXT
 );

@@ -23,7 +23,7 @@ public class CourseController {
     public CourseResponse create(@Valid @RequestBody CourseRequest request) {
         var course = courseService.addCourse(
                 request.getCourseName(),
-                request.getLectureNumber(),
+                request.getModuleQuantity(),
                 request.getDescription()
         );
         return toResponse(course);
@@ -44,7 +44,7 @@ public class CourseController {
 
     @PutMapping("/{id}")
     public CourseResponse update(@PathVariable Long id, @Valid @RequestBody CourseUpdateRequest request) {
-        var course = courseService.update(id,request.getLectureNumber(), request.getDescription(), request.getCourseName());
+        var course = courseService.update(id,request.getModuleQuantity(), request.getDescription(), request.getCourseName());
         return toResponse(course);
     }
 

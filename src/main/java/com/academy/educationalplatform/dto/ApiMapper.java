@@ -3,8 +3,6 @@ package com.academy.educationalplatform.dto;
 import com.academy.educationalplatform.entity.*;
 import com.academy.educationalplatform.entity.Module;
 
-import java.util.List;
-
 public final class ApiMapper {
 
     private ApiMapper() {
@@ -78,11 +76,11 @@ public final class ApiMapper {
     }
 
 
-    public static TestResponse toTestResponse(Test test) {
-        return new TestResponse(
-                test.getId(),
-                test.getName(),
-                test.getDescription()
+    public static EnglishTestResponse toTestResponse(EnglishTest englishTest) {
+        return new EnglishTestResponse(
+                englishTest.getId(),
+                englishTest.getName(),
+                englishTest.getDescription()
         );
     }
 

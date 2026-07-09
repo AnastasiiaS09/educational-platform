@@ -16,14 +16,14 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public Course addCourse(String name, int lectureNumber, String description) {
+    public Course addCourse(String name, int moduleQuantity, String description) {
         try {
             if (courseRepository.existsByName(name)) {
                 throw PlatformException.of(PlatformErrorCode.COURSE_ALREADY_EXISTS, name);
             }
             Course course = new Course();
             course.setName(name);
-            course.setLectureNumber(lectureNumber);
+            course.setModuleQuantity(moduleQuantity);
             course.setDescription(description);
 
             return courseRepository.save(course);
@@ -39,13 +39,13 @@ public class CourseService {
 
     }
 
-    public Course update(Long id, int lectureNumber, String description, String name) {
+    public Course update(Long id, int moduleQuantity, String description, String name) {
         try {
             Course course = courseRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
             });
 
-            course.setLectureNumber(lectureNumber);
+            course.setModuleQuantity(moduleQuantity);
             course.setDescription(description);
             course.setName(name);
 

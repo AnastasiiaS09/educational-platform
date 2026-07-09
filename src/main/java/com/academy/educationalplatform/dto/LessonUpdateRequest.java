@@ -24,9 +24,5 @@ public class LessonUpdateRequest {
 
     @NotNull
     @Positive
-    private Long courseId;
-
-    @NotNull
-    @Positive
     private Long moduleId;
 }

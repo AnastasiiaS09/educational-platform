@@ -16,7 +16,7 @@ public class Course {
     private String name;
 
     @Column(nullable = false)
-    private int lectureNumber;
+    private int moduleQuantity;
 
     @Column
     private String description;

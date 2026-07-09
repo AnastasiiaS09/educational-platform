@@ -23,7 +23,6 @@ public class LessonController {
     public LessonResponse create(@Valid @RequestBody LessonRequest request) {
         var lesson = lessonService.addLesson(
                 request.getLessonName(),
-                request.getCourseId(),
                 request.getModuleId(),
                 request.getDescription()
         );
@@ -45,7 +44,7 @@ public class LessonController {
 
     @PutMapping("/{id}")
     public LessonResponse update(@PathVariable Long id, @Valid @RequestBody LessonUpdateRequest request) {
-        var lesson = lessonService.update(id, request.getLessonName(), request.getCourseId(), request.getModuleId(), request.getDescription());
+        var lesson = lessonService.update(id, request.getLessonName(), request.getModuleId(), request.getDescription());
         return toResponse(lesson);
     }
 

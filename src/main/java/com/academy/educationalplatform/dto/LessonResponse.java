@@ -17,7 +17,5 @@ public class LessonResponse {
 
     private String description;
 
-    private Long courseId;
-
     private Long moduleId;
 }

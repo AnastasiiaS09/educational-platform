@@ -17,12 +17,11 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public Lesson addLesson(String name, Long courseId, Long moduleId, String description) {
+    public Lesson addLesson(String name, Long moduleId, String description) {
         try {
             Lesson lesson = new Lesson();
             lesson.setName(name);
             lesson.setDescription(description);
-            lesson.setCourseId(courseId);
             lesson.setModuleId(moduleId);
 
             return lessonRepository.save(lesson);
@@ -31,7 +30,7 @@ public class LessonService {
         }
     }
 
-    public Lesson update(Long id, String name, Long courseId, Long moduleId, String description) {
+    public Lesson update(Long id, String name, Long moduleId, String description) {
         try {
             Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
@@ -39,7 +38,6 @@ public class LessonService {
             lesson.setModuleId(moduleId);
             lesson.setDescription(description);
             lesson.setName(name);
-            lesson.setCourseId(courseId);
 
 
             return lesson;

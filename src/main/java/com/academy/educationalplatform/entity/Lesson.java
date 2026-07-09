@@ -13,8 +13,6 @@ public class Lesson {
     @Column(nullable = false, unique = true, length = 128)
     private String name;
 
-    private long courseId;
-
     private long moduleId;
 
     @Column(length = 1024)
