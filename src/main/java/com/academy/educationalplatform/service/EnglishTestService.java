@@ -1,3 +1,13 @@
+package com.academy.educationalplatform.service;
+
+import com.academy.educationalplatform.entity.EnglishTest;
+import com.academy.educationalplatform.exception.PlatformErrorCode;
+import com.academy.educationalplatform.exception.PlatformException;
+import com.academy.educationalplatform.repository.EnglishTestRepository;
+
+import java.util.UUID;
+
+
 public class EnglishTestService {
     private final EnglishTestRepository englishTestRepository;
 
@@ -21,13 +31,13 @@ public class EnglishTestService {
         }
     }
 
-    public EnglishTest findById(Long id) {
+    public EnglishTest findById(UUID id) {
         return englishTestRepository.findById(id).orElseThrow(() -> {
             throw PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND);
         });
     }
 
-    public EnglishTest update(Long id, String description, String name) {
+    public EnglishTest update(UUID id, String description, String name) {
         try {
             EnglishTest englishTest = englishTestRepository.findById(id).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
@@ -40,7 +50,7 @@ public class EnglishTestService {
         }
     }
 
-    public void deleteTest(Long id) {
+    public void deleteTest(UUID id) {
         try {
             englishTestRepository.deleteById(id);
             System.out.println("Test was deleted successfully");
