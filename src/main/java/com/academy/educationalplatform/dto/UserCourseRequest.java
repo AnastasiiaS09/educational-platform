@@ -1,6 +1,5 @@
 package com.academy.educationalplatform.dto;
 
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCourseRequest {
+
     @NotNull
     @Positive
     private UUID userId;
