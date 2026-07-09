@@ -15,4 +15,5 @@ public class CommentRequest {
     @NotBlank
     @Size(max = 2000)
     private String text;
+//
 }

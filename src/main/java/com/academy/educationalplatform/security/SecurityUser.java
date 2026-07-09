@@ -31,7 +31,7 @@ public class SecurityUser implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
                 .toList();
     }
-
+//
     @Override
     public String getUsername() {
         return email;

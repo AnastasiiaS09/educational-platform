@@ -9,7 +9,7 @@ public enum PlatformErrorCode {
 
     COURSE_ALREADY_EXISTS(HttpStatus.CONFLICT, "Course with this name already exists: %s"),
     COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "Course not found: %s"),
-
+//
     TEST_ALREADY_EXISTS(HttpStatus.CONFLICT, "Test with this name already exists: %s"),
     TEST_NOT_FOUND(HttpStatus.NOT_FOUND, "Test not found: %s"),
 

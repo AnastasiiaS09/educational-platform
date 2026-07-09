@@ -11,7 +11,7 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-
+//
     private String name;
 
     private UUID courseId;

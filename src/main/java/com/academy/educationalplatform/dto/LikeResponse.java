@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LikeResponse {
-
+//
     private UUID id;
 
     private UUID userId;

@@ -29,4 +29,5 @@ public class AuthService {
         var roles = userService.findRolesByUserId(user.getId());
         return new LoginResponse(jwtService.generateToken(user, roles));
     }
+//
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tests")
 public class Test {
-
+//
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;

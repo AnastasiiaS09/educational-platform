@@ -9,7 +9,7 @@ public final class ApiMapper {
 
     private ApiMapper() {
     }
-
+//
     public static UserResponse toUserResponse(User user) {
         return new UserResponse(
             user.getId(),

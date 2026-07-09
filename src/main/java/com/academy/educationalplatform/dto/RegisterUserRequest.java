@@ -16,7 +16,7 @@ import java.util.List;
 public class RegisterUserRequest {
     @NotBlank
     private String username;
-
+//
     @NotBlank
     @Email
     private String email;

@@ -14,6 +14,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+//
     private UUID courseId;
 
     private UUID moduleId;

@@ -13,6 +13,6 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     boolean existsByName(String name);
 
     Course findByName(String courseName);
-
+//
     void deleteById(UUID id);
 }

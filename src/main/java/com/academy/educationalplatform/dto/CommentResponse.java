@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentResponse {
-
+//
     private UUID id;
     private UUID authorId;
     private String text;

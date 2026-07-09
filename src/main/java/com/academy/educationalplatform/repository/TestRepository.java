@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface TestRepository extends JpaRepository<Test, UUID> {
 
     boolean existsByName(String name);
-
+//
     void deleteById(UUID id);
 }

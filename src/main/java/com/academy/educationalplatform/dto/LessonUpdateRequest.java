@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonUpdateRequest {
-
+//
     @NotBlank
     @Size(max = 200)
     private String lessonName;

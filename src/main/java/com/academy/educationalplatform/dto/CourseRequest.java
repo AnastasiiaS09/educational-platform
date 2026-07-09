@@ -15,7 +15,7 @@ public class CourseRequest {
     @NotBlank
     @Size(max = 200)
     private String courseName;
-
+//
     @Size(max = 200)
     private String description;
 

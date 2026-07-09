@@ -37,5 +37,5 @@ public final class SecurityUtils {
     public static boolean isAdmin() {
         return hasRole(Role.ADMIN);
     }
-
+//
 }

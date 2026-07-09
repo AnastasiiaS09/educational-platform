@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface ModuleRepository extends JpaRepository<Module, UUID> {
 
     boolean existsById(UUID id);
-
+//
     Module findByName(String name);
 
     void deleteByName(String name);

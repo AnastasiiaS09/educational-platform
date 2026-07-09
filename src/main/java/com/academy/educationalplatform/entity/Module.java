@@ -13,7 +13,7 @@ public class Module {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-
+//
     private String name;
 
     private UUID courseId;
