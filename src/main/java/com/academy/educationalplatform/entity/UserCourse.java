@@ -12,7 +12,7 @@ public class UserCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-//
+
     private UUID userId;
 
     private UUID courseId;
