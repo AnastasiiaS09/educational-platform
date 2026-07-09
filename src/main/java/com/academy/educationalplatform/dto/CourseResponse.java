@@ -20,6 +20,6 @@ public class CourseResponse {
 
     private String description;
 
-    private int moduleQuantity;
+    private int lectureNumber;
 
 }
