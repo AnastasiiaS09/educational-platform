@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -43,13 +44,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserResponse get(@PathVariable Long id) {
+    public UserResponse get(@PathVariable UUID id) {
         return toResponse(userService.getById(id));
     }
 
 
     @PutMapping("/{id}")
-    public UserResponse update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
+    public UserResponse update(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
         var user = userService.update(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         return toResponse(user);
     }
@@ -57,7 +58,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         userService.delById(id);
     }
 

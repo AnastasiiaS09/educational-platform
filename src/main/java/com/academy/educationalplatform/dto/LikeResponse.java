@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,11 +14,11 @@ import java.time.Instant;
 @AllArgsConstructor
 public class LikeResponse {
 
-    private Long id;
+    private UUID id;
 
-    private Long userId;
+    private UUID userId;
 
-    private Long lessonId;
+    private UUID lessonId;
 
     private Instant createdAt;
 }

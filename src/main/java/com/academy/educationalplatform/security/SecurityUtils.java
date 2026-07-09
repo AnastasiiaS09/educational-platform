@@ -5,6 +5,7 @@ import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public final class SecurityUtils {
     private SecurityUtils() {
@@ -23,7 +24,7 @@ public final class SecurityUtils {
                 .orElseThrow(() -> PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS));
     }
 
-    public static Long currentUserId() {
+    public static UUID currentUserId() {
         return currentUser().getId();
     }
 

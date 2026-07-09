@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +28,6 @@ public class ModuleRequest {
     @Positive
     private int lessonNumber;
 
-    private Long courseId;
+    private UUID courseId;
 
 }

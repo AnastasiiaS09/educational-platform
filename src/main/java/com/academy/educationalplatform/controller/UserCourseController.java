@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/usercourse")
@@ -33,7 +34,7 @@ public class UserCourseController {
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserCourseResponse> getUsersCourse(@PathVariable Long userId) {
+    public List<UserCourseResponse> getUsersCourse(@PathVariable UUID userId) {
         return userCourseService.findUserCourse(userId).stream()
                 .map(this::toResponse)
                 .toList();

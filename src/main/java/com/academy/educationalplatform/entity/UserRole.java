@@ -3,17 +3,18 @@ package com.academy.educationalplatform.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "users_roles")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
-    private long userId;
+    private UUID userId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
     private Role role;
 }

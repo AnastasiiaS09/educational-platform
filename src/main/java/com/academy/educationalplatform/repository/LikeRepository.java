@@ -4,7 +4,9 @@ import com.academy.educationalplatform.entity.Course;
 import com.academy.educationalplatform.entity.Like;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LikeRepository extends JpaRepository<Like, Long> {
+import java.util.UUID;
 
-    void deleteById(Long id);
+public interface LikeRepository extends JpaRepository<Like, UUID> {
+
+    void deleteById(UUID id);
 }

@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -31,7 +32,7 @@ public class UserRoleController {
     }
 
     @GetMapping("/{userId}")
-    public List<Role> findRolesByUserId(@PathVariable Long userId) {
+    public List<Role> findRolesByUserId(@PathVariable UUID userId) {
         return userRoleService.findUserRoles(userId)
                 .stream()
                 .map(UserRole::getRole)
@@ -41,7 +42,7 @@ public class UserRoleController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         userRoleService.deleteUserRole(id);
     }
 

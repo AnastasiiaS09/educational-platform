@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class JwtService {
@@ -80,7 +81,7 @@ public class JwtService {
                 throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
             }
 
-            Long id = Long.parseLong(claims.getSubject());
+            UUID id = UUID.fromString(claims.getSubject());
             String email = claims.getStringClaim("email");
             List<Role> roles = claims.getStringListClaim("roles").stream()
                     .map(Role::valueOf)

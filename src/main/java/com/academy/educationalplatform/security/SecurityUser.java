@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
+
 @Getter
 public class SecurityUser implements UserDetails {
-    private final Long id;
+    private final UUID id;
     private final String email;
     private final String password;
     private final List<Role> roles;

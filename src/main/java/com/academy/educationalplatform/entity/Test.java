@@ -3,6 +3,8 @@ package com.academy.educationalplatform.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "tests")
@@ -10,11 +12,9 @@ public class Test {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
-    @Column(unique = true, length = 50)
     private String name;
 
-    @Column
     private String description;
 }

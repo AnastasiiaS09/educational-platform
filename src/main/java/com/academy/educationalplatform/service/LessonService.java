@@ -8,6 +8,7 @@ import com.academy.educationalplatform.repository.LessonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LessonService {
@@ -17,7 +18,7 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public Lesson addLesson(String name, Long courseId, Long moduleId, String description) {
+    public Lesson addLesson(String name, UUID courseId, UUID moduleId, String description) {
         try {
             Lesson lesson = new Lesson();
             lesson.setName(name);
@@ -31,11 +32,11 @@ public class LessonService {
         }
     }
 
-    public Lesson update(Long id, String name, Long courseId, Long moduleId, String description) {
+    public Lesson update(UUID id, String name, UUID courseId, UUID moduleId, String description) {
         try {
-            Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
-            });
+            Lesson lesson = lessonRepository.findById(id).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND)
+            );
             lesson.setModuleId(moduleId);
             lesson.setDescription(description);
             lesson.setName(name);
@@ -49,21 +50,19 @@ public class LessonService {
     }
 
 
-    public Lesson findById(Long id) {
-        return lessonRepository.findById(id).orElseThrow(() -> {
-            throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
-        });
+    public Lesson findById(UUID id) {
+        return lessonRepository.findById(id).orElseThrow(() ->
+                PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND));
     }
 
 
-    public void deleteLesson(Long id) {
+    public void deleteLesson(UUID id) {
         try {
             if (!lessonRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
             }
 
             lessonRepository.deleteById(id);
-            System.out.println("Lesson was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }

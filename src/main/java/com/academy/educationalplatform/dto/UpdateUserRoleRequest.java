@@ -16,6 +16,5 @@ import lombok.Setter;
 public class UpdateUserRoleRequest {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
     private Role role;
 }

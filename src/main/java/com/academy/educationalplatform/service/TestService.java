@@ -6,6 +6,8 @@ import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.TestRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class TestService {
     private final TestRepository testRepository;
@@ -30,13 +32,13 @@ public class TestService {
         }
     }
 
-    public Test findById(Long id) {
-        return testRepository.findById(id).orElseThrow(() -> {
-            throw PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND);
-        });
+    public Test findById(UUID id) {
+        return testRepository.findById(id).orElseThrow(() ->
+                PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND)
+        );
     }
 
-    public Test update(Long id, String description, String name) {
+    public Test update(UUID id, String description, String name) {
         try {
             Test test = testRepository.findById(id).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
@@ -49,10 +51,9 @@ public class TestService {
         }
     }
 
-    public void deleteTest(Long id) {
+    public void deleteTest(UUID id) {
         try {
             testRepository.deleteById(id);
-            System.out.println("Test was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }

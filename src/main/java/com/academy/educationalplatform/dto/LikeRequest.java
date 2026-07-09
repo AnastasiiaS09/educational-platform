@@ -15,6 +15,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -23,11 +24,11 @@ import java.time.Instant;
 public class LikeRequest {
     @NotNull
     @Positive
-    private long lessonId;
+    private UUID lessonId;
 
     @NotNull
     @Positive
-    private long userId;
+    private UUID userId;
 
     @CreationTimestamp
     private Instant createdAt;

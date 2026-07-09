@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -41,9 +42,6 @@ public class UserService {
                 throw PlatformException.of(PlatformErrorCode.USER_EMAIL_EXISTS, email);
             }
 
-            if (userRepository.existsByPhone(phone)) {
-                throw PlatformException.of(PlatformErrorCode.USER_PHONE_EXISTS, phone);
-            }
             User user = new User();
             user.setUsername(username);
             user.setEmail(email);
@@ -62,16 +60,12 @@ public class UserService {
         }
     }
 
-    public User update(Long id, String username, String email, String phone, String password) {
+    public User update(UUID id, String username, String email, String phone, String password) {
 
         try {
-            if (!userRepository.existsByEmail(email)) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND, email);
-            }
 
-            User user = userRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            });
+            User user = userRepository.findById(id).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
 
             user.setUsername(username);
             user.setEmail(email);
@@ -84,11 +78,10 @@ public class UserService {
         }
     }
 
-    public void delById(Long id) {
+    public void delById(UUID id) {
 
         try {
             userRepository.deleteById(id);
-            System.out.println("User was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }
@@ -100,7 +93,6 @@ public class UserService {
 
             List<User> users = userRepository.findAll();
 
-            System.out.println(users);
             return users;
 
         } catch (RuntimeException e) {
@@ -108,12 +100,11 @@ public class UserService {
         }
     }
 
-    public User getById(Long id) {
+    public User getById(UUID id) {
         try {
 
-            return userRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            });
+            return userRepository.findById(id).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
         } catch (RuntimeException e) {
             throw e;
         }
@@ -144,7 +135,7 @@ public class UserService {
         }
     }
 
-    public List<Role> findRolesByUserId(Long userId) {
+    public List<Role> findRolesByUserId(UUID userId) {
         return userRoleRepository.findAllByUserId(userId)
                 .stream()
                 .map(UserRole::getRole)

@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ModuleResponse {
 
-    private Long id;
+    private UUID id;
 
     private String moduleName;
 
@@ -19,6 +21,6 @@ public class ModuleResponse {
 
     private int lessonNumbers;
 
-    private Long courseId;
+    private UUID courseId;
 
 }

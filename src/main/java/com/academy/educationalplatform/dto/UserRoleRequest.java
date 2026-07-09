@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserRoleRequest {
     @NotBlank
-    private Long userId;
+    private UUID userId;
 
     @NotBlank
     @Enumerated(EnumType.STRING)

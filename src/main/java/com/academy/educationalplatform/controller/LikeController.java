@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/likes")
@@ -30,14 +31,14 @@ public class LikeController {
 
 
     @GetMapping("/{id}")
-    public LikeResponse getById(@PathVariable Long id) {
+    public LikeResponse getById(@PathVariable UUID id) {
         return toResponse(likeService.findById(id));
     }
 
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         likeService.deleteLike(id);
     }
 

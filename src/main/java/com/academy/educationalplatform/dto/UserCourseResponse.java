@@ -5,14 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCourseResponse {
-    private Long id;
+    private UUID id;
 
-    private Long userId;
+    private UUID userId;
 
-    private Long courseId;
+    private UUID courseId;
 }

@@ -6,6 +6,7 @@ import com.academy.educationalplatform.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserRoleService {
@@ -15,7 +16,7 @@ public class UserRoleService {
         this.userRoleRepository = userRoleRepository;
     }
 
-    public UserRole joinRole(Long userId, Role role) {
+    public UserRole joinRole(UUID userId, Role role) {
 
         try {
             UserRole userRole = new UserRole();
@@ -28,12 +29,12 @@ public class UserRoleService {
         }
     }
 
-    public List<UserRole> findUserRoles(Long userId) {
+    public List<UserRole> findUserRoles(UUID userId) {
         return userRoleRepository.findAllByUserId(userId);
     }
 
 
-    public void deleteUserRole(Long id) {
+    public void deleteUserRole(UUID id) {
         userRoleRepository.deleteById(id);
     }
 

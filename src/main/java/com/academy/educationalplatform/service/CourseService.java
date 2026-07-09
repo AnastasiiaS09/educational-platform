@@ -7,6 +7,7 @@ import com.academy.educationalplatform.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CourseService {
@@ -32,18 +33,18 @@ public class CourseService {
         }
     }
 
-    public Course findById(Long id) {
-        return courseRepository.findById(id).orElseThrow(() -> {
-            throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
-        });
+    public Course findById(UUID id) {
+        return courseRepository.findById(id).orElseThrow(() ->
+                PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND)
+        );
 
     }
 
-    public Course update(Long id, int lectureNumber, String description, String name) {
+    public Course update(UUID id, int lectureNumber, String description, String name) {
         try {
-            Course course = courseRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
-            });
+            Course course = courseRepository.findById(id).orElseThrow(() ->
+                 PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND)
+            );
 
             course.setLectureNumber(lectureNumber);
             course.setDescription(description);
@@ -55,10 +56,9 @@ public class CourseService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         try {
             courseRepository.deleteById(id);
-            System.out.println("Test was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }

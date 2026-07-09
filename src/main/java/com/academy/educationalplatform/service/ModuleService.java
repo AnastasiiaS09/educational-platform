@@ -8,6 +8,7 @@ import com.academy.educationalplatform.repository.ModuleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ModuleService {
@@ -17,10 +18,11 @@ public class ModuleService {
         this.moduleRepository = moduleRepository;
     }
 
-    public Module addModule(String name, Long courseId, int lessonNumber, String description) {
+    public Module addModule(String name, UUID courseId, int lessonNumber, String description) {
         try {
 
             Module module = new Module();
+            module.setCourseId(courseId);
             module.setName(name);
             module.setLessonNumber(lessonNumber);
             module.setDescription(description);
@@ -31,15 +33,14 @@ public class ModuleService {
         }
     }
 
-    public Module update(Long id, String name, Long courseId, int lessonNumber, String description) {
+    public Module update(UUID id, String name, UUID courseId, int lessonNumber, String description) {
         try {
             if (!moduleRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             }
 
-            Module module = moduleRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
-            });
+            Module module = moduleRepository.findById(id).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
             module.setLessonNumber(lessonNumber);
             module.setDescription(description);
             module.setName(name);
@@ -52,20 +53,18 @@ public class ModuleService {
         }
     }
 
-    public Module findById(Long id) {
-        return moduleRepository.findById(id).orElseThrow(() -> {
-            throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
-        });
+    public Module findById(UUID id) {
+        return moduleRepository.findById(id).orElseThrow(() ->
+           PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
     }
 
-    public void deleteModule(Long id) {
+    public void deleteModule(UUID id) {
         try {
             if (!moduleRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND, id);
             }
 
             moduleRepository.deleteById(id);
-            System.out.println("Module was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }

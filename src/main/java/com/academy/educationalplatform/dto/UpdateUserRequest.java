@@ -20,9 +20,7 @@ public class UpdateUserRequest {
     @Email
     private String email;
 
-    @Column(length = 20)
     private String phone;
 
-    @Column()
     private String password;
 }

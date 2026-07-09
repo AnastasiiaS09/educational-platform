@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -11,21 +12,19 @@ import java.time.Instant;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
-    private long courseId;
+    private UUID courseId;
 
-    private long moduleId;
+    private UUID moduleId;
 
-    private long lessonId;
+    private UUID lessonId;
 
-    private long userId;
+    private UUID userId;
 
-    @Column(nullable = false, length = 512)
     private String text;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @Transient

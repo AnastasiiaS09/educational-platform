@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/modules")
@@ -32,7 +33,7 @@ public class ModuleController {
 
 
     @GetMapping("/{id}")
-    public ModuleResponse getById(@PathVariable Long id) {
+    public ModuleResponse getById(@PathVariable UUID id) {
         return toResponse(moduleService.findById(id));
     }
 
@@ -44,14 +45,14 @@ public class ModuleController {
     }
 
     @PutMapping("/{id}")
-    public ModuleResponse update(@PathVariable Long id, @Valid @RequestBody ModuleUpdateRequest request) {
+    public ModuleResponse update(@PathVariable UUID id, @Valid @RequestBody ModuleUpdateRequest request) {
         var module = moduleService.update(id, request.getModuleName(), request.getCourseId(), request.getLessonNumber(), request.getDescription());
         return toResponse(module);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
        moduleService.deleteModule(id);
     }
 

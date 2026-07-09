@@ -1,6 +1,5 @@
 package com.academy.educationalplatform.service;
 
-import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.entity.UserCourse;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
@@ -8,6 +7,7 @@ import com.academy.educationalplatform.repository.UserCourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserCourseService {
@@ -17,7 +17,7 @@ public class UserCourseService {
         this.userCourseRepository = userCourseRepository;
     }
 
-    public UserCourse joinCourse(Long userId, Long courseId) {
+    public UserCourse joinCourse(UUID userId, UUID courseId) {
 
         try {
 
@@ -31,7 +31,7 @@ public class UserCourseService {
         }
     }
 
-    public List<UserCourse> findUserCourse(Long userId) {
+    public List<UserCourse> findUserCourse(UUID userId) {
         try {
             if (!userCourseRepository.existsByUserId(userId)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
@@ -49,7 +49,6 @@ public class UserCourseService {
 
             List<UserCourse> users = userCourseRepository.findAll();
 
-            System.out.println(users);
             return users;
 
         } catch (RuntimeException e) {
