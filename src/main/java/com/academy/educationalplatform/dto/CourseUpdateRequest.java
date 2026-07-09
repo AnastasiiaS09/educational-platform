@@ -18,5 +18,5 @@ public class CourseUpdateRequest {
     @Size(max = 200)
     private String description;
 
-    private int lectureNumber;
+    private int moduleQuantity;
 }

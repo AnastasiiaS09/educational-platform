@@ -3,5 +3,5 @@ CREATE TABLE lessons (
     name VARCHAR(128) UNIQUE,
     course_id BIGINT NOT NULL,
     module_id BIGINT NOT NULL,
-    description VARCHAR(1024)
+    description TEXT
 );

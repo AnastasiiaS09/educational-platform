@@ -63,8 +63,8 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-englishTest</artifactId>
+            <scope>englishTest</scope>
         </dependency>
 
         <dependency>

@@ -1,5 +1,5 @@
 CREATE TABLE tests (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     name VARCHAR(50) UNIQUE,
-    description VARCHAR(1024)
+    description TEXT
 );

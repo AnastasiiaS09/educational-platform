@@ -7,7 +7,6 @@ import com.academy.educationalplatform.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CourseService {
@@ -17,14 +16,14 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public Course addCourse(String name, int lectureNumber, String description) {
+    public Course addCourse(String name, int moduleQuantity, String description) {
         try {
             if (courseRepository.existsByName(name)) {
                 throw PlatformException.of(PlatformErrorCode.COURSE_ALREADY_EXISTS, name);
             }
             Course course = new Course();
             course.setName(name);
-            course.setLectureNumber(lectureNumber);
+            course.setModuleQuantity(moduleQuantity);
             course.setDescription(description);
 
             return courseRepository.save(course);
@@ -33,20 +32,20 @@ public class CourseService {
         }
     }
 
-    public Course findById(UUID id) {
-        return courseRepository.findById(id).orElseThrow(() ->
-                PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND)
-        );
+    public Course findById(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> {
+            throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+        });
 
     }
 
-    public Course update(UUID id, int lectureNumber, String description, String name) {
+    public Course update(Long id, int moduleQuantity, String description, String name) {
         try {
-            Course course = courseRepository.findById(id).orElseThrow(() ->
-                 PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND)
-            );
+            Course course = courseRepository.findById(id).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+            });
 
-            course.setLectureNumber(lectureNumber);
+            course.setModuleQuantity(moduleQuantity);
             course.setDescription(description);
             course.setName(name);
 
@@ -56,9 +55,10 @@ public class CourseService {
         }
     }
 
-    public void delete(UUID id) {
+    public void delete(Long id) {
         try {
             courseRepository.deleteById(id);
+            System.out.println("Test was deleted successfully");
         } catch (RuntimeException e) {
             throw e;
         }
@@ -74,5 +74,4 @@ public class CourseService {
             throw e;
         }
     }
-//
 }
