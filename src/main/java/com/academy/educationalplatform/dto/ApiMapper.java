@@ -34,7 +34,7 @@ public final class ApiMapper {
                 course.getId(),
                 course.getName(),
                 course.getDescription(),
-                course.getLectureNumber()
+                course.getModuleQuantity()
         );
     }
 
@@ -53,7 +53,6 @@ public final class ApiMapper {
                 lesson.getId(),
                 lesson.getName(),
                 lesson.getDescription(),
-                lesson.getCourseId(),
                 lesson.getModuleId()
         );
     }

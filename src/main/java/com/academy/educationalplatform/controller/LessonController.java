@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/lessons")
@@ -31,7 +32,7 @@ public class LessonController {
 
 
     @GetMapping("/{id}")
-    public LessonResponse getById(@PathVariable Long id) {
+    public LessonResponse getById(@PathVariable UUID id) {
         return toResponse(lessonService.findById(id));
     }
 
@@ -43,14 +44,14 @@ public class LessonController {
     }
 
     @PutMapping("/{id}")
-    public LessonResponse update(@PathVariable Long id, @Valid @RequestBody LessonUpdateRequest request) {
+    public LessonResponse update(@PathVariable UUID id, @Valid @RequestBody LessonUpdateRequest request) {
         var lesson = lessonService.update(id, request.getLessonName(), request.getModuleId(), request.getDescription());
         return toResponse(lesson);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         lessonService.deleteLesson(id);
     }
 

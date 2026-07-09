@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/englishtests")
 public class EnglishTestController {
@@ -27,19 +29,19 @@ public class EnglishTestController {
     }
 
     @GetMapping("/{id}")
-    public EnglishTestResponse getById(@PathVariable Long id) {
+    public EnglishTestResponse getById(@PathVariable UUID id) {
         return toResponse(englishTestService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public EnglishTestResponse update(@PathVariable Long id, @Valid @RequestBody EnglishTestRequest request) {
+    public EnglishTestResponse update(@PathVariable UUID id, @Valid @RequestBody EnglishTestRequest request) {
         var test = englishTestService.update(id, request.getTestName(), request.getDescription());
         return toResponse(test);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         englishTestService.deleteTest(id);
     }
 
