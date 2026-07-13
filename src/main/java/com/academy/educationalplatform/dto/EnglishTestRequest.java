@@ -14,11 +14,10 @@ import lombok.Setter;
 public class EnglishTestRequest {
 
     @NotBlank
+    @Size(max = 50)
     private String testName;
-//
-    @NotBlank
-    @Size(max = 200)
-    private String description;
 
+    @NotBlank
+    private String description;
 
 }

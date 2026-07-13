@@ -43,4 +43,12 @@
         <sqlFile path="db/changelog/009__Create_Likes.sql"/>
     </changeSet>
 
+    <changeSet id="010" author="myUser">
+        <sqlFile path="db/changelog/010__Create_Test_Questions.sql"/>
+    </changeSet>
+
+    <changeSet id="011" author="myUser">
+        <sqlFile path="db/changelog/011__Create_User_English_Test_Results.sql"/>
+    </changeSet>
+
 </databaseChangeLog>

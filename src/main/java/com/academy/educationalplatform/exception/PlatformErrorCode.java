@@ -9,7 +9,7 @@ public enum PlatformErrorCode {
 
     COURSE_ALREADY_EXISTS(HttpStatus.CONFLICT, "Course with this name already exists: %s"),
     COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "Course not found: %s"),
-//
+
     TEST_ALREADY_EXISTS(HttpStatus.CONFLICT, "Test with this name already exists: %s"),
     TEST_NOT_FOUND(HttpStatus.NOT_FOUND, "Test not found: %s"),
 
@@ -20,10 +20,10 @@ public enum PlatformErrorCode {
 
     LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "Like not found"),
 
-    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
+    ENGLISH_QUESTION_ALREADY_EXISTS(HttpStatus.CONFLICT, "Question in English test with this number already exists: %s"),
 
+    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password");
 
-    SOMETHING_WHERE_WRONG(HttpStatus.BAD_REQUEST, "something where wrong");
 
     private final HttpStatus status;
     private final String message;

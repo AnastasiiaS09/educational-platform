@@ -10,13 +10,11 @@ import java.util.UUID;
 
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "likes")
 public class Like {
-//
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private UUID lessonId;

@@ -1,9 +1,9 @@
 CREATE TABLE comments (
-    id BIGSERIAL PRIMARY KEY,
-    course_id BIGINT,
-    module_id BIGINT,
-    lesson_id BIGINT,
-    user_id BIGINT,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    course_id UUID,
+    module_id UUID,
+    lesson_id UUID,
+    user_id UUID,
     text VARCHAR(512) NOT NULL,
     created_at TIMESTAMP
 );
