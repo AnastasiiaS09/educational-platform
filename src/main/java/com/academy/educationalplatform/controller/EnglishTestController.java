@@ -4,19 +4,17 @@ import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.EnglishTest;
 import com.academy.educationalplatform.service.EnglishTestService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/englishtests")
 public class EnglishTestController {
     private final EnglishTestService englishTestService;
-
-    public EnglishTestController(EnglishTestService englishTestService) {
-        this.englishTestService = englishTestService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

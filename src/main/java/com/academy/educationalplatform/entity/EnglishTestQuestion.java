@@ -7,13 +7,15 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "users_courses")
-public class UserCourse {
+@Table(name = "tests_questions")
+public class EnglishTestQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private UUID userId;
+    private UUID testId;
 
-    private UUID courseId;
+    private int questionNumber;
+
+    private String correctAnswer;
 }

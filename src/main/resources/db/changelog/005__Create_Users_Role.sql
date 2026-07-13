@@ -1,5 +1,5 @@
 CREATE TABLE users_roles (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID,
     role VARCHAR(150)
 );

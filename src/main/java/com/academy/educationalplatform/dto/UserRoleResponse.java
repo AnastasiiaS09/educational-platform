@@ -17,6 +17,6 @@ public class UserRoleResponse {
     private UUID id;
 
     private UUID userId;
-//
+
     private Role role;
 }

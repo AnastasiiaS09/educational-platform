@@ -11,7 +11,7 @@ public interface ModuleRepository extends JpaRepository<Module, UUID> {
     List<Module> findAll();
 
     boolean existsById(UUID id);
-//
+
     Module findByName(String name);
 
     void deleteByName(String name);

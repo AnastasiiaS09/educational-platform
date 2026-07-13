@@ -4,10 +4,11 @@ import com.academy.educationalplatform.entity.EnglishTest;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.repository.EnglishTestRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-
+@Service
 public class EnglishTestService {
     private final EnglishTestRepository englishTestRepository;
 

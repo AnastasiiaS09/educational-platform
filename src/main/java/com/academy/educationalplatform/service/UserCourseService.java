@@ -55,5 +55,30 @@ public class UserCourseService {
             throw e;
         }
     }
-//
+
+    //user wants to re-sign up their course
+    public void deleteCourseById(UUID id) {
+        try {
+            if (!userCourseRepository.existsById(id)) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
+
+            userCourseRepository.deleteById(id);
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    //user is not registered anymore (?realization)
+    public void deleteCourse(UUID userId) {
+        try {
+            if (!userCourseRepository.existsByUserId(userId)) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
+
+            userCourseRepository.deleteByUserId(userId);
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
 }

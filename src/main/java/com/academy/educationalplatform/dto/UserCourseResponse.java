@@ -15,6 +15,6 @@ public class UserCourseResponse {
     private UUID id;
 
     private UUID userId;
-//
+
     private UUID courseId;
 }

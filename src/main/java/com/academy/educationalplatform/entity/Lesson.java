@@ -9,14 +9,12 @@ import java.util.UUID;
 @Table(name = "lessons")
 public class Lesson {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 128)
     private String name;
 
     private UUID moduleId;
 
-    @Column(length = 1024)
     private String description;
 }
