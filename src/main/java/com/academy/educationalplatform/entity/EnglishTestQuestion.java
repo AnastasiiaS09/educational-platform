@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "tests_questions")
+@Table(name = "test_questions")
 public class EnglishTestQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
