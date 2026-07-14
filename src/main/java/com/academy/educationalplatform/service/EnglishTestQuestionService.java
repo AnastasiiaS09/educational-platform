@@ -18,7 +18,7 @@ public class EnglishTestQuestionService {
 
     public EnglishTestQuestion createQuestion(UUID testId, int questionNumber, String correctAnswer) {
         try {
-            if (!englishTestQuestionRepository.existsByQuestionNumber(questionNumber)) {
+            if (englishTestQuestionRepository.existsByQuestionNumber(questionNumber)) {
                 throw PlatformException.of(PlatformErrorCode.ENGLISH_QUESTION_ALREADY_EXISTS);
             }
             EnglishTestQuestion englishTestQuestion = new EnglishTestQuestion();
@@ -27,6 +27,17 @@ public class EnglishTestQuestionService {
             englishTestQuestion.setCorrectAnswer(correctAnswer);
 
             return englishTestQuestionRepository.save(englishTestQuestion);
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    public void deleteQuestion(int questionNumber) {
+        try {
+            if(!englishTestQuestionRepository.existsByQuestionNumber(questionNumber)) {
+                throw PlatformException.of(PlatformErrorCode.ENGLISH_QUESTION_NOT_FOUND);
+            }
+            //code for deleting the question
         } catch (RuntimeException e) {
             throw e;
         }

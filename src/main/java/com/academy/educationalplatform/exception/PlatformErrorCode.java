@@ -21,8 +21,10 @@ public enum PlatformErrorCode {
     LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "Like not found"),
 
     ENGLISH_QUESTION_ALREADY_EXISTS(HttpStatus.CONFLICT, "Question in English test with this number already exists: %s"),
+    ENGLISH_QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "Question in English test with this number not found: %s"),
 
-    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+    INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid token");
 
 
     private final HttpStatus status;
