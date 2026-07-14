@@ -17,5 +17,5 @@ public class EnglishTestQuestion {
 
     private int questionNumber;
 
-    private EnglishTestAnswer correctAnswer;
+    private String correctAnswer;
 }

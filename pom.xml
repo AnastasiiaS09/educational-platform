@@ -15,6 +15,7 @@
     <groupId>com.store</groupId>
     <artifactId>internet-store</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
     <name>internet-store</name>
     <description>Teaching internet store: Spring Boot + Spring Data JPA</description>
 
@@ -98,24 +99,17 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
 
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+
                 <configuration>
                     <release>${java.version}</release>
 
@@ -139,12 +133,37 @@
                         </path>
 
                     </annotationProcessorPaths>
+
                 </configuration>
             </plugin>
 
+
+            <!-- Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+
+            <!-- Liquibase Maven Plugin -->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.29.2</version>
+
+                <configuration>
+                    <changeLogFile>
+                        src/main/resources/changelog-master.xml
+                    </changeLogFile>
+
+                    <url>
+                        jdbc:postgresql://localhost:5432/platform?currentSchema=public
+                    </url>
+
+                    <username>myUser</username>
+                    <password>myPass</password>
+                </configuration>
+
             </plugin>
 
         </plugins>
