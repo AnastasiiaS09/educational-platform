@@ -18,11 +18,10 @@ public class EnglishTestRequest {
     private UUID id;
 
     @NotBlank
+    @Size(max = 50)
     private String testName;
 
     @NotBlank
-    @Size(max = 200)
     private String description;
-
 
 }

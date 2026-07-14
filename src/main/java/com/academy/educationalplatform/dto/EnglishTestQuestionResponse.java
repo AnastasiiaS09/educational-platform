@@ -5,20 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeResponse {
-
+public class EnglishTestQuestionResponse {
     private UUID id;
 
-    private UUID userId;
+    private UUID testId;
 
-    private UUID lessonId;
+    private int questionNumber;
 
-    private Instant createdAt;
+    private String correctAnswer;
 }

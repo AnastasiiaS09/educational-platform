@@ -10,6 +10,6 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
     List<Lesson> findAll();
 
     boolean existsById(UUID id);
-//
+
     Lesson findByName(String name);
 }

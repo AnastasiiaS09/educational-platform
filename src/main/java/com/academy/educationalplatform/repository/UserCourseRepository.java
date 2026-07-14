@@ -12,12 +12,14 @@ public interface UserCourseRepository extends JpaRepository<UserCourse, UUID> {
     UserCourse save(UserCourse userCourse);
 
     boolean existsByUserId(UUID userId);
-//
-
 
     @Query("FROM UserCourse uc WHERE uc.userId = :userId")
     List<UserCourse> findAllByUserId(UUID userId);
 
     @Query("FROM UserCourse uc WHERE uc.courseId = :courseId")
     List<UserCourse> findAllByCourseId(UUID courseId);
+
+    void deleteById(UUID id);
+
+    void deleteByUserId(UUID userId);
 }

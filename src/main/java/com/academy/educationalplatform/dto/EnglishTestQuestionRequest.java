@@ -1,0 +1,21 @@
+package com.academy.educationalplatform.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
+import java.util.UUID;
+
+public class EnglishTestQuestionRequest {
+    @NotNull
+    @Positive
+    private UUID testId;
+
+    @NotNull
+    private int questionNumber;
+
+    @NotBlank
+    @Size(max = 255)
+    private String correctAnswer;
+}

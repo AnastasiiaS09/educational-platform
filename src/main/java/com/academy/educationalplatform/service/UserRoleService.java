@@ -37,6 +37,5 @@ public class UserRoleService {
     public void deleteUserRole(UUID id) {
         userRoleRepository.deleteById(id);
     }
-//
 
 }
