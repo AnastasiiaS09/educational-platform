@@ -1,8 +1,12 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.dto.EnglishTestUpdateRequest;
+import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.EnglishTest;
+import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
+import com.academy.educationalplatform.mapper.EnglishTestMapper;
 import com.academy.educationalplatform.repository.EnglishTestRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +15,11 @@ import java.util.UUID;
 @Service
 public class EnglishTestService {
     private final EnglishTestRepository englishTestRepository;
+    private final EnglishTestMapper englishTestMapper;
 
-    public EnglishTestService(EnglishTestRepository englishTestRepository) {
+    public EnglishTestService(EnglishTestRepository englishTestRepository, EnglishTestMapper englishTestMapper) {
         this.englishTestRepository = englishTestRepository;
+        this.englishTestMapper = englishTestMapper;
     }
 
     public EnglishTest addTest(String name, String description) {
@@ -38,17 +44,27 @@ public class EnglishTestService {
         });
     }
 
-    public EnglishTest update(UUID id, String description, String name) {
-        try {
-            EnglishTest englishTest = englishTestRepository.findById(id).orElseThrow(() ->
-                    PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
-            englishTest.setDescription(description);
-            englishTest.setName(name);
+//    public EnglishTest update(UUID id, String description, String name) {
+//        try {
+//            EnglishTest englishTest = englishTestRepository.findById(id).orElseThrow(() ->
+//                    PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
+//            englishTest.setDescription(description);
+//            englishTest.setName(name);
+//
+//            return englishTest;
+//        } catch (RuntimeException e) {
+//            throw e;
+//        }
+//    }
 
-            return englishTest;
-        } catch (RuntimeException e) {
-            throw e;
-        }
+    public EnglishTest update(UUID id, EnglishTestUpdateRequest request) {
+        EnglishTest englishTest = englishTestRepository.findById(id)
+                .orElseThrow(() ->
+                        PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
+
+        englishTestMapper.updateEnglishTestFromDto(request, englishTest);
+
+        return englishTestRepository.save(englishTest);
     }
 
     public void deleteTest(UUID id) {

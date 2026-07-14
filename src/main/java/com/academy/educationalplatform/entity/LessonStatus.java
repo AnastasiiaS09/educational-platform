@@ -7,20 +7,14 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "english_test_results")
-public class UserEnglishTestResult {
+@Table(name = "lessons_statuses")
+public class LessonStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private UUID questionId;
-
-    private UUID userId;
-
-    private String userAnswer;
-
-    private EnglishTestAnswer englishTestAnswer;
+    private UUID lessonId;
 
     @Enumerated(EnumType.STRING)
-    private EnglishTestAnswer correctness;
+    private Status status;
 }

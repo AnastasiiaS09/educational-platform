@@ -43,12 +43,18 @@ public class ModuleController {
                 .map(this::toResponse)
                 .toList();
     }
-
-    @PutMapping("/{id}")
-    public ModuleResponse update(@PathVariable UUID id, @Valid @RequestBody ModuleUpdateRequest request) {
-        var module = moduleService.update(id, request.getModuleName(), request.getCourseId(), request.getLessonNumber(), request.getDescription());
-        return toResponse(module);
-    }
+//
+//    @PutMapping("/{id}")
+//    public ModuleResponse update(@PathVariable UUID id, @Valid @RequestBody ModuleUpdateRequest request) {
+//        var module = moduleService.update(id, request.getModuleName(), request.getCourseId(), request.getLessonNumber(), request.getDescription());
+//        return toResponse(module);
+//    }
+@PutMapping("/{id}")
+public ModuleResponse update(@PathVariable UUID id,
+                             @Valid @RequestBody ModuleUpdateRequest request) {
+    var module = moduleService.update(id, request);
+    return toResponse(module);
+}
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

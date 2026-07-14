@@ -17,4 +17,7 @@ public class Lesson {
     private UUID moduleId;
 
     private String description;
+
+    private int lessonNumber;
+
 }

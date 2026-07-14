@@ -27,4 +27,8 @@ public class LessonUpdateRequest {
     @NotNull
     @Positive
     private UUID moduleId;
+
+    @NotNull
+    @Positive
+    private int lessonNumber;
 }

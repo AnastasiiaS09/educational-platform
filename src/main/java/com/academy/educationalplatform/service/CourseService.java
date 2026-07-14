@@ -1,8 +1,12 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.dto.CourseUpdateRequest;
+import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.Course;
+import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
+import com.academy.educationalplatform.mapper.CourseMapper;
 import com.academy.educationalplatform.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +16,11 @@ import java.util.UUID;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
 
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper) {
         this.courseRepository = courseRepository;
+        this.courseMapper = courseMapper;
     }
 
     public Course addCourse(String name, int moduleQuantity, String description) {
@@ -40,20 +46,30 @@ public class CourseService {
 
     }
 
-    public Course update(UUID id, int moduleQuantity, String description, String name) {
-        try {
-            Course course = courseRepository.findById(id).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
-            });
+//    public Course update(UUID id, int moduleQuantity, String description, String name) {
+//        try {
+//            Course course = courseRepository.findById(id).orElseThrow(() -> {
+//                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+//            });
+//
+//            course.setModuleQuantity(moduleQuantity);
+//            course.setDescription(description);
+//            course.setName(name);
+//
+//            return course;
+//        } catch (RuntimeException e) {
+//            throw e;
+//        }
+//    }
 
-            course.setModuleQuantity(moduleQuantity);
-            course.setDescription(description);
-            course.setName(name);
+    public Course update(UUID id, CourseUpdateRequest request) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() ->
+                        PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND));
 
-            return course;
-        } catch (RuntimeException e) {
-            throw e;
-        }
+        courseMapper.updateCourseFromDto(request,course);
+
+        return courseRepository.save(course);
     }
 
     public void delete(UUID id) {

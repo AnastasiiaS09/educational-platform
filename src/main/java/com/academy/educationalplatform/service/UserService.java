@@ -1,10 +1,13 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.dto.RegisterUserRequest;
+import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.entity.UserRole;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
+import com.academy.educationalplatform.mapper.UserMapper;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
@@ -14,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -21,34 +25,30 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final UserMapper userMapper;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.userMapper = userMapper;
     }
 
-    public User register(String username, String email, String phone, String rawPassword, List<Role> roles) {
-        List<Role> effectiveRoles = roles == null || roles.isEmpty()
-                ? List.of(Role.USER)
-                : roles.stream().distinct().toList();
-        return register(username, email, phone, rawPassword, effectiveRoles.toArray(Role[]::new));
-    }
+//    public User register(String username, String email, String phone, String rawPassword, List<Role> roles) {
+//        List<Role> effectiveRoles = roles == null || roles.isEmpty()
+//                ? List.of(Role.USER)
+//                : roles.stream().distinct().toList();
+//        return register(username, email, phone, rawPassword, effectiveRoles.toArray(Role[]::new));
+//    }
 
-    public User register(String username, String email, String phone, String rawPassword, Role... roles) {
+    public User register(RegisterUserRequest request) {
 
         try {
-            if (userRepository.existsByEmail(email)) {
-                throw PlatformException.of(PlatformErrorCode.USER_EMAIL_EXISTS, email);
-            }
 
-            User user = new User();
-            user.setUsername(username);
-            user.setEmail(email);
-            user.setPhone(phone);
-            user.setPassword(passwordEncoder.encode(rawPassword));
+            User user = userMapper.toEntity(request);
+//            user.setPassword(passwordEncoder.encode(rawPassword));
 
-            for (Role role : roles) {
+            for (Role role : request.getRoles()) {
                 UserRole userRole = new UserRole();
                 userRole.setUserId(user.getId());
                 userRole.setRole(role);
@@ -60,23 +60,36 @@ public class UserService {
         }
     }
 
-    public User update(UUID id, String username, String email, String phone, String password) {
+//    public User update(UUID id, String username, String email, String phone, String password) {
+//
+//        try {
+//
+//            User user = userRepository.findById(id).orElseThrow(() ->
+//                    PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
+//
+//            user.setUsername(username);
+//            user.setEmail(email);
+//            user.setPhone(phone);
+//            user.setPassword(password);
+//
+//            return user;
+//        } catch (RuntimeException e) {
+//            throw e;
+//        }
+//    }
 
-        try {
 
-            User user = userRepository.findById(id).orElseThrow(() ->
+public User update(UUID id, UpdateUserRequest request) {
+    User user = userRepository.findById(id)
+            .orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
 
-            user.setUsername(username);
-            user.setEmail(email);
-            user.setPhone(phone);
-            user.setPassword(password);
+    userMapper.updateUserFromDto(request, user);
 
-            return user;
-        } catch (RuntimeException e) {
-            throw e;
-        }
-    }
+    return userRepository.save(user);
+}
+
+
 
     public void delById(UUID id) {
 

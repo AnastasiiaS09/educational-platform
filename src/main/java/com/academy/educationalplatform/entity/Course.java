@@ -14,12 +14,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(nullable = false)
     private int moduleQuantity;
 
-    @Column
     private String description;
 }

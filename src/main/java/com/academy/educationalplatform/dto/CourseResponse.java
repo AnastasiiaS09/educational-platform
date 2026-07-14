@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CourseResponse {
 
     private UUID id;
-//
+
     private String courseName;
 
     private String description;

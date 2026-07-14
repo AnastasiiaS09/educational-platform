@@ -20,4 +20,6 @@ public class LessonResponse {
     private String description;
 
     private UUID moduleId;
+
+    private int lessonNumber;
 }
