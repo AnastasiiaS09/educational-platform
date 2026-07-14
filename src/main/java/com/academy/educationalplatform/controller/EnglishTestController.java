@@ -33,11 +33,17 @@ public class EnglishTestController {
         return toResponse(englishTestService.findById(id));
     }
 
-    @PutMapping("/{id}")
-    public EnglishTestResponse update(@PathVariable UUID id, @Valid @RequestBody EnglishTestRequest request) {
-        var test = englishTestService.update(id, request.getTestName(), request.getDescription());
-        return toResponse(test);
-    }
+//    @PutMapping("/{id}")
+//    public EnglishTestResponse update(@PathVariable UUID id, @Valid @RequestBody EnglishTestRequest request) {
+//        var test = englishTestService.update(id, request.getTestName(), request.getDescription());
+//        return toResponse(test);
+//    }
+@PutMapping("/{id}")
+public EnglishTestResponse update(@PathVariable UUID id,
+                             @Valid @RequestBody EnglishTestUpdateRequest request) {
+    var englishTest = englishTestService.update(id, request);
+    return toResponse(englishTest);
+}
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -47,7 +53,7 @@ public class EnglishTestController {
 
 
     private EnglishTestResponse toResponse(EnglishTest englishTest) {
-        return ApiMapper.toTestResponse(
+        return ApiMapper.toEnglishTestResponse(
                 englishTest
         );
     }

@@ -2,12 +2,13 @@ package com.academy.educationalplatform.dto;
 
 import com.academy.educationalplatform.entity.*;
 import com.academy.educationalplatform.entity.Module;
+import com.academy.educationalplatform.entity.Course;
 
 public final class ApiMapper {
 
     private ApiMapper() {
     }
-//
+
     public static UserResponse toUserResponse(User user) {
         return new UserResponse(
             user.getId(),
@@ -53,7 +54,8 @@ public final class ApiMapper {
                 lesson.getId(),
                 lesson.getName(),
                 lesson.getDescription(),
-                lesson.getModuleId()
+                lesson.getModuleId(),
+                lesson.getLessonNumber()
         );
     }
 
@@ -74,15 +76,22 @@ public final class ApiMapper {
         );
     }
 
+    public static LessonStatusResponse toLessonStatusResponse(LessonStatus lessonStatus) {
+        return new LessonStatusResponse(
+                lessonStatus.getId(),
+                lessonStatus.getLessonId(),
+                lessonStatus.getStatus()
+        );
+    }
 
-    public static EnglishTestResponse toTestResponse(EnglishTest englishTest) {
+
+    public static EnglishTestResponse toEnglishTestResponse(EnglishTest englishTest) {
         return new EnglishTestResponse(
                 englishTest.getId(),
                 englishTest.getName(),
                 englishTest.getDescription()
         );
     }
-
     public static UserCourseResponse toUserCourseResponse(UserCourse userCourse) {
         return new UserCourseResponse(
                 userCourse.getId(),
@@ -90,4 +99,5 @@ public final class ApiMapper {
                 userCourse.getCourseId()
         );
     }
+
 }

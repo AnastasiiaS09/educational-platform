@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 //
 @RestController
@@ -26,12 +27,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse create(@Valid @RequestBody RegisterUserRequest request) {
-        var user = userService.register(
-                request.getUsername(),
-                request.getEmail(),
-                request.getPhone(),
-                request.getPassword()
-        );
+        User user = userService.register(request);
         return toResponse(user);
     }
 
@@ -49,11 +45,24 @@ public class UserController {
     }
 
 
+//    @PutMapping("/{id}")
+//    public UserResponse update(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
+//        var user = userService.update(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+//        return toResponse(user);
+//    }
+
     @PutMapping("/{id}")
-    public UserResponse update(@PathVariable UUID id, @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.update(id, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+    public UserResponse update(@PathVariable UUID id,
+                               @Valid @RequestBody UpdateUserRequest request) {
+        var user = userService.update(id, request);
         return toResponse(user);
     }
+
+//    @PatchMapping("/{id}")
+//    public User update(@PathVariable UUID id,
+//                       @RequestBody Map<String, Object> updates) {
+//        return userService.update(id, updates);
+//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

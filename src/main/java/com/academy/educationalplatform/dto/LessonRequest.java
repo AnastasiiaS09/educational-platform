@@ -26,6 +26,18 @@ public class LessonRequest {
 
     @NotNull
     @Positive
+    private int lectureNumber;
+
+    @NotNull
+    @Positive
+    private UUID courseId;
+
+    @NotNull
+    @Positive
     private UUID moduleId;
+
+    @NotNull
+    @Positive
+    private int lessonNumber;
 
 }

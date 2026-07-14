@@ -1,6 +1,6 @@
 CREATE TABLE likes (
-    id BIGSERIAL PRIMARY KEY,
-    lesson_id BIGINT,
-    user_id BIGINT,
-    created_at TIMESTAMP
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+lesson_id UUID,
+user_id UUID,
+created_at TIMESTAMP
 );

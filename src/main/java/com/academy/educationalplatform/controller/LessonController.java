@@ -25,7 +25,8 @@ public class LessonController {
         var lesson = lessonService.addLesson(
                 request.getLessonName(),
                 request.getModuleId(),
-                request.getDescription()
+                request.getDescription(),
+                request.getLessonNumber()
         );
         return toResponse(lesson);
     }
@@ -43,9 +44,16 @@ public class LessonController {
                 .toList();
     }
 
+//    @PutMapping("/{id}")
+//    public LessonResponse update(@PathVariable UUID id, @Valid @RequestBody LessonUpdateRequest request) {
+//        var lesson = lessonService.update(id, request.getLessonName(), request.getModuleId(), request.getDescription(), request.getLessonNumber());
+//        return toResponse(lesson);
+//    }
+
     @PutMapping("/{id}")
-    public LessonResponse update(@PathVariable UUID id, @Valid @RequestBody LessonUpdateRequest request) {
-        var lesson = lessonService.update(id, request.getLessonName(), request.getModuleId(), request.getDescription());
+    public LessonResponse update(@PathVariable UUID id,
+                                 @Valid @RequestBody LessonUpdateRequest request) {
+        var lesson = lessonService.update(id, request);
         return toResponse(lesson);
     }
 

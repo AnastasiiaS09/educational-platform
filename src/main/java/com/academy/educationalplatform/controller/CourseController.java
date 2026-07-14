@@ -44,8 +44,9 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public CourseResponse update(@PathVariable UUID id, @Valid @RequestBody CourseUpdateRequest request) {
-        var course = courseService.update(id,request.getModuleQuantity(), request.getDescription(), request.getCourseName());
+    public CourseResponse update(@PathVariable UUID id,
+                               @Valid @RequestBody CourseUpdateRequest request) {
+        var course = courseService.update(id, request);
         return toResponse(course);
     }
 

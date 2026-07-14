@@ -1,7 +1,10 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.Role;
+import com.academy.educationalplatform.entity.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,16 +16,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnglishTestRequest {
-
-    private UUID id;
+public class LessonStatusRequest {
+    @NotBlank
+    private UUID lessonId;
 
     @NotBlank
-    private String testName;
-
-    @NotBlank
-    @Size(max = 200)
-    private String description;
-
-
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

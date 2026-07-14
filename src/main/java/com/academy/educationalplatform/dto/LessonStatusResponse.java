@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +12,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LessonResponse {
+public class LessonStatusResponse {
 
     private UUID id;
 
-    private String lessonName;
+    private UUID lessonId;
 
-    private String description;
-
-    private UUID moduleId;
-
-    private int lessonNumber;
+    private Status status;
 }

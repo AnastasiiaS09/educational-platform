@@ -1,7 +1,7 @@
 CREATE TABLE lessons (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(128) UNIQUE,
-    course_id BIGINT NOT NULL,
-    module_id BIGINT NOT NULL,
-    description VARCHAR(1024)
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+name VARCHAR(128) UNIQUE,
+module_id UUID NOT NULL,
+description TEXT,
+lesson_number INT
 );

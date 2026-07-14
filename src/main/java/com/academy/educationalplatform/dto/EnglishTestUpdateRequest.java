@@ -15,20 +15,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LessonUpdateRequest {
+public class EnglishTestUpdateRequest {
 
-    @NotBlank
-    @Size(max = 200)
-    private String lessonName;
+        private String testName;
 
-    @Size(max = 200)
-    private String description;
+        private String description;
 
-    @NotNull
-    @Positive
-    private UUID moduleId;
-
-    @NotNull
-    @Positive
-    private int lessonNumber;
 }

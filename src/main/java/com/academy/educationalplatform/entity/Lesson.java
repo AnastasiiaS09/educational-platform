@@ -12,11 +12,12 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 128)
     private String name;
 
     private UUID moduleId;
 
-    @Column(length = 1024)
     private String description;
+
+    private int lessonNumber;
+
 }
