@@ -20,7 +20,7 @@
     </changeSet>
 
     <changeSet id="004" author="myUser">
-        <sqlFile path="db/changelog/004__Join_Course.sql"/>
+        <sqlFile path="db/changelog/004__Create_Users_Courses.sql"/>
     </changeSet>
 
     <changeSet id="005" author="myUser">

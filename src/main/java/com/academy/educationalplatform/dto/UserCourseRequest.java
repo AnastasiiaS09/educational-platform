@@ -13,11 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserCourseRequest {
 
-    @NotNull
-    @Positive
     private UUID userId;
 
-    @NotNull
-    @Positive
     private UUID courseId;
 }

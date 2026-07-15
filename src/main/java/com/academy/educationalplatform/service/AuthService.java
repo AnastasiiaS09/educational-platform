@@ -35,7 +35,15 @@ public class AuthService {
             throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
         }
         var roles = userService.findRolesByUserId(user.getId());
-        return new LoginResponse(jwtService.generateToken(user, roles));
+
+        String accessToken = jwtService.generateToken(user, roles);
+        String refreshToken = jwtService.generateRefreshToken(user, roles);
+
+        LoginResponse response = new LoginResponse();
+        response.setAccessToken(accessToken);
+        response.setRefreshToken(refreshToken);
+
+        return response;
     }
 //
 }

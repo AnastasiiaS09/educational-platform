@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.dto.LoginResponse;
 import com.academy.educationalplatform.dto.RegisterUserRequest;
 import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.Role;
@@ -11,6 +12,7 @@ import com.academy.educationalplatform.mapper.UserMapper;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
+import com.academy.educationalplatform.security.JwtService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,35 +28,41 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final UserMapper userMapper;
+    private final JwtService jwtService;  //temporarily
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper, JwtService jwtService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.userMapper = userMapper;
+        this.jwtService = jwtService;  //temporarily
     }
 
-//    public User register(String username, String email, String phone, String rawPassword, List<Role> roles) {
-//        List<Role> effectiveRoles = roles == null || roles.isEmpty()
-//                ? List.of(Role.USER)
-//                : roles.stream().distinct().toList();
-//        return register(username, email, phone, rawPassword, effectiveRoles.toArray(Role[]::new));
-//    }
-
-    public User register(RegisterUserRequest request) {
+    public LoginResponse register(RegisterUserRequest request) {  //allocate to AuthService
 
         try {
 
             User user = userMapper.toEntity(request);
-//            user.setPassword(passwordEncoder.encode(rawPassword));
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+            userRepository.save(user);
 
             for (Role role : request.getRoles()) {
                 UserRole userRole = new UserRole();
                 userRole.setUserId(user.getId());
                 userRole.setRole(role);
+
+                userRoleRepository.save(userRole);
             }
 
-            return userRepository.save(user);
+            String accessToken = jwtService.generateToken(user, request.getRoles());
+            String refreshToken = jwtService.generateRefreshToken(user, request.getRoles());
+
+            LoginResponse response = new LoginResponse();
+            response.setAccessToken(accessToken);
+            response.setRefreshToken(refreshToken);
+
+            return response;
         } catch (RuntimeException e) {
             throw e;
         }

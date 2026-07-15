@@ -1,9 +1,6 @@
 package com.academy.educationalplatform.controller;
 
-import com.academy.educationalplatform.dto.ApiMapper;
-import com.academy.educationalplatform.dto.RegisterUserRequest;
-import com.academy.educationalplatform.dto.UpdateUserRequest;
-import com.academy.educationalplatform.dto.UserResponse;
+import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.service.UserService;
 import jakarta.validation.Valid;
@@ -26,9 +23,11 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@Valid @RequestBody RegisterUserRequest request) {
-        User user = userService.register(request);
-        return toResponse(user);
+    public LoginResponse create(@Valid @RequestBody RegisterUserRequest request) {
+        //User user = userService.register(request);
+        //return toResponse(user);
+
+        return userService.register(request);
     }
 
     @GetMapping

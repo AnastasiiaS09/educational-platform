@@ -5,6 +5,7 @@ import com.academy.educationalplatform.entity.Course;
 import com.academy.educationalplatform.service.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CourseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public CourseResponse create(@Valid @RequestBody CourseRequest request) {
         var course = courseService.addCourse(
                 request.getCourseName(),
@@ -52,6 +54,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable UUID id) {
         courseService.delete(id);
     }
