@@ -38,4 +38,10 @@ public final class SecurityUtils {
         return hasRole(Role.ADMIN);
     }
 
+    public static void assertOwner(UUID targetUserId) {
+        if(!currentUserId().equals(targetUserId)) {
+            throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
+        }
+    }
+
 }

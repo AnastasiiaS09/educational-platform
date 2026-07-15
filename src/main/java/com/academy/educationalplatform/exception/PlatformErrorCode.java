@@ -24,7 +24,8 @@ public enum PlatformErrorCode {
     ENGLISH_QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "Question in English test with this number not found: %s"),
 
     INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
-    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid token");
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid token"),
+    ACCESS_DENIED(HttpStatus.UNAUTHORIZED, "Access was denied");
 
 
     private final HttpStatus status;
