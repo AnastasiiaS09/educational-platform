@@ -51,6 +51,7 @@ public class UserService {
                 UserRole userRole = new UserRole();
                 userRole.setUserId(user.getId());
                 userRole.setRole(role);
+                userMapper.applyDefaults(userRole);
 
                 userRoleRepository.save(userRole);
             }

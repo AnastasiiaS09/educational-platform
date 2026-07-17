@@ -6,7 +6,6 @@ import com.academy.educationalplatform.entity.Role;
 import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.entity.UserRole;
 import org.mapstruct.*;
-import org.springframework.data.jpa.repository.Query;
 
 
 @Mapper(componentModel = "spring")

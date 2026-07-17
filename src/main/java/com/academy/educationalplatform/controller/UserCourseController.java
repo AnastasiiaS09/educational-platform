@@ -21,7 +21,6 @@ public class UserCourseController {
     public UserCourseController(UserCourseService userCourseService) {
         this.userCourseService = userCourseService;
     }
-//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserCourseResponse create(@Valid @RequestBody UserCourseRequest request) {

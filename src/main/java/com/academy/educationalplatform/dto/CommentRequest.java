@@ -18,7 +18,6 @@ public class CommentRequest {
     private UUID id;
 
     @NotBlank
-    @Size(max = 2000)
     private String text;
 
     private UUID userId;

@@ -5,6 +5,7 @@ import com.academy.educationalplatform.entity.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonStatusRequest {
-    @NotBlank
+    @NotNull
     private UUID lessonId;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 }

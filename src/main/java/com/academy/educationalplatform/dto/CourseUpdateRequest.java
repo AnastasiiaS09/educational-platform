@@ -12,10 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CourseUpdateRequest {
 
-    @Size(max = 100)
-    private String courseName;
-//
     @Size(max = 200)
+    private String courseName;
+
     private String description;
 
     private int moduleQuantity;

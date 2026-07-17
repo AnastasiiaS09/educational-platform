@@ -1,9 +1,12 @@
 package com.academy.educationalplatform.entity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
-
+@Getter
+@Setter
 @Data
 @Entity
 @Table(name = "lessons")
@@ -19,5 +22,7 @@ public class Lesson {
     private String description;
 
     private int lessonNumber;
+
+    private String posterVideo;
 
 }

@@ -6,11 +6,21 @@ import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.LessonMapper;
 import com.academy.educationalplatform.repository.LessonRepository;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.transaction.Transactional;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -92,6 +102,70 @@ public class LessonService {
 
         } catch (RuntimeException e) {
             throw e;
+        }
+    }
+
+
+
+
+
+    @Transactional
+    public void uploadVideo(UUID lessonId, MultipartFile file) {
+
+        try {
+            Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));
+
+            String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+
+            Path uploadDir = Paths.get("uploads/posters/video.mp4");
+
+
+            long size = 100L * 1024 * 1024; // 100 МБ
+
+            try (FileChannel channel = FileChannel.open(
+                    uploadDir,
+                    StandardOpenOption.WRITE)) {
+
+                channel.position(size - 1);
+                channel.write(ByteBuffer.wrap(new byte[] {0}));
+            }
+
+            Files.createDirectories(uploadDir);
+
+            Files.copy(
+                    file.getInputStream(),
+                    uploadDir.resolve(fileName),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+            lesson.setPosterVideo(fileName);
+
+            lessonRepository.save(lesson);
+        } catch (IOException e) {
+            throw PlatformException.of(PlatformErrorCode.FILE_UPLOAD_FAILED);
+        }
+    }
+
+    public ResponseEntity<Resource> getPoster(UUID lessonId) {
+
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));
+
+        Path path = Paths.get("uploads/posters")
+                .resolve(lesson.getPosterVideo());
+
+        try {
+
+            Resource resource = new UrlResource(path.toUri());
+
+            String contentType = Files.probeContentType(path);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .body(resource);
+
+        } catch (IOException e) {
+
+            throw PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND);
         }
     }
 }
