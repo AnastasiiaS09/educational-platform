@@ -33,7 +33,7 @@ public final class ApiMapper {
     public static CourseResponse toCourseResponse(Course course) {
         return new CourseResponse(
                 course.getId(),
-                course.getName(),
+                course.getCourseName(),
                 course.getDescription(),
                 course.getModuleQuantity()
         );
@@ -42,7 +42,7 @@ public final class ApiMapper {
     public static ModuleResponse toModuleResponse(Module module) {
         return new ModuleResponse(
                 module.getId(),
-                module.getName(),
+                module.getModuleName(),
                 module.getDescription(),
                 module.getLessonNumber(),
                 module.getCourseId()
@@ -52,7 +52,7 @@ public final class ApiMapper {
     public static LessonResponse toLessonResponse(Lesson lesson) {
         return new LessonResponse(
                 lesson.getId(),
-                lesson.getName(),
+                lesson.getLessonName(),
                 lesson.getDescription(),
                 lesson.getModuleId(),
                 lesson.getLessonNumber()

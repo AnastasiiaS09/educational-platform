@@ -36,7 +36,7 @@ public class LessonService {
     public Lesson addLesson(String name, UUID moduleId, String description, int lessonNumber) {
         try {
             Lesson lesson = new Lesson();
-            lesson.setName(name);
+            lesson.setLessonName(name);
             lesson.setDescription(description);
             lesson.setModuleId(moduleId);
             lesson.setLessonNumber(lessonNumber);
@@ -113,22 +113,13 @@ public class LessonService {
     public void uploadVideo(UUID lessonId, MultipartFile file) {
 
         try {
-            Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));
+            Lesson lesson = lessonRepository.findById(lessonId)
+                    .orElseThrow(() ->
+                            PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));
 
             String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
-            Path uploadDir = Paths.get("uploads/posters/video.mp4");
-
-
-            long size = 100L * 1024 * 1024; // 100 МБ
-
-            try (FileChannel channel = FileChannel.open(
-                    uploadDir,
-                    StandardOpenOption.WRITE)) {
-
-                channel.position(size - 1);
-                channel.write(ByteBuffer.wrap(new byte[] {0}));
-            }
+            Path uploadDir = Paths.get("uploads/posters");
 
             Files.createDirectories(uploadDir);
 
@@ -141,11 +132,11 @@ public class LessonService {
             lesson.setPosterVideo(fileName);
 
             lessonRepository.save(lesson);
+
         } catch (IOException e) {
             throw PlatformException.of(PlatformErrorCode.FILE_UPLOAD_FAILED);
         }
     }
-
     public ResponseEntity<Resource> getPoster(UUID lessonId) {
 
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));

@@ -24,5 +24,5 @@ public class LessonUpdateRequest {
     @PositiveOrZero
     private int lessonNumber;
 
-    private String poster;
+    private String posterVideo;
 }

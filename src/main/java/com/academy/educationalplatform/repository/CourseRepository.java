@@ -10,9 +10,9 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
 
     Course save(Course course);
 
-    boolean existsByName(String name);
+    boolean existsByCourseName(String courseName);
 
-    Course findByName(String courseName);
+    Course findByCourseName(String courseName);
 
     void deleteById(UUID id);
 
