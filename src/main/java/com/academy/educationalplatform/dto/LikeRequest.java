@@ -23,11 +23,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class LikeRequest {
     @NotNull
-    @Positive
     private UUID lessonId;
 
     @NotNull
-    @Positive
     private UUID userId;
 
     @CreationTimestamp

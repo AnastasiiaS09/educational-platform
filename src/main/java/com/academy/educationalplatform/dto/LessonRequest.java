@@ -1,9 +1,6 @@
 package com.academy.educationalplatform.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,23 +18,12 @@ public class LessonRequest {
     @Size(max = 200)
     private String lessonName;
 
-    @Size(max = 200)
     private String description;
 
     @NotNull
-    @Positive
-    private int lectureNumber;
-
-    @NotNull
-    @Positive
-    private UUID courseId;
-
-    @NotNull
-    @Positive
     private UUID moduleId;
 
-    @NotNull
-    @Positive
+    @PositiveOrZero
     private int lessonNumber;
 
 }

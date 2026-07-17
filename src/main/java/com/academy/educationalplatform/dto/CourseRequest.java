@@ -20,10 +20,8 @@ public class CourseRequest {
     @Size(max = 200)
     private String courseName;
 
-    @Size(max = 200)
     private String description;
 
-    @NotNull
-    @Positive
+    @PositiveOrZero
     private int moduleQuantity;
 }

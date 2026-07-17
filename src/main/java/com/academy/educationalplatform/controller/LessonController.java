@@ -3,9 +3,13 @@ package com.academy.educationalplatform.controller;
 import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.Lesson;
 import com.academy.educationalplatform.service.LessonService;
+import org.springframework.core.io.Resource;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -67,5 +71,23 @@ public class LessonController {
         return ApiMapper.toLessonResponse(
                 lesson
         );
+    }
+
+//
+//
+//
+
+    @PostMapping(value = "/{id}/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public void uploadPoster(@PathVariable UUID id, @RequestParam MultipartFile file) {
+
+        lessonService.uploadVideo(id, file);
+    }
+
+
+    @GetMapping("/{id}/video")
+    public ResponseEntity<Resource> getPoster(@PathVariable UUID id) {
+
+        return lessonService.getPoster(id);
     }
 }

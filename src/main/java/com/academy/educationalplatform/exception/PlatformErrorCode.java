@@ -23,6 +23,9 @@ public enum PlatformErrorCode {
     ENGLISH_QUESTION_ALREADY_EXISTS(HttpStatus.CONFLICT, "Question in English test with this number already exists: %s"),
     ENGLISH_QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "Question in English test with this number not found: %s"),
 
+    FILE_UPLOAD_FAILED(HttpStatus.NOT_FOUND, "FILE_UPLOAD_FAILED"),
+    POSTER_NOT_FOUND(HttpStatus.NOT_FOUND, "Poster not found"),
+
     INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid token"),
     ACCESS_DENIED(HttpStatus.UNAUTHORIZED, "Access was denied");
