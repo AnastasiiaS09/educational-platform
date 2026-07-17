@@ -20,7 +20,6 @@ public class ModuleRequest {
 
     private String description;
 
-    @NotNull
     @PositiveOrZero
     private int lessonNumber;
 
