@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +19,6 @@ public class CourseUpdateRequest {
     @Size(max = 200)
     private String description;
 
+    @PositiveOrZero
     private int moduleQuantity;
 }

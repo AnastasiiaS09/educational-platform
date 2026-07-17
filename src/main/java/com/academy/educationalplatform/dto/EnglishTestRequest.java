@@ -1,6 +1,7 @@
 package com.academy.educationalplatform.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,13 +16,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EnglishTestRequest {
 
+    @NotNull
     private UUID id;
 
     @NotBlank
     @Size(max = 50)
     private String testName;
 
-    @NotBlank
     private String description;
 
 }

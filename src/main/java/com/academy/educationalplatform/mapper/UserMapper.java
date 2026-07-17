@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-//    @Mapping(target = "role", constant = "USER")
+//    @Mapping(target = "roles", constant = "USER")
     User toEntity(RegisterUserRequest request);
 
     @AfterMapping
