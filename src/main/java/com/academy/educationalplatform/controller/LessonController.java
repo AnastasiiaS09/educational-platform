@@ -25,14 +25,9 @@ public class LessonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LessonResponse create(@Valid @RequestBody LessonRequest request) {
-        var lesson = lessonService.addLesson(
-                request.getLessonName(),
-                request.getModuleId(),
-                request.getDescription(),
-                request.getLessonNumber()
-        );
-        return toResponse(lesson);
+    public AnswerRequest create(@Valid @RequestBody LessonRequest request) {
+
+        return lessonService.addLesson(request);
     }
 
 
@@ -44,6 +39,13 @@ public class LessonController {
     @GetMapping
     public List<LessonResponse> getAll() {
         return lessonService.getAll().stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @GetMapping("/{moduleId}")
+    public List<LessonResponse> getModuleLesson(UUID moduleId) {
+        return lessonService.getModuleLesson(moduleId).stream()
                 .map(this::toResponse)
                 .toList();
     }

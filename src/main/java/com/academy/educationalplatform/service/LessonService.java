@@ -1,12 +1,17 @@
 package com.academy.educationalplatform.service;
 
+import com.academy.educationalplatform.dto.AnswerRequest;
+import com.academy.educationalplatform.dto.LessonRequest;
 import com.academy.educationalplatform.dto.LessonUpdateRequest;
 import com.academy.educationalplatform.entity.Lesson;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.LessonMapper;
 import com.academy.educationalplatform.repository.LessonRepository;
+import com.academy.educationalplatform.repository.ModuleRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -26,22 +31,35 @@ import java.util.UUID;
 @Service
 public class LessonService {
     private final LessonRepository lessonRepository;
+    private final ModuleRepository moduleRepository;
     private final LessonMapper lessonMapper;
 
-    public LessonService(LessonRepository lessonRepository, LessonMapper lessonMapper) {
+    public LessonService(LessonRepository lessonRepository, ModuleRepository moduleRepository, LessonMapper lessonMapper) {
         this.lessonRepository = lessonRepository;
+        this.moduleRepository = moduleRepository;
         this.lessonMapper = lessonMapper;
     }
 
-    public Lesson addLesson(String name, UUID moduleId, String description, int lessonNumber) {
+    public AnswerRequest addLesson(LessonRequest request) {
         try {
             Lesson lesson = new Lesson();
-            lesson.setLessonName(name);
-            lesson.setDescription(description);
-            lesson.setModuleId(moduleId);
-            lesson.setLessonNumber(lessonNumber);
+            lesson.setName(request.getLessonName());
+            lesson.setDescription(request.getDescription());
+            lesson.setModuleId(request.getModuleId());
+            lesson.setLessonNumber(request.getLessonNumber());
 
-            return lessonRepository.save(lesson);
+            Lesson savedLesson = lessonRepository.save(lesson);
+
+            Module module = moduleRepository.findById(savedLesson.getModuleId()).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
+
+            module.setLessonNumber(module.getLessonNumber()+1);
+            moduleRepository.save(module);
+
+            AnswerRequest answer = new AnswerRequest();
+            answer.setText("Lesson was added successfully");
+
+            return answer;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -98,8 +116,21 @@ public class LessonService {
     public List<Lesson> getAll() {
         try {
             List<Lesson> lessonList = lessonRepository.findAll();
-            return lessonList;
 
+            return lessonList;
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    public List<Lesson> getModuleLesson(UUID moduleId) {
+        try {
+            if(!moduleRepository.existsById(moduleId)) {
+                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
+            }
+            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
+
+            return moduleLessonList;
         } catch (RuntimeException e) {
             throw e;
         }

@@ -22,13 +22,7 @@ public class ModuleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AnswerRequest create(@Valid @RequestBody ModuleRequest request) {
-        var module = moduleService.addModule(
-                request.getModuleName(),
-                request.getCourseId(),
-                request.getLessonNumber(),
-                request.getDescription()
-        );
-        return toResponse(module);
+        return moduleService.addModule(request);
     }
 
 
