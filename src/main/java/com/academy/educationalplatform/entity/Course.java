@@ -15,7 +15,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
+    private String courseName;
 
     private int moduleQuantity;
 

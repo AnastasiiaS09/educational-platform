@@ -8,6 +8,11 @@ spring:
     password: myPass
     driver-class-name: org.postgresql.Driver
 
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
   liquibase:
     change-log: classpath:changelog-master.xml
 

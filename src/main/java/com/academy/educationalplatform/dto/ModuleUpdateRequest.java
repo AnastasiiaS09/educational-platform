@@ -18,13 +18,11 @@ public class ModuleUpdateRequest {
     @Size(max = 200)
     private String moduleName;
 
-
     private String description;
 
     @NotNull
     @PositiveOrZero
     private int lessonNumber;
 
-    @NotNull
     private UUID courseId;
 }

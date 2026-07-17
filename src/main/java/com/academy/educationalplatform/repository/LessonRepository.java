@@ -11,5 +11,5 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     boolean existsById(UUID id);
 
-    Lesson findByName(String name);
+    Lesson findByLessonName(String lessonName);
 }

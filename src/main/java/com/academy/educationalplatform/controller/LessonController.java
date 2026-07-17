@@ -77,8 +77,7 @@ public class LessonController {
 //
 //
 
-    @PostMapping(value = "/{id}/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-    )
+    @PostMapping(value = "/{id}/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadPoster(@PathVariable UUID id, @RequestParam MultipartFile file) {
 
         lessonService.uploadVideo(id, file);

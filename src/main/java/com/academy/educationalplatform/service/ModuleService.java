@@ -32,7 +32,7 @@ public class ModuleService {
 
             Module module = new Module();
             module.setCourseId(courseId);
-            module.setName(name);
+            module.setModuleName(name);
             module.setLessonNumber(lessonNumber);
             module.setDescription(description);
 

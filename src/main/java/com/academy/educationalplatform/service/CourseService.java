@@ -1,9 +1,7 @@
 package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.dto.CourseUpdateRequest;
-import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.Course;
-import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.CourseMapper;
@@ -25,11 +23,11 @@ public class CourseService {
 
     public Course addCourse(String name, int moduleQuantity, String description) {
         try {
-            if (courseRepository.existsByName(name)) {
+            if (courseRepository.existsByCourseName(name)) {
                 throw PlatformException.of(PlatformErrorCode.COURSE_ALREADY_EXISTS, name);
             }
             Course course = new Course();
-            course.setName(name);
+            course.setCourseName(name);
             course.setModuleQuantity(moduleQuantity);
             course.setDescription(description);
 
