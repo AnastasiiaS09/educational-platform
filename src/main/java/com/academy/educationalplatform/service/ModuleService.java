@@ -1,16 +1,14 @@
 package com.academy.educationalplatform.service;
 
 
-import com.academy.educationalplatform.dto.CourseUpdateRequest;
-import com.academy.educationalplatform.dto.ModuleRequest;
-import com.academy.educationalplatform.dto.ModuleUpdateRequest;
-import com.academy.educationalplatform.dto.UpdateUserRequest;
+import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.Course;
 import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.ModuleMapper;
+import com.academy.educationalplatform.repository.CourseRepository;
 import com.academy.educationalplatform.repository.ModuleRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +18,16 @@ import java.util.UUID;
 @Service
 public class ModuleService {
     private final ModuleRepository moduleRepository;
+    private final CourseRepository courseRepository;
     private final ModuleMapper moduleMapper;
 
-    public ModuleService(ModuleRepository moduleRepository, ModuleMapper moduleMapper) {
+    public ModuleService(ModuleRepository moduleRepository, CourseRepository courseRepository, ModuleMapper moduleMapper) {
         this.moduleRepository = moduleRepository;
+        this.courseRepository = courseRepository;
         this.moduleMapper = moduleMapper;
     }
 
-    public Module addModule(String name, UUID courseId, int lessonNumber, String description) {
+    public AnswerRequest addModule(String name, UUID courseId, int lessonNumber, String description) {
         try {
 
             Module module = new Module();
@@ -36,7 +36,16 @@ public class ModuleService {
             module.setLessonNumber(lessonNumber);
             module.setDescription(description);
 
-            return moduleRepository.save(module);
+            Module savedModule = moduleRepository.save(module);
+
+            Course course = courseRepository.findById(savedModule.getCourseId()).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND));
+            course.setModuleQuantity(course.getModuleQuantity()+1);
+
+            AnswerRequest answer = new AnswerRequest();
+            answer.setText("Module was added successfully");
+
+            return answer;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -98,5 +107,4 @@ public class ModuleService {
             throw e;
         }
     }
-//
 }

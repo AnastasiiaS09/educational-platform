@@ -100,4 +100,13 @@ public final class ApiMapper {
         );
     }
 
+    public static EnglishTestQuestionResponse toEnglishTestQuestionResponse(EnglishTestQuestion englishTestQuestion) {
+        return new EnglishTestQuestionResponse(
+                englishTestQuestion.getId(),
+                englishTestQuestion.getTestId(),
+                englishTestQuestion.getQuestionNumber(),
+                englishTestQuestion.getCorrectAnswer()
+        );
+    }
+
 }
