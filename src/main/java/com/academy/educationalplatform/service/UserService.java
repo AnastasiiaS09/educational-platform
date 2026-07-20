@@ -9,6 +9,7 @@ import com.academy.educationalplatform.entity.UserRole;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.UserMapper;
+import com.academy.educationalplatform.mapper.UserRoleMapper;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.security.JwtService;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import java.util.UUID;
 
+
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;
@@ -26,13 +28,17 @@ public class UserService {
     private final UserRoleRepository userRoleRepository;
     private final UserMapper userMapper;
     private final JwtService jwtService;  //temporarily
+    private final UserRoleService userRoleService;
+    private final UserRoleMapper userRoleMapper;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper, JwtService jwtService) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper, JwtService jwtService, UserRoleService userRoleService, UserRoleMapper userRoleMapper) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.userMapper = userMapper;
         this.jwtService = jwtService;  //temporarily
+        this.userRoleService = userRoleService;
+        this.userRoleMapper = userRoleMapper;
     }
 
     public LoginResponse register(RegisterUserRequest request) {  //allocate to AuthService
@@ -41,17 +47,23 @@ public class UserService {
 
             User user = userMapper.toEntity(request);
             user.setPassword(passwordEncoder.encode(request.getPassword()));
-
             userRepository.save(user);
 
-            for (Role role : request.getRoles()) {
-                UserRole userRole = new UserRole();
-                userRole.setUserId(user.getId());
-                userRole.setRole(role);
-                userMapper.applyDefaults(userRole);
 
-                userRoleRepository.save(userRole);
+
+            List<Role> roles = request.getRoles();
+
+            if (roles == null || roles.isEmpty()) {
+                roles = List.of(Role.USER);
             }
+
+            for (Role role : roles) {
+                userRoleRepository.save(
+                        userRoleMapper.toUserRole(user.getId(), role)
+                );
+            }
+
+
 
             String accessToken = jwtService.generateToken(user, request.getRoles());
             String refreshToken = jwtService.generateRefreshToken(user, request.getRoles());
@@ -65,6 +77,39 @@ public class UserService {
             throw e;
         }
     }
+//
+//    @Transactional /*not finall*/
+//    public LoginResponse register(RegisterUserRequest request) {
+//
+//        User user = userMapper.toEntity(request);
+//
+//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+//
+//        User savedUser = userRepository.save(user);
+//
+//        userRoleService.joinRole(
+//                savedUser.getId(),
+//                Role.USER
+//        );
+//
+//        for (Role role : request.getRoles()) {
+//                UserRole userRole = new UserRole();
+//                userRole.setUserId(user.getId());
+//                userRole.setRole(role);
+//                userMapper.applyDefaults(userRole);
+//
+//                userRoleRepository.save(userRole);
+//            }
+//
+//        String accessToken = jwtService.generateToken(user, request.getRoles());
+//            String refreshToken = jwtService.generateRefreshToken(user, request.getRoles());
+//
+//            LoginResponse response = new LoginResponse();
+//            response.setAccessToken(accessToken);
+//            response.setRefreshToken(refreshToken);
+//
+//            return response;
+//    }
 
 //    public User update(UUID id, String username, String email, String phone, String password) {
 //
