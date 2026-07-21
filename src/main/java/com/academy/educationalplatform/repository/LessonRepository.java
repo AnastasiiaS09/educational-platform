@@ -1,7 +1,6 @@
 package com.academy.educationalplatform.repository;
 
 import com.academy.educationalplatform.entity.Lesson;
-import com.academy.educationalplatform.entity.LessonStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,14 +14,13 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     boolean existsById(UUID id);
 
-    Lesson findByName(String name);
+    Lesson findByLessonName(String lessonName);
 
     @Query("""
     FROM Lesson l WHERE l.moduleId = :moduleId
     ORDER BY l.lessonNumber
 """)
     List<Lesson> moduleLesson(UUID moduleId);
-    Lesson findByLessonName(String lessonName);
 
 
     @Modifying

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class LessonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AnswerRequest create(@Valid @RequestBody LessonRequest request) {
+    public AnswerRequest create(@Valid @RequestBody RegisterLessonRequest request) {
 
         return lessonService.addLesson(request);
     }
