@@ -15,6 +15,13 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     boolean existsById(UUID id);
 
+    Lesson findByName(String name);
+
+    @Query("""
+    FROM Lesson l WHERE l.moduleId = :moduleId
+    ORDER BY l.lessonNumber
+""")
+    List<Lesson> moduleLesson(UUID moduleId);
     Lesson findByLessonName(String lessonName);
 
 

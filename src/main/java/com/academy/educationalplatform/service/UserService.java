@@ -12,16 +12,12 @@ import com.academy.educationalplatform.mapper.UserMapper;
 import com.academy.educationalplatform.mapper.UserRoleMapper;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
-import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.security.JwtService;
-import jakarta.transaction.Transactional;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+
 import java.util.UUID;
 
 

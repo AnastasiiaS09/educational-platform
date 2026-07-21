@@ -21,14 +21,8 @@ public class ModuleController {
 //
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ModuleResponse create(@Valid @RequestBody ModuleRequest request) {
-        var module = moduleService.addModule(
-                request.getModuleName(),
-                request.getCourseId(),
-                request.getLessonNumber(),
-                request.getDescription()
-        );
-        return toResponse(module);
+    public AnswerRequest create(@Valid @RequestBody ModuleRequest request) {
+        return moduleService.addModule(request);
     }
 
 
@@ -49,12 +43,11 @@ public class ModuleController {
 //        var module = moduleService.update(id, request.getModuleName(), request.getCourseId(), request.getLessonNumber(), request.getDescription());
 //        return toResponse(module);
 //    }
-@PutMapping("/{id}")
-public ModuleResponse update(@PathVariable UUID id,
-                             @Valid @RequestBody ModuleUpdateRequest request) {
-    var module = moduleService.update(id, request);
-    return toResponse(module);
-}
+    @PutMapping("/{id}")
+    public ModuleResponse update(@PathVariable UUID id, @Valid @RequestBody ModuleUpdateRequest request) {
+        var module = moduleService.update(id, request);
+        return toResponse(module);
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

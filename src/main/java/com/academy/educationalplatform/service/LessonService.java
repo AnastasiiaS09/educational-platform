@@ -1,15 +1,17 @@
 package com.academy.educationalplatform.service;
 
-import com.academy.educationalplatform.dto.*;
-import com.academy.educationalplatform.entity.*;
+import com.academy.educationalplatform.dto.AnswerRequest;
+import com.academy.educationalplatform.dto.LessonRequest;
+import com.academy.educationalplatform.dto.LessonUpdateRequest;
+import com.academy.educationalplatform.entity.Lesson;
+import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.LessonMapper;
-import com.academy.educationalplatform.mapper.LessonStatusMapper;
 import com.academy.educationalplatform.repository.LessonRepository;
-import com.academy.educationalplatform.repository.LessonStatusRepository;
+import com.academy.educationalplatform.repository.ModuleRepository;
 import jakarta.transaction.Transactional;
-import org.apache.commons.lang3.ObjectUtils;
+import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -29,42 +31,35 @@ import java.util.UUID;
 @Service
 public class LessonService {
     private final LessonRepository lessonRepository;
+    private final ModuleRepository moduleRepository;
     private final LessonMapper lessonMapper;
-    private final LessonStatusRepository lessonStatusRepository;
-    private final LessonStatusMapper lessonStatusMapper;
 
-    public LessonService(LessonRepository lessonRepository, LessonMapper lessonMapper, LessonStatusRepository lessonStatusRepository, LessonStatusMapper lessonStatusMapper) {
+    public LessonService(LessonRepository lessonRepository, ModuleRepository moduleRepository, LessonMapper lessonMapper) {
         this.lessonRepository = lessonRepository;
+        this.moduleRepository = moduleRepository;
         this.lessonMapper = lessonMapper;
-        this.lessonStatusRepository = lessonStatusRepository;
-        this.lessonStatusMapper = lessonStatusMapper;
     }
 
-    public LessonResponse addLesson(RegisterLessonRequest request) {
+    public AnswerRequest addLesson(LessonRequest request) {
         try {
-            Lesson lesson = lessonMapper.toEntity(request);
-            lessonRepository.save(lesson);
+            Lesson lesson = new Lesson();
+            lesson.setName(request.getLessonName());
+            lesson.setDescription(request.getDescription());
+            lesson.setModuleId(request.getModuleId());
+            lesson.setLessonNumber(request.getLessonNumber());
 
-            List<Status> statuses = request.getStatuses();
+            Lesson savedLesson = lessonRepository.save(lesson);
 
-            if (statuses == null || statuses.isEmpty()) {
-                statuses = List.of(Status.TEXT);
-            }
+            Module module = moduleRepository.findById(savedLesson.getModuleId()).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
 
-            for (Status status : statuses) {
-                lessonStatusRepository.save(
-                        lessonStatusMapper.toLessonStatus(lesson.getId(), status)
-                );
-            }
+            module.setLessonNumber(module.getLessonNumber()+1);
+            moduleRepository.save(module);
 
-            LessonResponse lessonResponse = new LessonResponse();
-            lessonResponse.setId(lesson.getId());
-            lessonResponse.setLessonName(lesson.getLessonName());
-            lessonResponse.setDescription(lesson.getDescription());
-            lessonResponse.setModuleId(lesson.getModuleId());
-            lessonResponse.setLessonNumber(lesson.getLessonNumber());
+            AnswerRequest answer = new AnswerRequest();
+            answer.setText("Lesson was added successfully");
 
-            return lessonResponse;
+            return answer;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -121,8 +116,21 @@ public class LessonService {
     public List<Lesson> getAll() {
         try {
             List<Lesson> lessonList = lessonRepository.findAll();
-            return lessonList;
 
+            return lessonList;
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    public List<Lesson> getModuleLesson(UUID moduleId) {
+        try {
+            if(!moduleRepository.existsById(moduleId)) {
+                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
+            }
+            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
+
+            return moduleLessonList;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -180,15 +188,6 @@ public class LessonService {
         } catch (IOException e) {
 
             throw PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND);
-        }
-    }
-
-    public void deleteVideo(UUID lessonId) {
-        try {
-
-            lessonRepository.deleteVideoByLessonId(lessonId);
-        } catch (Exception e) {
-            throw e;
         }
     }
 }

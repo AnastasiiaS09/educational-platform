@@ -25,16 +25,10 @@ public class LessonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LessonResponse create(@Valid @RequestBody RegisterLessonRequest request) {
-//        Lesson lesson = lessonService.addLesson(
-//                request.getLessonName(),
-//                request.getModuleId(),
-//                request.getDescription(),
-//                request.getLessonNumber()
-//        );
+    public AnswerRequest create(@Valid @RequestBody LessonRequest request) {
+
         return lessonService.addLesson(request);
     }
-
 
 
     @GetMapping("/{id}")
@@ -45,6 +39,13 @@ public class LessonController {
     @GetMapping
     public List<LessonResponse> getAll() {
         return lessonService.getAll().stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @GetMapping("/{moduleId}")
+    public List<LessonResponse> getModuleLesson(UUID moduleId) {
+        return lessonService.getModuleLesson(moduleId).stream()
                 .map(this::toResponse)
                 .toList();
     }
@@ -89,10 +90,5 @@ public class LessonController {
     public ResponseEntity<Resource> getPoster(@PathVariable UUID id) {
 
         return lessonService.getPoster(id);
-    }
-
-    @DeleteMapping("/{id}/video")
-    public void deleteVideo(@PathVariable UUID id) {
-        lessonService.deleteVideo(id);
     }
 }
