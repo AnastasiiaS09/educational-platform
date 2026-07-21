@@ -65,8 +65,8 @@ public class UserService {
 
 
 
-            String accessToken = jwtService.generateToken(user, request.getRoles());
-            String refreshToken = jwtService.generateRefreshToken(user, request.getRoles());
+            String accessToken = jwtService.generateToken(user, roles);
+            String refreshToken = jwtService.generateRefreshToken(user, roles);
 
             LoginResponse response = new LoginResponse();
             response.setAccessToken(accessToken);
@@ -78,7 +78,7 @@ public class UserService {
         }
     }
 //
-//    @Transactional /*not finall*/
+//    @Transactional /*not final*/
 //    public LoginResponse register(RegisterUserRequest request) {
 //
 //        User user = userMapper.toEntity(request);

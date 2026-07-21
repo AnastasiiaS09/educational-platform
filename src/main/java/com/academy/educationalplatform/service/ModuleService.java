@@ -31,7 +31,7 @@ public class ModuleService {
 
             Module module = new Module();
             module.setCourseId(request.getCourseId());
-            module.setName(request.getModuleName());
+            module.setModuleName(request.getModuleName());
             module.setLessonNumber(request.getLessonNumber());
             module.setDescription(request.getDescription());
 
