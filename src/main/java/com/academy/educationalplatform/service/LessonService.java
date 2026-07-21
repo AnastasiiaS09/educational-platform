@@ -1,12 +1,15 @@
 package com.academy.educationalplatform.service;
 
-import com.academy.educationalplatform.dto.LessonUpdateRequest;
-import com.academy.educationalplatform.entity.Lesson;
+import com.academy.educationalplatform.dto.*;
+import com.academy.educationalplatform.entity.*;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.LessonMapper;
+import com.academy.educationalplatform.mapper.LessonStatusMapper;
 import com.academy.educationalplatform.repository.LessonRepository;
+import com.academy.educationalplatform.repository.LessonStatusRepository;
 import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -27,21 +30,41 @@ import java.util.UUID;
 public class LessonService {
     private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
+    private final LessonStatusRepository lessonStatusRepository;
+    private final LessonStatusMapper lessonStatusMapper;
 
-    public LessonService(LessonRepository lessonRepository, LessonMapper lessonMapper) {
+    public LessonService(LessonRepository lessonRepository, LessonMapper lessonMapper, LessonStatusRepository lessonStatusRepository, LessonStatusMapper lessonStatusMapper) {
         this.lessonRepository = lessonRepository;
         this.lessonMapper = lessonMapper;
+        this.lessonStatusRepository = lessonStatusRepository;
+        this.lessonStatusMapper = lessonStatusMapper;
     }
 
-    public Lesson addLesson(String name, UUID moduleId, String description, int lessonNumber) {
+    public LessonResponse addLesson(RegisterLessonRequest request) {
         try {
-            Lesson lesson = new Lesson();
-            lesson.setLessonName(name);
-            lesson.setDescription(description);
-            lesson.setModuleId(moduleId);
-            lesson.setLessonNumber(lessonNumber);
+            Lesson lesson = lessonMapper.toEntity(request);
+            lessonRepository.save(lesson);
 
-            return lessonRepository.save(lesson);
+            List<Status> statuses = request.getStatuses();
+
+            if (statuses == null || statuses.isEmpty()) {
+                statuses = List.of(Status.TEXT);
+            }
+
+            for (Status status : statuses) {
+                lessonStatusRepository.save(
+                        lessonStatusMapper.toLessonStatus(lesson.getId(), status)
+                );
+            }
+
+            LessonResponse lessonResponse = new LessonResponse();
+            lessonResponse.setId(lesson.getId());
+            lessonResponse.setLessonName(lesson.getLessonName());
+            lessonResponse.setDescription(lesson.getDescription());
+            lessonResponse.setModuleId(lesson.getModuleId());
+            lessonResponse.setLessonNumber(lesson.getLessonNumber());
+
+            return lessonResponse;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -157,6 +180,15 @@ public class LessonService {
         } catch (IOException e) {
 
             throw PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND);
+        }
+    }
+
+    public void deleteVideo(UUID lessonId) {
+        try {
+
+            lessonRepository.deleteVideoByLessonId(lessonId);
+        } catch (Exception e) {
+            throw e;
         }
     }
 }
