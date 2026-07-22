@@ -12,7 +12,7 @@ public final class ApiMapper {
     public static UserResponse toUserResponse(User user) {
         return new UserResponse(
             user.getId(),
-            user.getUsername(),
+            user.getUserName(),
             user.getEmail(),
             user.getPhone()
         );

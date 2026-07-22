@@ -15,7 +15,7 @@ import lombok.Setter;
 public class UpdateUserRequest {
 //
     @Size(max = 120)
-    private String username;
+    private String userName;
 
     @Email
     private String email;

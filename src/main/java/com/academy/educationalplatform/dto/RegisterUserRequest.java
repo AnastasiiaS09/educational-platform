@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RegisterUserRequest {
     @NotBlank
-    private String username;
+    private String userName;
 
     @NotBlank
     @Email
