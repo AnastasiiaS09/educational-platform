@@ -1,23 +1,18 @@
 package com.academy.educationalplatform.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-    private UUID id;
+public class RefreshRequest {
 
-    private String userName;
+    @NotBlank
+    private String refreshToken;
 
-    private String email;
-
-    private String phone;
 }

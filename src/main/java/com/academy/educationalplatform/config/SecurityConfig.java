@@ -13,35 +13,70 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JsonSecurityHandlers jsonSecurityHandlers;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, JsonSecurityHandlers jsonSecurityHandlers) {
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            JsonSecurityHandlers jsonSecurityHandlers
+    ) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.jsonSecurityHandlers = jsonSecurityHandlers;
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .anyRequest().authenticated())
+
+                        // Логин
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/auth/login"
+                        ).permitAll()
+
+                        // Обновление токена
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/auth/refresh"
+                        ).permitAll()
+
+                        // Регистрация
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/users"
+                        ).permitAll()
+
+                        .anyRequest().authenticated()
+                )
+
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(jsonSecurityHandlers)
-                        .accessDeniedHandler(jsonSecurityHandlers))
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                        .accessDeniedHandler(jsonSecurityHandlers)
+                )
+
+                .addFilterBefore(
+                        jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
+
 
         return http.build();
     }
