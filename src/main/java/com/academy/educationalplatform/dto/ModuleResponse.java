@@ -19,7 +19,7 @@ public class ModuleResponse {
 
     private String description;
 
-    private int lessonNumbers;
+    private int lessonQuantity;
 
     private UUID courseId;
 

@@ -22,6 +22,8 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 """)
     List<Lesson> moduleLesson(UUID moduleId);
 
+    void deleteAllByModuleId(UUID moduleId);
+
 
     @Modifying
     @Transactional
