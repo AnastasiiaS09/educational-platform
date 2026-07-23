@@ -20,9 +20,8 @@ public class ModuleUpdateRequest {
 
     private String description;
 
-    @NotNull
     @PositiveOrZero
-    private int lessonNumber;
+    private int lessonQuantity;
 
     private UUID courseId;
 }

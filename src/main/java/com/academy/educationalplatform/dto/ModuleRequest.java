@@ -21,7 +21,7 @@ public class ModuleRequest {
     private String description;
 
     @PositiveOrZero
-    private int lessonNumber;
+    private int lessonQuantity;
 
     private UUID courseId;
 

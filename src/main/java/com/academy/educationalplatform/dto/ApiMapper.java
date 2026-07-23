@@ -44,7 +44,7 @@ public final class ApiMapper {
                 module.getId(),
                 module.getModuleName(),
                 module.getDescription(),
-                module.getLessonNumber(),
+                module.getLessonQuantity(),
                 module.getCourseId()
         );
     }

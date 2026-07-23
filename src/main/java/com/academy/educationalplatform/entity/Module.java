@@ -18,7 +18,7 @@ public class Module {
 
     private UUID courseId;
 
-    private int lessonNumber;
+    private int lessonQuantity;
 
     private String description;
 }

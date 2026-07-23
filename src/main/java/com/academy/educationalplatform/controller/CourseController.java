@@ -46,6 +46,7 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public CourseResponse update(@PathVariable UUID id,
                                @Valid @RequestBody CourseUpdateRequest request) {
         var course = courseService.update(id, request);
