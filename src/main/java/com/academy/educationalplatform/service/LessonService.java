@@ -53,7 +53,6 @@ public class LessonService {
             lessonRepository.save(lesson);
 
 
-
             List<Status> statuses = request.getStatuses();
 
             if (statuses == null || statuses.isEmpty()) {
@@ -69,7 +68,7 @@ public class LessonService {
             Module module = moduleRepository.findById(lesson.getModuleId()).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
 
-            module.setLessonNumber(module.getLessonNumber()+1);
+            module.setLessonNumber(module.getLessonNumber() + 1);
             moduleRepository.save(module);
 
             AnswerRequest answer = new AnswerRequest();
@@ -103,7 +102,7 @@ public class LessonService {
                 .orElseThrow(() ->
                         PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND));
 
-       lessonMapper.updateLessonFromDto(request,lesson);
+        lessonMapper.updateLessonFromDto(request, lesson);
 
         return lessonRepository.save(lesson);
     }
@@ -141,7 +140,7 @@ public class LessonService {
 
     public List<Lesson> getModuleLesson(UUID moduleId) {
         try {
-            if(!moduleRepository.existsById(moduleId)) {
+            if (!moduleRepository.existsById(moduleId)) {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             }
             List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
@@ -151,9 +150,6 @@ public class LessonService {
             throw e;
         }
     }
-
-
-
 
 
     @Transactional
@@ -184,6 +180,7 @@ public class LessonService {
             throw PlatformException.of(PlatformErrorCode.FILE_UPLOAD_FAILED);
         }
     }
+
     public ResponseEntity<Resource> getPoster(UUID lessonId) {
 
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND));
@@ -205,5 +202,9 @@ public class LessonService {
 
             throw PlatformException.of(PlatformErrorCode.POSTER_NOT_FOUND);
         }
+    }
+
+    public void deleteVideo(UUID lessonId) {
+        lessonRepository.deleteVideoByLessonId(lessonId);
     }
 }
