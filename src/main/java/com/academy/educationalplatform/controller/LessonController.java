@@ -96,4 +96,9 @@ public class LessonController {
 
         return lessonService.getPoster(id);
     }
+
+    @DeleteMapping("/{id}/video")
+    public void deleteVideo(@PathVariable UUID id){
+        lessonService.deleteVideo(id);
+    }
 }
