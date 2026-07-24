@@ -38,6 +38,7 @@ public class ModuleService {
             module.setModuleName(request.getModuleName());
             module.setLessonQuantity(request.getLessonQuantity());
             module.setDescription(request.getDescription());
+            module.setModuleNumber(request.getModuleNumber());
 
             Course course = courseRepository.findById(request.getCourseId()).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND));

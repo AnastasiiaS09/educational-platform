@@ -44,7 +44,7 @@ public class LessonService {
             lessonRepository.save(lesson);
 
             module.setLessonQuantity(module.getLessonQuantity() + 1);
-
+//             module.setLessonQuantity(module.getLessonQuantity()+1);
             moduleRepository.save(module);
 
             AnswerRequest answer = new AnswerRequest();
@@ -126,12 +126,12 @@ public class LessonService {
         }
     }
 
-    public List<Lesson> getModuleLesson(UUID id) {
+    public List<Lesson> getModuleLesson(UUID moduleId) {
         try {
             Module module = moduleRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             });
-            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(id);
+            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
 
             return moduleLessonList;
         } catch (RuntimeException e) {
