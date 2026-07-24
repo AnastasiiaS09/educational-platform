@@ -22,7 +22,7 @@ public class EnglishTestService {
         this.englishTestMapper = englishTestMapper;
     }
 
-    public EnglishTest addTest(String name, String description) {
+    public EnglishTest addTest(String name, String description, int questionQuantity) {
         try {
             if (englishTestRepository.existsByName(name)) {
                 throw PlatformException.of(PlatformErrorCode.TEST_ALREADY_EXISTS);
@@ -31,6 +31,7 @@ public class EnglishTestService {
             EnglishTest englishTest = new EnglishTest();
             englishTest.setName(name);
             englishTest.setDescription(description);
+            englishTest.setQuestionQuantity(questionQuantity);
 
             return englishTestRepository.save(englishTest);
         } catch (RuntimeException e) {

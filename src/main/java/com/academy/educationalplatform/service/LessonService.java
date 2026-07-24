@@ -128,7 +128,7 @@ public class LessonService {
 
     public List<Lesson> getModuleLesson(UUID moduleId) {
         try {
-            Module module = moduleRepository.findById(id).orElseThrow(() -> {
+            Module module = moduleRepository.findById(moduleId).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             });
             List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
