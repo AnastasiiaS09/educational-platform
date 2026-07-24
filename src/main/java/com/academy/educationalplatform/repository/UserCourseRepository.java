@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserCourseRepository extends JpaRepository<UserCourse, UUID> {
-    UserCourse save(UserCourse userCourse);
 
     boolean existsByUserId(UUID userId);
 
@@ -18,8 +17,6 @@ public interface UserCourseRepository extends JpaRepository<UserCourse, UUID> {
 
     @Query("FROM UserCourse uc WHERE uc.courseId = :courseId")
     List<UserCourse> findAllByCourseId(UUID courseId);
-
-    void deleteById(UUID id);
 
     void deleteByUserId(UUID userId);
 }
