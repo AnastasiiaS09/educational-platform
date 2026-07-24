@@ -1,7 +1,6 @@
 package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.dto.AnswerRequest;
-import com.academy.educationalplatform.dto.LessonRequest;
 import com.academy.educationalplatform.dto.LessonUpdateRequest;
 import com.academy.educationalplatform.dto.RegisterLessonRequest;
 import com.academy.educationalplatform.entity.*;
@@ -9,12 +8,9 @@ import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.LessonMapper;
-import com.academy.educationalplatform.mapper.LessonStatusMapper;
 import com.academy.educationalplatform.repository.LessonRepository;
-import com.academy.educationalplatform.repository.LessonStatusRepository;
 import com.academy.educationalplatform.repository.ModuleRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -23,47 +19,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class LessonService {
     private final LessonRepository lessonRepository;
-    private final LessonStatusMapper lessonStatusMapper;
     private final ModuleRepository moduleRepository;
     private final LessonMapper lessonMapper;
-    private final LessonStatusRepository lessonStatusRepository;
 
-    public LessonService(LessonRepository lessonRepository, LessonStatusMapper lessonStatusMapper, ModuleRepository moduleRepository, LessonMapper lessonMapper, LessonStatusRepository lessonStatusRepository) {
+    public LessonService(LessonRepository lessonRepository, ModuleRepository moduleRepository, LessonMapper lessonMapper) {
         this.lessonRepository = lessonRepository;
-        this.lessonStatusMapper = lessonStatusMapper;
         this.moduleRepository = moduleRepository;
         this.lessonMapper = lessonMapper;
-        this.lessonStatusRepository = lessonStatusRepository;
     }
 
     public AnswerRequest addLesson(RegisterLessonRequest request) {
         try {
             Lesson lesson = lessonMapper.toEntity(request);
             lessonRepository.save(lesson);
-
-
-            List<Status> statuses = request.getStatuses();
-
-            if (statuses == null || statuses.isEmpty()) {
-                statuses = List.of(Status.TEXT);
-            }
-
-            for (Status status : statuses) {
-                lessonStatusRepository.save(
-                        lessonStatusMapper.toLessonStatus(lesson.getId(), status)
-                );
-            }
 
             Module module = moduleRepository.findById(lesson.getModuleId()).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));

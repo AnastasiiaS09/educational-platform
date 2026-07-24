@@ -1,5 +1,8 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.Type;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +28,9 @@ public class LessonRequest {
 
     @PositiveOrZero
     private int lessonNumber;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
 }

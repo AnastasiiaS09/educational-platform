@@ -55,7 +55,8 @@ public final class ApiMapper {
                 lesson.getLessonName(),
                 lesson.getDescription(),
                 lesson.getModuleId(),
-                lesson.getLessonNumber()
+                lesson.getLessonNumber(),
+                lesson.getType()
         );
     }
 
@@ -73,14 +74,6 @@ public final class ApiMapper {
                 userRole.getId(),
                 userRole.getUserId(),
                 userRole.getRole()
-        );
-    }
-
-    public static LessonStatusResponse toLessonStatusResponse(LessonStatus lessonStatus) {
-        return new LessonStatusResponse(
-                lessonStatus.getId(),
-                lessonStatus.getLessonId(),
-                lessonStatus.getStatus()
         );
     }
 
