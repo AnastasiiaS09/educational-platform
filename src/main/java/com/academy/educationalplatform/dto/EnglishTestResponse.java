@@ -1,5 +1,7 @@
 package com.academy.educationalplatform.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +20,7 @@ public class EnglishTestResponse {
     private String testName;
 
     private String description;
+
+    private int questionQuantity;
 
 }

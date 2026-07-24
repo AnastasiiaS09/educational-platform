@@ -83,7 +83,8 @@ public final class ApiMapper {
         return new EnglishTestResponse(
                 englishTest.getId(),
                 englishTest.getName(),
-                englishTest.getDescription()
+                englishTest.getDescription(),
+                englishTest.getQuestionQuantity()
         );
     }
     public static UserCourseResponse toUserCourseResponse(UserCourse userCourse) {

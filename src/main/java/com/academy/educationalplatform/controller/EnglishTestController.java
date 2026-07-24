@@ -21,7 +21,8 @@ public class EnglishTestController {
     public EnglishTestResponse create(@Valid @RequestBody EnglishTestRequest request) {
         var test = englishTestService.addTest(
                 request.getTestName(),
-                request.getDescription()
+                request.getDescription(),
+                request.getQuestionQuantity()
         );
         return toResponse(test);
     }

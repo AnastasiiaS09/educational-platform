@@ -17,4 +17,6 @@ public class EnglishTest {
     private String name;
 
     private String description;
+
+    private int questionQuantity;
 }
