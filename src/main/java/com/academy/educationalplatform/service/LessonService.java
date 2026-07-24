@@ -37,11 +37,11 @@ public class LessonService {
 
     public AnswerRequest addLesson(RegisterLessonRequest request) {
         try {
+            Module module = moduleRepository.findById(request.getModuleId()).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
+
             Lesson lesson = lessonMapper.toEntity(request);
             lessonRepository.save(lesson);
-
-            Module module = moduleRepository.findById(lesson.getModuleId()).orElseThrow(() ->
-                    PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
 
             module.setLessonQuantity(module.getLessonQuantity() + 1);
 //             module.setLessonQuantity(module.getLessonQuantity()+1);
@@ -91,6 +91,7 @@ public class LessonService {
     }
 
 
+    @Transactional
     public AnswerRequest deleteLesson(UUID id) {
         try {
             if (!lessonRepository.existsById(id)) {
@@ -98,11 +99,12 @@ public class LessonService {
             }
 
             Module module = moduleRepository.findById(lessonRepository.findById(id).get().getModuleId()).orElseThrow(() -> {
-                throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
+                throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             });
-            module.setLessonQuantity(module.getLessonQuantity()-1);
-            moduleRepository.save(module);
 
+            module.setLessonQuantity(module.getLessonQuantity()-1);
+
+            moduleRepository.save(module);
             lessonRepository.deleteById(id);
 
             AnswerRequest answer = new AnswerRequest();
@@ -126,7 +128,7 @@ public class LessonService {
 
     public List<Lesson> getModuleLesson(UUID moduleId) {
         try {
-            Module module = moduleRepository.findById(moduleId).orElseThrow(() -> {
+            Module module = moduleRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             });
             List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);

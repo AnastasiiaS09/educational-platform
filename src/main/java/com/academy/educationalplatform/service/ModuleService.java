@@ -11,6 +11,7 @@ import com.academy.educationalplatform.repository.CourseRepository;
 import com.academy.educationalplatform.repository.LessonRepository;
 import com.academy.educationalplatform.repository.ModuleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -90,11 +91,15 @@ public class ModuleService {
            PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
     }
 
+    @Transactional
     public void deleteModule(UUID id) {
         try {
             if (!moduleRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND, id);
             }
+            Course course = courseRepository.findById(moduleRepository.findById(id).get().getCourseId()).orElseThrow(() ->
+                    PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND));
+            course.setModuleQuantity(course.getModuleQuantity()+1);
             lessonRepository.deleteAllByModuleId(id);
 
             moduleRepository.deleteById(id);
