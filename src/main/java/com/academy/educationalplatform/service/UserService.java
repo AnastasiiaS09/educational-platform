@@ -10,11 +10,13 @@ import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.UserMapper;
 import com.academy.educationalplatform.mapper.UserRoleMapper;
+import com.academy.educationalplatform.repository.UserCourseRepository;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,15 +28,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final UserCourseRepository userCourseRepository;
     private final UserMapper userMapper;
     private final JwtService jwtService;  //temporarily
     private final UserRoleService userRoleService;
     private final UserRoleMapper userRoleMapper;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper, JwtService jwtService, UserRoleService userRoleService, UserRoleMapper userRoleMapper) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserCourseRepository userCourseRepository, UserMapper userMapper, JwtService jwtService, UserRoleService userRoleService, UserRoleMapper userRoleMapper) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.userCourseRepository = userCourseRepository;
         this.userMapper = userMapper;
         this.jwtService = jwtService;  //temporarily
         this.userRoleService = userRoleService;
@@ -142,9 +146,15 @@ public User update(UUID id, UpdateUserRequest request) {
 
 
 
+    @Transactional
     public void delById(UUID id) {
 
         try {
+            if(!userRepository.existsById(id)) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
+            userRoleRepository.deleteByUserId(id);
+            userCourseRepository.deleteByUserId(id);
             userRepository.deleteById(id);
         } catch (RuntimeException e) {
             throw e;
