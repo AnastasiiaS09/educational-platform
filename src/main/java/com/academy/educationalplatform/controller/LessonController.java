@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,7 @@ public class LessonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public AnswerRequest create(@Valid @RequestBody RegisterLessonRequest request) {
 
         return lessonService.addLesson(request);
@@ -44,8 +46,8 @@ public class LessonController {
                 .toList();
     }
 
-    @GetMapping("/{moduleId}")
-    public List<LessonResponse> getModuleLesson(UUID moduleId) {
+    @GetMapping("/{moduleId}/module")
+    public List<LessonResponse> getModuleLesson(@PathVariable UUID moduleId) {
         return lessonService.getModuleLesson(moduleId).stream()
                 .map(this::toResponse)
                 .toList();
@@ -58,6 +60,7 @@ public class LessonController {
 //    }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public LessonResponse update(@PathVariable UUID id,
                                  @Valid @RequestBody LessonUpdateRequest request) {
         var lesson = lessonService.update(id, request);
@@ -66,8 +69,9 @@ public class LessonController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
-        lessonService.deleteLesson(id);
+    @PreAuthorize("hasRole('ADMIN')")
+    public AnswerRequest delete(@PathVariable UUID id) {
+        return lessonService.deleteLesson(id);
     }
 
     private LessonResponse toResponse(Lesson lesson) {

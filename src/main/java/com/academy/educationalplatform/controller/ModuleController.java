@@ -5,6 +5,7 @@ import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.service.ModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +19,10 @@ public class ModuleController {
     public ModuleController(ModuleService moduleService) {
         this.moduleService = moduleService;
     }
-//
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public AnswerRequest create(@Valid @RequestBody ModuleRequest request) {
         return moduleService.addModule(request);
     }
@@ -44,6 +46,7 @@ public class ModuleController {
 //        return toResponse(module);
 //    }
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModuleResponse update(@PathVariable UUID id, @Valid @RequestBody ModuleUpdateRequest request) {
         var module = moduleService.update(id, request);
         return toResponse(module);
@@ -51,6 +54,7 @@ public class ModuleController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable UUID id) {
        moduleService.deleteModule(id);
     }

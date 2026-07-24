@@ -44,6 +44,7 @@ public class LessonService {
                     PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
 
             module.setLessonNumber(module.getLessonNumber() + 1);
+//             module.setLessonQuantity(module.getLessonQuantity()+1);
             moduleRepository.save(module);
 
             AnswerRequest answer = new AnswerRequest();
@@ -90,14 +91,24 @@ public class LessonService {
     }
 
 
-    public void deleteLesson(UUID id) {
+    public AnswerRequest deleteLesson(UUID id) {
         try {
             if (!lessonRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
             }
 
+            Module module = moduleRepository.findById(lessonRepository.findById(id).get().getModuleId()).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.LESSON_NOT_FOUND);
+            });
+            module.setLessonQuantity(module.getLessonQuantity()-1);
+            moduleRepository.save(module);
+
             lessonRepository.deleteById(id);
-            System.out.println("Lesson was deleted successfully");
+
+            AnswerRequest answer = new AnswerRequest();
+            answer.setText("Lesson was deleted successfully");
+
+            return answer;
         } catch (RuntimeException e) {
             throw e;
         }
@@ -113,12 +124,13 @@ public class LessonService {
         }
     }
 
-    public List<Lesson> getModuleLesson(UUID moduleId) {
+    public List<Lesson> getModuleLesson(UUID id) {
         try {
             if (!moduleRepository.existsById(moduleId)) {
+            Module module = moduleRepository.findById(id).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
-            }
-            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
+            });
+            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(id);
 
             return moduleLessonList;
         } catch (RuntimeException e) {
