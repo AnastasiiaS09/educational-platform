@@ -51,7 +51,9 @@
         <sqlFile path="db/changelog/011__Create_User_English_Test_Results.sql"/>
     </changeSet>
 
-
+    <changeSet id="012" author="myUser">
+        <sqlFile path="db/changelog/011__Create_Answer_Options.sql"/>
+    </changeSet>
 
 
 </databaseChangeLog>

@@ -17,6 +17,4 @@ public class EnglishTestQuestionResponse {
     private UUID testId;
 
     private int questionNumber;
-
-    private String correctAnswer;
 }
