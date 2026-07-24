@@ -21,4 +21,6 @@ public class Module {
     private int lessonQuantity;
 
     private String description;
+
+    private int moduleNumber;
 }

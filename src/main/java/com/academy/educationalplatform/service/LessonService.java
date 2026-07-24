@@ -43,7 +43,7 @@ public class LessonService {
             Module module = moduleRepository.findById(lesson.getModuleId()).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND));
 
-            module.setLessonNumber(module.getLessonNumber() + 1);
+            module.setLessonQuantity(module.getLessonQuantity() + 1);
 //             module.setLessonQuantity(module.getLessonQuantity()+1);
             moduleRepository.save(module);
 
@@ -124,13 +124,12 @@ public class LessonService {
         }
     }
 
-    public List<Lesson> getModuleLesson(UUID id) {
+    public List<Lesson> getModuleLesson(UUID moduleId) {
         try {
-            if (!moduleRepository.existsById(moduleId)) {
-            Module module = moduleRepository.findById(id).orElseThrow(() -> {
+            Module module = moduleRepository.findById(moduleId).orElseThrow(() -> {
                 throw PlatformException.of(PlatformErrorCode.MODULE_NOT_FOUND);
             });
-            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(id);
+            List<Lesson> moduleLessonList = lessonRepository.moduleLesson(moduleId);
 
             return moduleLessonList;
         } catch (RuntimeException e) {

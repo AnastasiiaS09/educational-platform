@@ -26,7 +26,7 @@ public class LessonRequest {
     @NotNull
     private UUID moduleId;
 
-    @PositiveOrZero
+    @Positive
     private int lessonNumber;
 
     @NotNull

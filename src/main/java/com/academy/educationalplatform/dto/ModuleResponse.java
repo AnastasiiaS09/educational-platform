@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,7 @@ public class ModuleResponse {
     private int lessonQuantity;
 
     private UUID courseId;
+
+    private int moduleNumber;
 
 }

@@ -24,4 +24,7 @@ public class ModuleUpdateRequest {
     private int lessonQuantity;
 
     private UUID courseId;
+
+    @Positive
+    private int moduleNumber;
 }
