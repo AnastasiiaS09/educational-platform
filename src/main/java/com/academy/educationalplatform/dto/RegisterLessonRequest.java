@@ -1,7 +1,8 @@
 package com.academy.educationalplatform.dto;
 
-import com.academy.educationalplatform.entity.LessonStatus;
-import com.academy.educationalplatform.entity.Status;
+import com.academy.educationalplatform.entity.Type;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -32,5 +33,7 @@ public class RegisterLessonRequest {
     @PositiveOrZero
     private int lessonNumber;
 
-    private List<Status> statuses;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Type type;
 }

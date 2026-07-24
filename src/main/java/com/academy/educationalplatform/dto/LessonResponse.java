@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.Type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class LessonResponse {
     private UUID moduleId;
 
     private int lessonNumber;
+
+    private Type type;
 }

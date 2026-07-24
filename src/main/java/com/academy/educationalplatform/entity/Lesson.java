@@ -25,4 +25,7 @@ public class Lesson {
 
     private String posterVideo;
 
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
 }

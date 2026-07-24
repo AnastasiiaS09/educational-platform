@@ -1,6 +1,12 @@
 package com.academy.educationalplatform.dto;
 
-import jakarta.validation.constraints.*;
+import com.academy.educationalplatform.entity.Type;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +27,8 @@ public class LessonUpdateRequest {
 
     private UUID moduleId;
 
-    @PositiveOrZero
     private int lessonNumber;
 
-    private String posterVideo;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 }

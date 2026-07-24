@@ -1,6 +1,6 @@
 package com.academy.educationalplatform.entity;
 
-public enum Status {
+public enum Type {
     TEXT,
     VIDEO,
     TEST
