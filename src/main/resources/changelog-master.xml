@@ -52,7 +52,7 @@
     </changeSet>
 
     <changeSet id="012" author="myUser">
-        <sqlFile path="db/changelog/011__Create_Answer_Options.sql"/>
+        <sqlFile path="db/changelog/012__Create_Answer_Options.sql"/>
     </changeSet>
 
 

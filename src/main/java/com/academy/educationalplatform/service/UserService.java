@@ -14,6 +14,7 @@ import com.academy.educationalplatform.repository.UserCourseRepository;
 import com.academy.educationalplatform.repository.UserRepository;
 import com.academy.educationalplatform.repository.UserRoleRepository;
 import com.academy.educationalplatform.security.JwtService;
+import com.academy.educationalplatform.security.SecurityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -152,6 +153,8 @@ public User update(UUID id, UpdateUserRequest request) {
         try {
             if(!userRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }  if (!SecurityUtils.currentUser().equals(id) || !SecurityUtils.isAdmin()) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
             userRoleRepository.deleteByUserId(id);
             userCourseRepository.deleteByUserId(id);
@@ -164,6 +167,9 @@ public User update(UUID id, UpdateUserRequest request) {
     public List<User> getAll() {
 
         try {
+            if (!SecurityUtils.isAdmin()) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
 
             List<User> users = userRepository.findAll();
 
@@ -209,6 +215,7 @@ public User update(UUID id, UpdateUserRequest request) {
             throw e;
         }
     }
+
 
     public List<Role> findRolesByUserId(UUID userId) {
         return userRoleRepository.findAllByUserId(userId)
