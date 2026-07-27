@@ -99,6 +99,7 @@ public final class ApiMapper {
         return new EnglishTestQuestionResponse(
                 englishTestQuestion.getId(),
                 englishTestQuestion.getTestId(),
+                englishTestQuestion.getQuestionText(),
                 englishTestQuestion.getQuestionNumber()
         );
     }

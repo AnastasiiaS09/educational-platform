@@ -43,7 +43,7 @@ public class LessonService {
             Lesson lesson = lessonMapper.toEntity(request);
             lessonRepository.save(lesson);
 
-            module.setLessonQuantity(module.getLessonQuantity()+1);
+            module.setLessonQuantity(module.getLessonQuantity() + 1);
             moduleRepository.save(module);
 
             AnswerRequest answer = new AnswerRequest();

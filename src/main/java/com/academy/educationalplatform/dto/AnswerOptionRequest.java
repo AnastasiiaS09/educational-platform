@@ -1,8 +1,10 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.OptionCorrectness;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,15 +16,14 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterEnglishQuestionRequest {
+public class AnswerOptionRequest {
     @NotNull
-    private UUID testId;
+    private UUID questionId;
 
     @NotBlank
-    @Size(max = 255)
-    private String questionText;
+    private String optionText;
 
-    @NotNull
-    private int questionNumber;
-
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private OptionCorrectness optionCorrectness;
 }

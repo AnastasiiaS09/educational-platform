@@ -19,10 +19,9 @@ public class EnglishTestQuestionRequest {
     @NotNull
     private UUID testId;
 
+    @NotBlank
+    private String questionText;
+
     @NotNull
     private int questionNumber;
-
-    @NotBlank
-    @Size(max = 255)
-    private String correctAnswer;
 }
