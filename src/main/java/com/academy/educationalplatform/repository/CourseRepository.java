@@ -8,13 +8,7 @@ import java.util.UUID;
 
 public interface CourseRepository extends JpaRepository<Course, UUID> {
 
-    Course save(Course course);
-
     boolean existsByCourseName(String courseName);
 
     Course findByCourseName(String courseName);
-
-    void deleteById(UUID id);
-
-    List<Course> findAll();
 }
