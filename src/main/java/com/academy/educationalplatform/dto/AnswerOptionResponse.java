@@ -1,5 +1,6 @@
 package com.academy.educationalplatform.dto;
 
+import com.academy.educationalplatform.entity.OptionCorrectness;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +12,12 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnglishTestQuestionResponse {
+public class AnswerOptionResponse {
     private UUID id;
 
-    private UUID testId;
+    private UUID questionId;
 
-    private String questionText;
+    private String optionText;
 
-    private int questionNumber;
+    private OptionCorrectness optionCorrectness;
 }

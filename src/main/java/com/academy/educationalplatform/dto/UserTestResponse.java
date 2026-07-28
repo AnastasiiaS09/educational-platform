@@ -11,12 +11,12 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnglishTestQuestionResponse {
+public class UserTestResponse {
     private UUID id;
+
+    private UUID userId;
 
     private UUID testId;
 
-    private String questionText;
-
-    private int questionNumber;
+    private double result;
 }

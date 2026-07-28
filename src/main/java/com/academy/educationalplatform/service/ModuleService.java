@@ -99,7 +99,7 @@ public class ModuleService {
             }
             Course course = courseRepository.findById(moduleRepository.findById(id).get().getCourseId()).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND));
-            course.setModuleQuantity(course.getModuleQuantity()+1);
+            course.setModuleQuantity(course.getModuleQuantity()-1);
             lessonRepository.deleteAllByModuleId(id);
 
             moduleRepository.deleteById(id);
