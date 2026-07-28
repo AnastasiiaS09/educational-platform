@@ -25,7 +25,6 @@ public class EnglishTestRequest {
 
     private String description;
 
-    @Positive
     private int questionQuantity;
 
 }

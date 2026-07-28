@@ -30,8 +30,8 @@ public class EnglishTestQuestionController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteEnglishTestQuestion(@RequestBody UUID id) {
-
+    public void deleteEnglishTestQuestion(@PathVariable UUID id) {
+        englishTestQuestionService.deleteQuestion(id);
     }
 
     private EnglishTestQuestionResponse toResponse(EnglishTestQuestion englishTestQuestion) {

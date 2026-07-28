@@ -19,12 +19,10 @@ public class RegisterEnglishQuestionRequest {
     private UUID testId;
 
     @NotBlank
+    @Size(max = 255)
     private String questionText;
 
     @NotNull
     private int questionNumber;
 
-    @NotBlank
-    @Size(max = 255)
-    private String correctAnswer;
 }
