@@ -3,6 +3,7 @@ package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.Course;
+import com.academy.educationalplatform.entity.Lesson;
 import com.academy.educationalplatform.entity.Module;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
@@ -108,11 +109,37 @@ public class ModuleService {
         }
     }
 
+    /*public List<Lesson> getCourseModule(UUID courseId) {
+        try {
+            courseRepository.findById(courseId).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+            });
+            List<Module> courseModuleList = lessonRepository.moduleLesson(moduleId);
+
+            return moduleLessonList;
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }*/
+
     public List<Module> getAll() {
         try {
             List<Module> moduleList = moduleRepository.findAll();
             return moduleList;
 
+        } catch (RuntimeException e) {
+            throw e;
+        }
+    }
+
+    public List<Module> getCourseModule(UUID courseId) {
+        try {
+            courseRepository.findById(courseId).orElseThrow(() -> {
+                throw PlatformException.of(PlatformErrorCode.COURSE_NOT_FOUND);
+            });
+            List<Module> courseModuleList = moduleRepository.courseModule(courseId);
+
+            return courseModuleList;
         } catch (RuntimeException e) {
             throw e;
         }

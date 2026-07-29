@@ -29,10 +29,10 @@ public class AuthController {
 
 
 
-        @PostMapping("/refresh")
-        public ResponseEntity<LoginResponse> refresh(@RequestBody RefreshRequest request) {
-            return ResponseEntity.ok(
-                    authService.refresh(request.getRefreshToken())
-            );
-        }
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refresh(@RequestBody RefreshRequest request) {
+        return ResponseEntity.ok(
+                authService.refresh(request.getRefreshToken())
+        );
+    }
 }

@@ -33,6 +33,13 @@ public class ModuleController {
         return toResponse(moduleService.findById(id));
     }
 
+    @GetMapping("/{courseId}/course")
+    public List<ModuleResponse> getCourseModule(@PathVariable UUID courseId) {
+        return moduleService.getCourseModule(courseId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     @GetMapping
     public List<ModuleResponse> getAll() {
         return moduleService.getAll().stream()
