@@ -90,7 +90,7 @@ public class UserCourseService {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
 
-            userCourseRepository.deleteByUserId(userId);
+            userCourseRepository.deleteById(userId);
         } catch (RuntimeException e) {
             throw e;
         }
