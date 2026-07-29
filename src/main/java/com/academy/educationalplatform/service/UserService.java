@@ -159,8 +159,8 @@ public User update(UpdateUserRequest request) {
             }  if (!SecurityUtils.currentUser().getId().equals(id) || !SecurityUtils.isAdmin()) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
-            userRoleRepository.deleteByUserId(id);
-            userCourseRepository.deleteByUserId(id);
+            userRoleRepository.deleteAllByUserId(id);
+            userCourseRepository.deleteAllByUserId(id);
             userRepository.deleteById(id);
         } catch (RuntimeException e) {
             throw e;

@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleStore(Exception ex) {
         return ResponseEntity

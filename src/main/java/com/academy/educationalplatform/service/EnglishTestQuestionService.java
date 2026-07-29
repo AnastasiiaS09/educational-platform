@@ -8,9 +8,11 @@ import com.academy.educationalplatform.entity.EnglishTestQuestion;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.EnglishTestQuestionMapper;
+import com.academy.educationalplatform.repository.AnswerOptionRepository;
 import com.academy.educationalplatform.repository.EnglishTestQuestionRepository;
 import com.academy.educationalplatform.repository.EnglishTestRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -19,11 +21,13 @@ public class EnglishTestQuestionService {
     private final EnglishTestQuestionRepository englishTestQuestionRepository;
     private final EnglishTestQuestionMapper englishTestQuestionMapper;
     private final EnglishTestRepository englishTestRepository;
+    private final AnswerOptionRepository answerOptionRepository;
 
-    public EnglishTestQuestionService(EnglishTestQuestionRepository englishTestQuestionRepository, EnglishTestQuestionMapper englishTestQuestionMapper, EnglishTestRepository englishTestRepository) {
+    public EnglishTestQuestionService(EnglishTestQuestionRepository englishTestQuestionRepository, EnglishTestQuestionMapper englishTestQuestionMapper, EnglishTestRepository englishTestRepository, AnswerOptionRepository answerOptionRepository) {
         this.englishTestQuestionRepository = englishTestQuestionRepository;
         this.englishTestQuestionMapper = englishTestQuestionMapper;
         this.englishTestRepository = englishTestRepository;
+        this.answerOptionRepository = answerOptionRepository;
     }
 
     public AnswerRequest createQuestion(RegisterEnglishQuestionRequest request) {
@@ -50,6 +54,7 @@ public class EnglishTestQuestionService {
         }
     }
 
+    @Transactional
     public void deleteQuestion(UUID id) {
         try {
             if(!englishTestQuestionRepository.existsById(id)) {
@@ -60,6 +65,7 @@ public class EnglishTestQuestionService {
                     PlatformException.of(PlatformErrorCode.TEST_NOT_FOUND));
 
             englishTest.setQuestionQuantity(englishTest.getQuestionQuantity()-1);
+            answerOptionRepository.deleteAllByQuestionId(id);
             englishTestQuestionRepository.deleteById(id);
         } catch (RuntimeException e) {
             throw e;

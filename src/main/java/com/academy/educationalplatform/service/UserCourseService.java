@@ -67,7 +67,6 @@ public class UserCourseService {
         }
     }
 
-    //user wants to re-sign up their course
     public void deleteCourseById(UUID id) {
         try {
             if (!userCourseRepository.existsById(id)) {

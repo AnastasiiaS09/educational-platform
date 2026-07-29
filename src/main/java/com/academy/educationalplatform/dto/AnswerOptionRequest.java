@@ -23,7 +23,6 @@ public class AnswerOptionRequest {
     @NotBlank
     private String optionText;
 
-    @NotBlank
     @Enumerated(EnumType.STRING)
     private OptionCorrectness optionCorrectness;
 }

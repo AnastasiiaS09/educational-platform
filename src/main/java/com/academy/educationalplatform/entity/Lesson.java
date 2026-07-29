@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
-@Getter
-@Setter
+
 @Data
 @Entity
 @Table(name = "lessons")
