@@ -16,6 +16,14 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleStore(Exception ex) {
+        return ResponseEntity
+                .status(500)
+                .body(new ErrorResponse(500, ex.getMessage()));
+    }
+
     @ExceptionHandler(PlatformException.class)
     public ResponseEntity<ErrorResponse> handleStore(PlatformException ex) {
         PlatformErrorCode errorCode = ex.getErrorCode();

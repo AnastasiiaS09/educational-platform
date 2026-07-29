@@ -135,7 +135,10 @@ public class UserService {
 //    }
 
 
-public User update(UUID id, UpdateUserRequest request) {
+public User update(UpdateUserRequest request) {
+
+    UUID id = SecurityUtils.currentUserId();
+
     User user = userRepository.findById(id)
             .orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
@@ -153,7 +156,7 @@ public User update(UUID id, UpdateUserRequest request) {
         try {
             if(!userRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            }  if (!SecurityUtils.currentUser().equals(id) || !SecurityUtils.isAdmin()) {
+            }  if (!SecurityUtils.currentUser().getId().equals(id) || !SecurityUtils.isAdmin()) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
             userRoleRepository.deleteByUserId(id);
@@ -182,7 +185,9 @@ public User update(UUID id, UpdateUserRequest request) {
 
     public User getById(UUID id) {
         try {
-
+            if (!SecurityUtils.isAdmin()) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
             return userRepository.findById(id).orElseThrow(() ->
                     PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
         } catch (RuntimeException e) {

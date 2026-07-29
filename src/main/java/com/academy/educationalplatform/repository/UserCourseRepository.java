@@ -19,4 +19,6 @@ public interface UserCourseRepository extends JpaRepository<UserCourse, UUID> {
     List<UserCourse> findAllByCourseId(UUID courseId);
 
     void deleteByUserId(UUID userId);
+
+    boolean existsByUserIdAndCourseId(UUID userId, UUID courseId);
 }

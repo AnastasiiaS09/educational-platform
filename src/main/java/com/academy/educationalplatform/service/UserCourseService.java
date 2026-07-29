@@ -18,12 +18,14 @@ public class UserCourseService {
         this.userCourseRepository = userCourseRepository;
     }
 
-    public UserCourse joinCourse(UUID userId, UUID courseId) {
+    public UserCourse joinCourse(UUID courseId) {
 
         try {
-            if (SecurityUtils.currentUser().getId().equals(userId)) {
+            UUID userId = SecurityUtils.currentUserId();
+            if (userCourseRepository.existsByUserIdAndCourseId(userId, courseId)) {
                 throw PlatformException.of(PlatformErrorCode.COURSE_ALREADY_EXISTS);
-            } else {
+            }
+            else {
 
 
                 UserCourse userCourse = new UserCourse();
@@ -36,8 +38,9 @@ public class UserCourseService {
         }
     }
 
-    public List<UserCourse> findUserCourse(UUID userId) {
+    public List<UserCourse> findUserCourse() {
         try {
+            UUID userId = SecurityUtils.currentUserId();
             if (!userCourseRepository.existsByUserId(userId)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
@@ -51,6 +54,9 @@ public class UserCourseService {
     public List<UserCourse> getAll() {
 
         try {
+            if (!SecurityUtils.isAdmin()) {
+                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }
 
             List<UserCourse> users = userCourseRepository.findAll();
 
