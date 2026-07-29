@@ -111,13 +111,13 @@ public class JwtService {
     }
 
 
-    private String buildToken(String subject, String email, List<Role> roles, long expiration, String type) {
+    private String buildToken(String id, String email, List<Role> roles, long expiration, String type) {
         try {
             Date now = new Date();
             List<String> roleNames = roles.stream().map(Role::name).toList();
 
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
-                    .subject(subject)
+                    .subject(id)
                     .claim("email", email)
                     .claim("roles", roleNames)
                     .claim("type", type)

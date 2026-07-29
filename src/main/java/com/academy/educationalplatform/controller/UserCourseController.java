@@ -25,7 +25,6 @@ public class UserCourseController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserCourseResponse create(@Valid @RequestBody UserCourseRequest request) {
         var userCourse = userCourseService.joinCourse(
-                request.getUserId(),
                 request.getCourseId()
         );
         return toResponse(userCourse);
@@ -33,8 +32,8 @@ public class UserCourseController {
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserCourseResponse> getUsersCourse(@PathVariable UUID userId) {
-        return userCourseService.findUserCourse(userId).stream()
+    public List<UserCourseResponse> getUsersCourse() {
+        return userCourseService.findUserCourse().stream()
                 .map(this::toResponse)
                 .toList();
     }

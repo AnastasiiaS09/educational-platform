@@ -4,6 +4,7 @@ import com.academy.educationalplatform.dto.AnswerRequest;
 import com.academy.educationalplatform.dto.UserTestRequest;
 import com.academy.educationalplatform.entity.UserTest;
 import com.academy.educationalplatform.repository.UserTestRepository;
+import com.academy.educationalplatform.security.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,8 +18,10 @@ public class UserTestService {
     }
 
     public AnswerRequest addUserTest(UserTestRequest request) {
+
+        UUID id = SecurityUtils.currentUserId();
         UserTest userTest = new UserTest();
-        userTest.setUserId(request.getUserId());
+        userTest.setUserId(id);
         userTest.setTestId(request.getTestId());
 
         userTestRepository.save(userTest);

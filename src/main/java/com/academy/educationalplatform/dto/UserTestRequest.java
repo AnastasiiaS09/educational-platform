@@ -13,9 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserTestRequest {
-    @NotNull
-    private UUID userId;
-
+//    @NotNull
+//    private UUID userId;
     @NotNull
     private UUID testId;
 }

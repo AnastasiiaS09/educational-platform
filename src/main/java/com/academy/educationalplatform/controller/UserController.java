@@ -51,9 +51,8 @@ public class UserController {
 //    }
 
     @PutMapping("/{id}")
-    public UserResponse update(@PathVariable UUID id,
-                               @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.update(id, request);
+    public UserResponse update(@Valid @RequestBody UpdateUserRequest request) {
+        var user = userService.update(request);
         return toResponse(user);
     }
 

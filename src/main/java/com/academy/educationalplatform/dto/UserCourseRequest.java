@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserCourseRequest {
 
-    private UUID userId;
+//    private UUID userId;
 
     private UUID courseId;
 }

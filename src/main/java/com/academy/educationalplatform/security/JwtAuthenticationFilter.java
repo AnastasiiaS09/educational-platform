@@ -16,6 +16,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
+
     public JwtAuthenticationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
     }
@@ -34,7 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } catch (RuntimeException ignored) {
+            } catch (RuntimeException e) {
+                e.printStackTrace();
                 SecurityContextHolder.clearContext();
             }
         }
