@@ -39,6 +39,11 @@ public class UserCourseController {
                 .toList();
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteUserCourse(@PathVariable UUID id) {
+        userCourseService.deleteCourseById(id);
+    }
+
     private UserCourseResponse toResponse(UserCourse userCourse) {
         return ApiMapper.toUserCourseResponse(
                 userCourse
