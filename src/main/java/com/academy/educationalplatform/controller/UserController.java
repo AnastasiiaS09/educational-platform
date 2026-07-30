@@ -50,7 +50,7 @@ public class UserController {
 //        return toResponse(user);
 //    }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public UserResponse update(@Valid @RequestBody UpdateUserRequest request) {
         var user = userService.update(request);
         return toResponse(user);

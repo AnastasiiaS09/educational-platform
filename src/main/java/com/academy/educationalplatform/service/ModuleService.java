@@ -37,7 +37,7 @@ public class ModuleService {
             Module module = new Module();
             module.setCourseId(request.getCourseId());
             module.setModuleName(request.getModuleName());
-            module.setLessonQuantity(request.getLessonQuantity());
+            module.setLessonQuantity(request.getLessonQuantity() != null ? request.getLessonQuantity() :  0);
             module.setDescription(request.getDescription());
             module.setModuleNumber(request.getModuleNumber());
 

@@ -17,7 +17,7 @@ public class Course {
 
     private String courseName;
 
-    private Integer moduleQuantity;
+    private Integer moduleQuantity = 0;
 
     private String description;
 }

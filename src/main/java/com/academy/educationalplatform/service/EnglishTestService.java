@@ -1,9 +1,7 @@
 package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.dto.EnglishTestUpdateRequest;
-import com.academy.educationalplatform.dto.UpdateUserRequest;
 import com.academy.educationalplatform.entity.EnglishTest;
-import com.academy.educationalplatform.entity.User;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.EnglishTestMapper;
@@ -24,14 +22,14 @@ public class EnglishTestService {
 
     public EnglishTest addTest(String name, String description, Integer questionQuantity) {
         try {
-            if (englishTestRepository.existsByName(name)) {
+            if (englishTestRepository.existsByTestName(name)) {
                 throw PlatformException.of(PlatformErrorCode.TEST_ALREADY_EXISTS);
             }
 
             EnglishTest englishTest = new EnglishTest();
-            englishTest.setName(name);
+            englishTest.setTestName(name);
             englishTest.setDescription(description);
-            englishTest.setQuestionQuantity(questionQuantity);
+            englishTest.setQuestionQuantity(questionQuantity != null ? questionQuantity : 0);
 
             return englishTestRepository.save(englishTest);
         } catch (RuntimeException e) {

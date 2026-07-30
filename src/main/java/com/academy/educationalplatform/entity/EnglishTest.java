@@ -14,9 +14,9 @@ public class EnglishTest {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
+    private String testName;
 
     private String description;
 
-    private Integer questionQuantity;
+    private Integer questionQuantity = 0;
 }
