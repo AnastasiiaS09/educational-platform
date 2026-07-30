@@ -18,5 +18,5 @@ public class CommentResponse {
     private UUID authorId;
     private String text;
     private Instant createdAt;
-    private int likeCount;
+    private Integer likeCount;
 }

@@ -22,5 +22,5 @@ public class EnglishTestQuestion {
     @NotBlank
     private String questionText;
 
-    private int questionNumber;
+    private Integer questionNumber;
 }

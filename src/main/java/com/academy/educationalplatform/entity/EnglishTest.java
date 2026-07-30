@@ -18,5 +18,5 @@ public class EnglishTest {
 
     private String description;
 
-    private int questionQuantity;
+    private Integer questionQuantity;
 }

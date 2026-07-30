@@ -22,7 +22,7 @@ public class LessonResponse {
 
     private UUID moduleId;
 
-    private int lessonNumber;
+    private Integer lessonNumber;
 
     private Type type;
 }

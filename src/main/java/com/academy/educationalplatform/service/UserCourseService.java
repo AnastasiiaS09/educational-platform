@@ -67,12 +67,12 @@ public class UserCourseService {
         }
     }
 
-    public void deleteCourseById(UUID id) {
+    public void deleteUserCourseById(UUID id) {
         try {
             if (!userCourseRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            } if (!SecurityUtils.currentUser().equals(id)) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            } if (!SecurityUtils.currentUserId().equals(id) || !SecurityUtils.isAdmin()) {
+                throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
             }
 
             userCourseRepository.deleteById(id);
@@ -86,7 +86,7 @@ public class UserCourseService {
         try {
             if (!userCourseRepository.existsByUserId(userId)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            } if (!SecurityUtils.currentUser().equals(userId)) {
+            } if (!SecurityUtils.currentUser().getId().equals(userId)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
             }
 

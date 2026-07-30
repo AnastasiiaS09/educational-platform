@@ -28,5 +28,5 @@ public class Comment {
     private Instant createdAt;
 
     @Transient
-    private int likeCount;
+    private Integer likeCount;
 }

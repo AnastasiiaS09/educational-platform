@@ -19,5 +19,5 @@ public class CourseUpdateRequest {
     private String description;
 
     @PositiveOrZero
-    private int moduleQuantity;
+    private Integer moduleQuantity;
 }

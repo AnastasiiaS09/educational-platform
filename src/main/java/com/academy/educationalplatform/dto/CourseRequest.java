@@ -23,5 +23,5 @@ public class CourseRequest {
     private String description;
 
     @PositiveOrZero
-    private int moduleQuantity;
+    private Integer moduleQuantity;
 }

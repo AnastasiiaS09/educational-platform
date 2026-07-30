@@ -21,7 +21,7 @@ public class CourseService {
         this.courseMapper = courseMapper;
     }
 
-    public Course addCourse(String name, int moduleQuantity, String description) {
+    public Course addCourse(String name, Integer moduleQuantity, String description) {
         try {
             if (courseRepository.existsByCourseName(name)) {
                 throw PlatformException.of(PlatformErrorCode.COURSE_ALREADY_EXISTS, name);

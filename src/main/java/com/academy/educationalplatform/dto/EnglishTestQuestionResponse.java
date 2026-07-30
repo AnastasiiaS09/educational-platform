@@ -18,5 +18,5 @@ public class EnglishTestQuestionResponse {
 
     private String questionText;
 
-    private int questionNumber;
+    private Integer questionNumber;
 }
