@@ -21,9 +21,9 @@ public class User {
 
     private String password;
 
-    private Integer experiencePoint;
+    private Integer experiencePoint = 0;
 
-    private Integer taskCounter;
+    private Integer taskCounter = 0;
 
-    private Integer dayCounter;
+    private Integer dayCounter = 0;
 }

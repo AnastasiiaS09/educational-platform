@@ -82,7 +82,7 @@ public final class ApiMapper {
     public static EnglishTestResponse toEnglishTestResponse(EnglishTest englishTest) {
         return new EnglishTestResponse(
                 englishTest.getId(),
-                englishTest.getName(),
+                englishTest.getTestName(),
                 englishTest.getDescription(),
                 englishTest.getQuestionQuantity()
         );

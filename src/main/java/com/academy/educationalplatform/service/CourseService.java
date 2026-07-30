@@ -28,7 +28,7 @@ public class CourseService {
             }
             Course course = new Course();
             course.setCourseName(name);
-            course.setModuleQuantity(moduleQuantity);
+            course.setModuleQuantity(moduleQuantity != null ? moduleQuantity : 0);
             course.setDescription(description);
 
             return courseRepository.save(course);

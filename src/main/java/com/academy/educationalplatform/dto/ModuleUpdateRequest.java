@@ -14,7 +14,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ModuleUpdateRequest {
 
-    @NotBlank
     @Size(max = 200)
     private String moduleName;
 

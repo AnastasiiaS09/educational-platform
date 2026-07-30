@@ -20,7 +20,7 @@ public class Module {
     @NotNull
     private UUID courseId;
 
-    private Integer lessonQuantity;
+    private Integer lessonQuantity = 0;
 
     private String description;
 
