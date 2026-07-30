@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface EnglishTestQuestionRepository extends JpaRepository<EnglishTestQuestion, UUID> {
 
-    boolean existsByQuestionNumber(int questionNumber);
+    boolean existsByQuestionNumber(Integer questionNumber);
 }

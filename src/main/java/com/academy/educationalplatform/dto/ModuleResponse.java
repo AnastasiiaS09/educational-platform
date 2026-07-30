@@ -20,10 +20,10 @@ public class ModuleResponse {
 
     private String description;
 
-    private int lessonQuantity;
+    private Integer lessonQuantity;
 
     private UUID courseId;
 
-    private int moduleNumber;
+    private Integer moduleNumber;
 
 }

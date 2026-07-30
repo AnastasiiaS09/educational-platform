@@ -20,7 +20,7 @@ public class Lesson {
 
     private String description;
 
-    private int lessonNumber;
+    private Integer lessonNumber;
 
     private String posterVideo;
 

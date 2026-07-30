@@ -21,6 +21,6 @@ public class EnglishTestResponse {
 
     private String description;
 
-    private int questionQuantity;
+    private Integer questionQuantity;
 
 }

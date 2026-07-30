@@ -21,10 +21,10 @@ public class ModuleUpdateRequest {
     private String description;
 
     @PositiveOrZero
-    private int lessonQuantity;
+    private Integer lessonQuantity;
 
     private UUID courseId;
 
     @Positive
-    private int moduleNumber;
+    private Integer moduleNumber;
 }

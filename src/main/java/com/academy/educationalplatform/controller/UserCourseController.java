@@ -40,7 +40,7 @@ public class UserCourseController {
 
     @DeleteMapping("/{id}")
     public void deleteUserCourse(@PathVariable UUID id) {
-        userCourseService.deleteCourseById(id);
+        userCourseService.deleteUserCourseById(id);
     }
 
     private UserCourseResponse toResponse(UserCourse userCourse) {

@@ -20,9 +20,9 @@ public class Module {
     @NotNull
     private UUID courseId;
 
-    private int lessonQuantity;
+    private Integer lessonQuantity;
 
     private String description;
 
-    private int moduleNumber;
+    private Integer moduleNumber;
 }

@@ -28,7 +28,7 @@ public class RegisterLessonRequest {
     private UUID moduleId;
 
     @Positive
-    private int lessonNumber;
+    private Integer lessonNumber;
 
     @NotNull
     @Enumerated(EnumType.STRING)

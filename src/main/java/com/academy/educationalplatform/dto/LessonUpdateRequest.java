@@ -27,7 +27,7 @@ public class LessonUpdateRequest {
 
     private UUID moduleId;
 
-    private int lessonNumber;
+    private Integer lessonNumber;
 
     @Enumerated(EnumType.STRING)
     private Type type;
