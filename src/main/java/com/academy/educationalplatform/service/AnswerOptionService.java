@@ -1,8 +1,11 @@
 package com.academy.educationalplatform.service;
 
 import com.academy.educationalplatform.dto.AnswerOptionRequest;
+import com.academy.educationalplatform.dto.AnswerOptionUpdateRequest;
 import com.academy.educationalplatform.dto.AnswerRequest;
+import com.academy.educationalplatform.dto.EnglishTestQuestionUpdateRequest;
 import com.academy.educationalplatform.entity.AnswerOption;
+import com.academy.educationalplatform.entity.EnglishTestQuestion;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.AnswerOptionMapper;
@@ -63,5 +66,15 @@ public class AnswerOptionService {
         } catch (RuntimeException e) {
             throw e;
         }
+    }
+
+    public AnswerOption update(UUID id, AnswerOptionUpdateRequest request) {
+        AnswerOption answerOption = answerOptionRepository.findById(id)
+                .orElseThrow(() ->
+                        PlatformException.of(PlatformErrorCode.ANSWER_OPTION_NOT_FOUND));
+
+        answerOptionMapper.updateAnswerOptionFromDto(request, answerOption);
+
+        return answerOptionRepository.save(answerOption);
     }
 }

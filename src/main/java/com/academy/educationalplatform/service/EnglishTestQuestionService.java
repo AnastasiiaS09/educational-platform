@@ -1,10 +1,9 @@
 package com.academy.educationalplatform.service;
 
-import com.academy.educationalplatform.dto.AnswerRequest;
-import com.academy.educationalplatform.dto.EnglishTestQuestionRequest;
-import com.academy.educationalplatform.dto.RegisterEnglishQuestionRequest;
+import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.EnglishTest;
 import com.academy.educationalplatform.entity.EnglishTestQuestion;
+import com.academy.educationalplatform.entity.Lesson;
 import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.EnglishTestQuestionMapper;
@@ -70,5 +69,15 @@ public class EnglishTestQuestionService {
         } catch (RuntimeException e) {
             throw e;
         }
+    }
+
+    public EnglishTestQuestion update(UUID id, EnglishTestQuestionUpdateRequest request) {
+       EnglishTestQuestion englishTestQuestion = englishTestQuestionRepository.findById(id)
+                .orElseThrow(() ->
+                        PlatformException.of(PlatformErrorCode.ENGLISH_QUESTION_NOT_FOUND));
+
+        englishTestQuestionMapper.updateTestQuestionFromDto(request, englishTestQuestion);
+
+        return englishTestQuestionRepository.save(englishTestQuestion);
     }
 }
