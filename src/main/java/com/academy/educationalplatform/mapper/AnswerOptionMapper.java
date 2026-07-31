@@ -1,11 +1,11 @@
 package com.academy.educationalplatform.mapper;
 
 import com.academy.educationalplatform.dto.AnswerOptionRequest;
+import com.academy.educationalplatform.dto.AnswerOptionUpdateRequest;
+import com.academy.educationalplatform.dto.EnglishTestQuestionUpdateRequest;
 import com.academy.educationalplatform.entity.AnswerOption;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import com.academy.educationalplatform.entity.EnglishTestQuestion;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface AnswerOptionMapper {
@@ -15,4 +15,8 @@ public interface AnswerOptionMapper {
     @Mapping(target = "optionText", source = "optionText")
     @Mapping(target = "optionCorrectness", source = "optionCorrectness")
     AnswerOption toEntity(AnswerOptionRequest request);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateAnswerOptionFromDto(AnswerOptionUpdateRequest dto, @MappingTarget AnswerOption answerOption);
+
 }

@@ -104,4 +104,13 @@ public final class ApiMapper {
         );
     }
 
+    public static AnswerOptionResponse toAnswerOptionResponse(AnswerOption answerOption) {
+        return new AnswerOptionResponse(
+                answerOption.getId(),
+               answerOption.getQuestionId(),
+                answerOption.getOptionText(),
+                answerOption.getOptionCorrectness()
+        );
+    }
+
 }

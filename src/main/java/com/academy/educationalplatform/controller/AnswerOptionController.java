@@ -1,8 +1,8 @@
 package com.academy.educationalplatform.controller;
 
-import com.academy.educationalplatform.dto.AnswerOptionRequest;
-import com.academy.educationalplatform.dto.AnswerRequest;
+import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.entity.AnswerOption;
+import com.academy.educationalplatform.entity.EnglishTestQuestion;
 import com.academy.educationalplatform.service.AnswerOptionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -37,5 +37,18 @@ public class AnswerOptionController {
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteAnswerOption(@PathVariable UUID id) {
         answerOptionService.delAnswerOption(id);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public AnswerOptionResponse update(@PathVariable UUID id, @Valid @RequestBody AnswerOptionUpdateRequest request) {
+        var answerOption = answerOptionService.update(id, request);
+        return toResponse(answerOption);
+    }
+
+    private AnswerOptionResponse toResponse(AnswerOption answerOption) {
+        return ApiMapper.toAnswerOptionResponse(
+                answerOption
+        );
     }
 }

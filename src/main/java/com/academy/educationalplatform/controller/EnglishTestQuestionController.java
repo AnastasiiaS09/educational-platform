@@ -39,4 +39,12 @@ public class EnglishTestQuestionController {
                 englishTestQuestion
         );
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public EnglishTestQuestionResponse update(@PathVariable UUID id,
+                                 @Valid @RequestBody EnglishTestQuestionUpdateRequest request) {
+        var test = englishTestQuestionService.update(id, request);
+        return toResponse(test);
+    }
 }
