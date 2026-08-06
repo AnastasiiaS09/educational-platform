@@ -29,6 +29,8 @@ public class LessonUpdateRequest {
 
     private Integer lessonNumber;
 
+    private String text;
+
     @Enumerated(EnumType.STRING)
     private Type type;
 }

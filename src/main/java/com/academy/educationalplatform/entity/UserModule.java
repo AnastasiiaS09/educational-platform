@@ -1,32 +1,24 @@
 package com.academy.educationalplatform.entity;
+
+
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "lessons")
-public class Lesson {
+@Table(name = "users_modules")
+public class UserModule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String lessonName;
+    private UUID userId;
 
     private UUID moduleId;
 
-    private String description;
-
-    private Integer lessonNumber;
-
-    private String posterVideo;
-
-    private String text;
-
     @Enumerated(EnumType.STRING)
-    private Type type;
-
+    private Status status;
 }

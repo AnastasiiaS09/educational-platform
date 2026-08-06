@@ -5,5 +5,6 @@ module_id UUID NOT NULL,
 description TEXT,
 lesson_number INTEGER,
 poster_video BYTEA,
+text TEXT,
 type VARCHAR(64)
 );
