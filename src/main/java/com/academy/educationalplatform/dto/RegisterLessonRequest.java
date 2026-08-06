@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,4 +32,6 @@ public class RegisterLessonRequest {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    private String text;
 }

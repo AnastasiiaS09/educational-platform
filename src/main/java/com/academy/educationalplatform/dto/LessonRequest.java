@@ -28,6 +28,8 @@ public class LessonRequest {
 
     @Positive
     private Integer lessonNumber;
+    
+    private String text;
 
     @NotNull
     @Enumerated(EnumType.STRING)

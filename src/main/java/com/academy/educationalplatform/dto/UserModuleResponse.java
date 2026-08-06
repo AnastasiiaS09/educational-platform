@@ -1,6 +1,8 @@
 package com.academy.educationalplatform.dto;
 
-import com.academy.educationalplatform.entity.Type;
+import com.academy.educationalplatform.entity.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,19 +14,12 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LessonResponse {
-
+public class UserModuleResponse {
     private UUID id;
 
-    private String lessonName;
-
-    private String description;
+    private UUID userId;
 
     private UUID moduleId;
 
-    private Integer lessonNumber;
-
-    private String text;
-
-    private Type type;
+    private Status status;
 }

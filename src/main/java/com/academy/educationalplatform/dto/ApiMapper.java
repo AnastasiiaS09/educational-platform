@@ -57,8 +57,9 @@ public final class ApiMapper {
                 lesson.getDescription(),
                 lesson.getModuleId(),
                 lesson.getLessonNumber(),
+                lesson.getText(),
                 lesson.getType()
-        );
+                );
     }
 
     public static LikeResponse toLikeResponse(Like like) {
@@ -110,6 +111,24 @@ public final class ApiMapper {
                answerOption.getQuestionId(),
                 answerOption.getOptionText(),
                 answerOption.getOptionCorrectness()
+        );
+    }
+
+    public static UserLessonResponse toUserLessonResponse(UserLesson userLesson) {
+        return new UserLessonResponse(
+                userLesson.getId(),
+                userLesson.getUserId(),
+                userLesson.getLessonId(),
+                userLesson.getStatus()
+        );
+    }
+
+    public static UserModuleResponse toUserModuleResponse(UserModule userModule) {
+        return new UserModuleResponse(
+                userModule.getId(),
+                userModule.getUserId(),
+                userModule.getModuleId(),
+                userModule.getStatus()
         );
     }
 

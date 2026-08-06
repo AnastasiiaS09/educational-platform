@@ -31,4 +31,6 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
     """)
     void deleteVideoByLessonId(UUID lessonId);
 
+    List<Lesson> findAllByModuleId(UUID moduleId);
+
 }
