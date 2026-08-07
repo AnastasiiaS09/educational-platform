@@ -1,6 +1,7 @@
 package com.academy.educationalplatform.controller;
 
 import com.academy.educationalplatform.dto.*;
+import com.academy.educationalplatform.entity.Status;
 import com.academy.educationalplatform.entity.UserLesson;
 import com.academy.educationalplatform.entity.UserModule;
 import com.academy.educationalplatform.service.UserLessonService;
@@ -21,6 +22,8 @@ public class UserModuleController {
     public UserModuleController(UserModuleService userModuleService) {
         this.userModuleService = userModuleService;
     }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserModuleResponse startModule(@Valid @RequestBody UserModuleRequest request) {
@@ -32,8 +35,8 @@ public class UserModuleController {
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserModuleResponse> getUsersModules(@PathVariable UUID id) {
-        return userModuleService.getAllByUserId(id).stream()
+    public List<UserModuleResponse> getUsersCompletedModulesById(@PathVariable UUID userId) {
+        return userModuleService.getAllByUserId(userId).stream().filter(userModule -> userModule.getStatus().equals(Status.COMPLETED))
                 .map(this::toResponse)
                 .toList();
     }
