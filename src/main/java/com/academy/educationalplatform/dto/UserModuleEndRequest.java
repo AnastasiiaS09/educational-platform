@@ -11,8 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserModuleEndRequest {
 
-    private UUID userId;
-
     private UUID moduleId;
 
 }
