@@ -57,7 +57,7 @@ public class UserModuleService {
     public UserModule endModule(UUID userId, UUID moduleId) {
 
         if(!SecurityUtils.currentUserId().equals(userId) || !SecurityUtils.isAdmin()){
-            throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
+            throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
         }
         List<UUID> lessonsIdList = lessonRepository.findAllByModuleId(moduleId)
                 .stream()

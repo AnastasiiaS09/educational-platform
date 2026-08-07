@@ -59,13 +59,13 @@ public class UserLessonService {
     }
 
     //user or admin is delete progress
-    public void deleteLessonProgress(UUID userId, UUID lessonId) {
-            if (!SecurityUtils.currentUser().getId().equals(userId) || !SecurityUtils.isAdmin()) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            }
-
-            userLessonRepository.deleteByUserIdAndLessonId(userId, lessonId);
-    }
+//    public void deleteLessonProgress(UUID userId, UUID lessonId) {
+//            if (!SecurityUtils.currentUser().getId().equals(userId) || !SecurityUtils.isAdmin()) {
+//                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+//            }
+//
+//            userLessonRepository.deleteByUserIdAndLessonId(userId, lessonId);
+//    }
 
     public UserLesson endLesson(UUID userId , UUID lessonId) {
         UserLesson userLesson = userLessonRepository.findByUserIdAndLessonId(userId, lessonId);
