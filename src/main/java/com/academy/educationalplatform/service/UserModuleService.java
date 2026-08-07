@@ -54,11 +54,10 @@ public class UserModuleService {
             }
     }
 
-    public UserModule endModule(UUID userId, UUID moduleId) {
+    public UserModule endModule(UUID moduleId) {
 
-        if(!SecurityUtils.currentUserId().equals(userId) || !SecurityUtils.isAdmin()){
-            throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
-        }
+        UUID userId = SecurityUtils.currentUserId();
+
         List<UUID> lessonsIdList = lessonRepository.findAllByModuleId(moduleId)
                 .stream()
                 .map(Lesson::getId)
