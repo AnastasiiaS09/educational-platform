@@ -50,8 +50,7 @@ public class UserLessonService {
             UserLesson userLesson = userLessonRepository.findById(id)
                     .orElseThrow(() -> PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
 
-            if (!userLesson.getUserId().equals(SecurityUtils.currentUserId())
-                        || !SecurityUtils.isAdmin()) {
+            if (!userLesson.getUserId().equals(SecurityUtils.currentUserId())) {
                     throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
                 }
             userLessonRepository.deleteById(id);

@@ -95,8 +95,7 @@ public class UserModuleService {
         UserModule userModule = userModuleRepository.findById(id)
                 .orElseThrow(() -> PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
 
-        if (!userModule.getUserId().equals(SecurityUtils.currentUserId())
-                || !SecurityUtils.isAdmin()) {
+        if (!userModule.getUserId().equals(SecurityUtils.currentUserId())) {
             throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
         }
         userModuleRepository.deleteById(id);
