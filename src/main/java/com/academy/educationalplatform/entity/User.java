@@ -19,8 +19,6 @@ public class User {
 
     private String phone;
 
-    private String password;
-
     private Integer experiencePoint = 0;
 
     private Integer taskCounter = 0;

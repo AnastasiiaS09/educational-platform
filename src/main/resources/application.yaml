@@ -13,6 +13,16 @@ spring:
       max-file-size: 1000MB
       max-request-size: 1000MB
 
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:465}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+
   liquibase:
     change-log: classpath:changelog-master.xml
 

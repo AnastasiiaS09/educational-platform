@@ -14,4 +14,9 @@ public interface AnswerOptionRepository extends JpaRepository<AnswerOption, UUID
     FROM AnswerOption ao WHERE ao.questionId = :questionId
 """)
     List<AnswerOption> questionAnswer(UUID questionId);
+
+    @Query("""
+    FROM AnswerOption ao WHERE ao.questionId = :questionId AND ao.isCorrect = TRUE
+""")
+    AnswerOption correctAnswer(UUID questionId);
 }

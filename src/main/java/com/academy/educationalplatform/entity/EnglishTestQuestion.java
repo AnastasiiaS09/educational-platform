@@ -23,4 +23,6 @@ public class EnglishTestQuestion {
     private String questionText;
 
     private Integer questionNumber;
+
+    private Integer score;
 }

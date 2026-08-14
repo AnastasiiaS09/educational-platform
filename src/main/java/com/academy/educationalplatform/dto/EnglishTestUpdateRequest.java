@@ -26,4 +26,7 @@ public class EnglishTestUpdateRequest {
         @Positive
         private Integer questionQuantity;
 
+        @Positive
+        private Integer maxScore;
+
 }

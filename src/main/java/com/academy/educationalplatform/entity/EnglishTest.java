@@ -18,5 +18,7 @@ public class EnglishTest {
 
     private String description;
 
-    private Integer questionQuantity = 0;
+    private Integer maxScore;
+
+    private Integer questionQuantity;
 }

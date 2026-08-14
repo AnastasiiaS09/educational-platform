@@ -1,8 +1,6 @@
 package com.academy.educationalplatform.controller;
 
-import com.academy.educationalplatform.dto.LoginRequest;
-import com.academy.educationalplatform.dto.LoginResponse;
-import com.academy.educationalplatform.dto.RefreshRequest;
+import com.academy.educationalplatform.dto.*;
 import com.academy.educationalplatform.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +20,16 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @PostMapping("/initiate")
+    public AnswerRequest registerInitiate(@Valid @RequestBody InviteCodeRequest request) {
+        return authService.registerInitiate(request);
+    }
+
+    @PostMapping("/confirm")
+    public LoginResponse registerConfirm(@Valid @RequestBody ConfirmRequest request) {
+        return authService.registerConfirm(request);
+    }
+
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
@@ -35,4 +43,13 @@ public class AuthController {
                 authService.refresh(request.getRefreshToken())
         );
     }
+
+    /*@PostMapping("/password/forgot")
+    public ResponseEntity<ForgotPasswordInitiateResponse> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request);
+        ForgotPasswordInitiateResponse response = new ForgotPasswordInitiateResponse();
+        response.setMessage("Successful initiate forgot password");
+        return ResponseEntity.ok(response);
+    }*/
 }

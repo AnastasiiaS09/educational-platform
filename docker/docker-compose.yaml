@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis-hansen
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --timeout 2000
+
   postgres:
     image: postgres:16-alpine
     container_name: postgres-platform

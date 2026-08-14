@@ -20,7 +20,6 @@ public class ModuleRequest {
 
     private String description;
 
-    @PositiveOrZero
     private Integer lessonQuantity;
 
     private UUID courseId;

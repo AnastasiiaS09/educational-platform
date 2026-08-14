@@ -15,13 +15,11 @@ import java.util.UUID;
 public class SecurityUser implements UserDetails {
     private final UUID id;
     private final String email;
-    private final String password;
     private final List<Role> roles;
 
     public SecurityUser(User user, List<Role> roles) {
         this.id = user.getId();
         this.email = user.getEmail();
-        this.password = user.getPassword();
         this.roles = List.copyOf(roles);
     }
 
@@ -35,6 +33,11 @@ public class SecurityUser implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
     }
 
     @Override

@@ -17,6 +17,8 @@ public interface UserLessonRepository extends JpaRepository<UserLesson, UUID> {
     @Query("FROM UserLesson uc WHERE uc.userId = :userId")
     List<UserLesson> findAllByUserId(UUID userId);
 
+    void deleteAllByUserId(UUID userId);
+
     void deleteByUserIdAndLessonId(UUID userId, UUID lessonId);
 
     @Query("FROM UserLesson ul WHERE ul.userId = :userId AND ul.lessonId = :lessonId")

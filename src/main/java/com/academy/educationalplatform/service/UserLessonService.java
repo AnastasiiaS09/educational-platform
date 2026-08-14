@@ -51,8 +51,8 @@ public class UserLessonService {
                     .orElseThrow(() -> PlatformException.of(PlatformErrorCode.USER_NOT_FOUND));
 
             if (!userLesson.getUserId().equals(SecurityUtils.currentUserId())) {
-                    throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
-                }
+                throw PlatformException.of(PlatformErrorCode.ACCESS_DENIED);
+            }
             userLessonRepository.deleteById(id);
 
     }
@@ -66,7 +66,8 @@ public class UserLessonService {
 //            userLessonRepository.deleteByUserIdAndLessonId(userId, lessonId);
 //    }
 
-    public UserLesson endLesson(UUID userId , UUID lessonId) {
+    public UserLesson endLesson(UUID lessonId) {
+        UUID userId = SecurityUtils.currentUserId();
         UserLesson userLesson = userLessonRepository.findByUserIdAndLessonId(userId, lessonId);
         userLesson.setStatus(Status.COMPLETED);
         return userLessonRepository.save(userLesson);

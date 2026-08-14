@@ -15,11 +15,18 @@ public enum PlatformErrorCode {
     FILE_UPLOAD_FAILED(HttpStatus.NOT_FOUND, "FILE_UPLOAD_FAILED"),
     INVALID_CREDENTIALS(HttpStatus.UNAUTHORIZED, "Invalid email or password"),
 
+    INVITE_CODE_ALREADY_EXISTS(HttpStatus.CONFLICT, "This invite code already exists: %s"),
+    INVITE_CODE_NOT_FOUND(HttpStatus.NOT_FOUND, "Invite code not found: %s"),
+
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid token"),
+    REGISTRATION_SESSION_EXPIRED(HttpStatus.UNAUTHORIZED,"This registration session has expired: %s"),
+    RESET_SESSION_EXPIRED(HttpStatus.UNAUTHORIZED,"This reset session has expired: %s"),
 
     LESSON_NOT_FOUND(HttpStatus.NOT_FOUND, "Lesson not found"),
+    NOT_ALL_LESSONS_COMPLETED(HttpStatus.CONFLICT, "You have not completed all module's lessons yet"),
 
     LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "Like not found"),
+
     MODULE_ALREADY_EXISTS(HttpStatus.CONFLICT, "Module with this name already exists: %s"),
     MODULE_NOT_FOUND(HttpStatus.NOT_FOUND, "Module not found: %s"),
 

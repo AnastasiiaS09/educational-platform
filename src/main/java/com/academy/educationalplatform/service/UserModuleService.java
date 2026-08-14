@@ -71,7 +71,7 @@ public class UserModuleService {
 
 
         if (!completed) {
-            throw PlatformException.of(PlatformErrorCode.INVALID_CREDENTIALS);
+            throw PlatformException.of(PlatformErrorCode.NOT_ALL_LESSONS_COMPLETED);
         }
         UserModule userModule = userModuleRepository.findByUserIdAndModuleId(userId, moduleId);
         userModule.setStatus(Status.COMPLETED);

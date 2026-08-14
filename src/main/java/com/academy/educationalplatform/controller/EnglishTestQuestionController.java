@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,5 +47,10 @@ public class EnglishTestQuestionController {
                                  @Valid @RequestBody EnglishTestQuestionUpdateRequest request) {
         var test = englishTestQuestionService.update(id, request);
         return toResponse(test);
+    }
+
+    @GetMapping("/{testId}")
+    public List<EnglishTestQuestion> getTestQuestion(@PathVariable UUID testId) {
+        return englishTestQuestionService.getTestQuestion(testId);
     }
 }

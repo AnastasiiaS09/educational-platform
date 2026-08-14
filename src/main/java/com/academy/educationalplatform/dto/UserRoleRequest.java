@@ -23,7 +23,6 @@ public class UserRoleRequest {
     @NotNull
     private UUID userId;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 }

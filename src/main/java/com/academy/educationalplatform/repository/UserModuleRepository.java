@@ -20,6 +20,8 @@ public interface UserModuleRepository extends JpaRepository<UserModule, UUID> {
 
     boolean existsByUserIdAndModuleId(UUID userId, UUID moduleId);
 
+    void deleteAllByUserId(UUID userId);
+
     @Query("FROM UserModule uc WHERE uc.userId = :userId")
     List<UserModule> findAllByUserId(UUID userId);
 }

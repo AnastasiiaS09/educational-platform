@@ -23,6 +23,9 @@ public class RegisterEnglishQuestionRequest {
     private String questionText;
 
     @NotNull
-    private int questionNumber;
+    private Integer questionNumber;
+
+    @NotNull
+    private Integer score;
 
 }

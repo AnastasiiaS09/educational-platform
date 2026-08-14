@@ -23,7 +23,6 @@ public class UserLessonController {
         this.userLessonService = userLessonService;
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserLessonResponse startLesson(@Valid @RequestBody UserLessonRequest request) {
@@ -47,9 +46,8 @@ public class UserLessonController {
     }
 
     @PutMapping
-    public void endLesson(@Valid @RequestBody UserLessonEndRequest request) {
+    public void endLesson(@Valid @RequestBody UserLessonRequest request) {
         userLessonService.endLesson(
-                request.getUserId(),
                 request.getLessonId());
     }
 

@@ -20,15 +20,16 @@ public class EnglishTestService {
         this.englishTestMapper = englishTestMapper;
     }
 
-    public EnglishTest addTest(String name, String description, Integer questionQuantity) {
+    public EnglishTest addTest(String testName, String description, Integer questionQuantity, Integer maxScore) {
         try {
-            if (englishTestRepository.existsByTestName(name)) {
+            if (englishTestRepository.existsByTestName(testName)) {
                 throw PlatformException.of(PlatformErrorCode.TEST_ALREADY_EXISTS);
             }
 
             EnglishTest englishTest = new EnglishTest();
-            englishTest.setTestName(name);
+            englishTest.setTestName(testName);
             englishTest.setDescription(description);
+            englishTest.setMaxScore(maxScore != null ? maxScore : 0);
             englishTest.setQuestionQuantity(questionQuantity != null ? questionQuantity : 0);
 
             return englishTestRepository.save(englishTest);

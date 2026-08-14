@@ -8,8 +8,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "users_tests")
-public class UserTest {
+@Table(name = "user_test_attempts")
+public class UserTestAttempt {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -20,5 +20,7 @@ public class UserTest {
     @NotNull
     private UUID testId;
 
-    private double result;
+    private int result;
+
+    private double accuracy;
 }

@@ -13,7 +13,7 @@ public interface AnswerOptionMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "questionId", source = "questionId")
     @Mapping(target = "optionText", source = "optionText")
-    @Mapping(target = "optionCorrectness", source = "optionCorrectness")
+    @Mapping(target = "correct", source = "correct")
     AnswerOption toEntity(AnswerOptionRequest request);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

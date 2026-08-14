@@ -85,6 +85,7 @@ public final class ApiMapper {
                 englishTest.getId(),
                 englishTest.getTestName(),
                 englishTest.getDescription(),
+                englishTest.getMaxScore(),
                 englishTest.getQuestionQuantity()
         );
     }
@@ -101,7 +102,8 @@ public final class ApiMapper {
                 englishTestQuestion.getId(),
                 englishTestQuestion.getTestId(),
                 englishTestQuestion.getQuestionText(),
-                englishTestQuestion.getQuestionNumber()
+                englishTestQuestion.getQuestionNumber(),
+                englishTestQuestion.getScore()
         );
     }
 
@@ -110,7 +112,7 @@ public final class ApiMapper {
                 answerOption.getId(),
                answerOption.getQuestionId(),
                 answerOption.getOptionText(),
-                answerOption.getOptionCorrectness()
+                answerOption.isCorrect()
         );
     }
 

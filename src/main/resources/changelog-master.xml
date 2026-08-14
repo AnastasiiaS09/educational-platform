@@ -59,5 +59,9 @@
         <sqlFile path="db/changelog/013__Create_User_Test.sql"/>
     </changeSet>
 
+    <changeSet id="014" author="myUser">
+        <sqlFile path="db/changelog/014__Create_Invite_Codes.sql"/>
+    </changeSet>
+
 
 </databaseChangeLog>

@@ -21,6 +21,6 @@ public class AnswerOption {
     @NotBlank
     private String optionText;
 
-    @Enumerated(EnumType.STRING)
-    private OptionCorrectness optionCorrectness;
+    @Column(name = "is_correct", nullable = false)
+    private boolean isCorrect;
 }

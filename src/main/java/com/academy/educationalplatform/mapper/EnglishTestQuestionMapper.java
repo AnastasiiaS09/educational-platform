@@ -14,6 +14,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring")
 public interface EnglishTestQuestionMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    EnglishTestQuestion toUpdateEntity(RegisterEnglishQuestionRequest request);
+
     EnglishTestQuestion toEntity(RegisterEnglishQuestionRequest request);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

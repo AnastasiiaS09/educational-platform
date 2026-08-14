@@ -10,12 +10,8 @@ import com.academy.educationalplatform.exception.PlatformErrorCode;
 import com.academy.educationalplatform.exception.PlatformException;
 import com.academy.educationalplatform.mapper.UserMapper;
 import com.academy.educationalplatform.mapper.UserRoleMapper;
-import com.academy.educationalplatform.repository.UserCourseRepository;
-import com.academy.educationalplatform.repository.UserRepository;
-import com.academy.educationalplatform.repository.UserRoleRepository;
-import com.academy.educationalplatform.security.JwtService;
+import com.academy.educationalplatform.repository.*;
 import com.academy.educationalplatform.security.SecurityUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,62 +22,27 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final UserCourseRepository userCourseRepository;
+    private final UserModuleRepository userModuleRepository;
+    private final UserLessonRepository userLessonRepository;
     private final UserMapper userMapper;
-    private final JwtService jwtService;  //temporarily
     private final UserRoleService userRoleService;
     private final UserRoleMapper userRoleMapper;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserRoleRepository userRoleRepository, UserCourseRepository userCourseRepository, UserMapper userMapper, JwtService jwtService, UserRoleService userRoleService, UserRoleMapper userRoleMapper) {
-        this.passwordEncoder = passwordEncoder;
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, UserCourseRepository userCourseRepository, UserModuleRepository userModuleRepository, UserLessonRepository userLessonRepository, UserMapper userMapper, UserRoleService userRoleService, UserRoleMapper userRoleMapper) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.userCourseRepository = userCourseRepository;
+        this.userModuleRepository = userModuleRepository;
+        this.userLessonRepository = userLessonRepository;
         this.userMapper = userMapper;
-        this.jwtService = jwtService;  //temporarily
         this.userRoleService = userRoleService;
         this.userRoleMapper = userRoleMapper;
     }
 
-    public LoginResponse register(RegisterUserRequest request) {  //allocate to AuthService
 
-        try {
-
-            User user = userMapper.toEntity(request);
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-            userRepository.save(user);
-
-
-
-            List<Role> roles = request.getRoles();
-
-            if (roles == null || roles.isEmpty()) {
-                roles = List.of(Role.USER);
-            }
-
-            for (Role role : roles) {
-                userRoleRepository.save(
-                        userRoleMapper.toUserRole(user.getId(), role)
-                );
-            }
-
-
-
-            String accessToken = jwtService.generateToken(user, roles);
-            String refreshToken = jwtService.generateRefreshToken(user, roles);
-
-            LoginResponse response = new LoginResponse();
-            response.setAccessToken(accessToken);
-            response.setRefreshToken(refreshToken);
-
-            return response;
-        } catch (RuntimeException e) {
-            throw e;
-        }
-    }
 //
 //    @Transactional /*not final*/
 //    public LoginResponse register(RegisterUserRequest request) {
@@ -156,10 +117,12 @@ public User update(UpdateUserRequest request) {
         try {
             if(!userRepository.existsById(id)) {
                 throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
-            }  if (!SecurityUtils.currentUser().getId().equals(id) || !SecurityUtils.isAdmin()) {
-                throw PlatformException.of(PlatformErrorCode.USER_NOT_FOUND);
+            }  if (!SecurityUtils.isAdmin()) {
+                SecurityUtils.assertOwner(id);
             }
             userRoleRepository.deleteAllByUserId(id);
+            userLessonRepository.deleteAllByUserId(id);
+            userModuleRepository.deleteAllByUserId(id);
             userCourseRepository.deleteAllByUserId(id);
             userRepository.deleteById(id);
         } catch (RuntimeException e) {

@@ -24,4 +24,7 @@ public class EnglishTestQuestionRequest {
 
     @NotNull
     private Integer questionNumber;
+
+    @NotNull
+    private Integer score;
 }

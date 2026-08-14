@@ -31,7 +31,6 @@ public class LessonRequest {
     
     private String text;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Type type;
 

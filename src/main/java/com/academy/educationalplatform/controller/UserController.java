@@ -21,15 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse create(@Valid @RequestBody RegisterUserRequest request) {
-//        User user = userService.register(request);
-//        return toResponse(user);
-
-        return userService.register(request);
-    }
-
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> list() {
@@ -64,7 +55,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable UUID id) {
         userService.delById(id);
     }

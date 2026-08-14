@@ -74,7 +74,6 @@ public class JwtService {
             User user = new User();
             user.setId(id);
             user.setEmail(email);
-            user.setPassword("");
             return new SecurityUser(user, roles);
         } catch (ParseException | JOSEException e) {
             throw PlatformException.of(PlatformErrorCode.INVALID_TOKEN);
@@ -103,7 +102,6 @@ public class JwtService {
             User user = new User();
             user.setId(id);
             user.setEmail(email);
-            user.setPassword("");
             return new SecurityUser(user, roles);
         } catch (ParseException | JOSEException e) {
             throw PlatformException.of(PlatformErrorCode.INVALID_TOKEN);

@@ -19,5 +19,5 @@ public class AnswerOptionResponse {
 
     private String optionText;
 
-    private OptionCorrectness optionCorrectness;
+    private boolean isCorrect;
 }

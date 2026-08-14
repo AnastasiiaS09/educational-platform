@@ -21,6 +21,8 @@ public class EnglishTestResponse {
 
     private String description;
 
+    private int maxScore;
+
     private Integer questionQuantity;
 
 }

@@ -18,5 +18,7 @@ public class UserTestResponse {
 
     private UUID testId;
 
-    private double result;
+    private int result;
+
+    private double accuracy;
 }

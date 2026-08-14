@@ -58,10 +58,26 @@ public class SecurityConfig {
                                 "/api/auth/refresh"
                         ).permitAll()
 
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/auth/initiate"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/auth/confirm"
+                        ).permitAll()
+
                         // Регистрация
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/users"
+                        ).permitAll()
+
+                        // Forgot password
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "api/auth/password/forgot"
                         ).permitAll()
 
                         .anyRequest().authenticated()

@@ -1,26 +1,22 @@
 package com.academy.educationalplatform.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "english_test_results")
-public class UserEnglishTestResult {
+@Table(name = "invite_codes")
+public class InviteCode {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private UUID questionId;
-
-    private UUID userId;
-
-    private String userAnswer;
-
-    private EnglishTestAnswer englishTestAnswer;
+    @NotBlank
+    private String code;
 
     @Enumerated(EnumType.STRING)
-    private EnglishTestAnswer correctness;
+    private InviteCodeStatus status;
 }

@@ -6,6 +6,7 @@ import com.academy.educationalplatform.service.EnglishTestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -17,11 +18,13 @@ public class EnglishTestController {
     private final EnglishTestService englishTestService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public EnglishTestResponse create(@Valid @RequestBody EnglishTestRequest request) {
         var test = englishTestService.addTest(
                 request.getTestName(),
                 request.getDescription(),
+                request.getMaxScore(),
                 request.getQuestionQuantity()
         );
         return toResponse(test);

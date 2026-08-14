@@ -47,7 +47,7 @@ public class UserModuleController {
     }
 
     @PutMapping
-    public void endModule(@Valid @RequestBody UserModuleEndRequest request) {
+    public void endModule(@Valid @RequestBody UserModuleRequest request) {
         userModuleService.endModule(
                 request.getModuleId()
         );
